@@ -1,6 +1,13 @@
-#container {
-  border: 1px solid black;
-  max-width: 800px;
-  height: 95vh;
+.display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 8px;
+  max-width: 1200px;
   margin: auto;
+  height: 90vh;
+}
+
+#container, #example {
+  border: 1px solid black;
+  width: 100%;
 }
