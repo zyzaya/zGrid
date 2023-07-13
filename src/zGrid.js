@@ -7,7 +7,7 @@ export default function zGrid(configuration) {
   let body = document.createElement('tbody');
   let headerRow = document.createElement('tr');
   configuration.columns.forEach((c) => {
-    let title = document.createElement('td');
+    let title = document.createElement('th');
     title.innerText = c;
     headerRow.appendChild(title);
   });
@@ -16,6 +16,7 @@ export default function zGrid(configuration) {
   // add data
   // configuration.data.forEach((d))
 
+  configuration.parent.appendChild(table);
   let obj = {};
 
   return obj;
