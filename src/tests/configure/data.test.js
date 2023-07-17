@@ -12,4 +12,38 @@ describe('Data', () => {
       data: [],
     };
   });
+
+  test('is null', () => {
+    configuration.data = null;
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
+  });
+
+  test('is undefined', () => {
+    configuration.data = undefined;
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
+  });
+
+  test('is not an array', () => {
+    configuration.data = {};
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
+  });
+
+  test('has elements that are neither array nor object', () => {
+    configuration.data = [false, 1];
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
+  });
+
+  test('is valid', () => {
+    expect(() => {
+      zGrid(configuration);
+    }).not.toThrow(Error);
+  });
 });
