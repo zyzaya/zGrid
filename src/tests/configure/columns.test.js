@@ -3,7 +3,7 @@
  */
 import zGrid from '../../zGrid';
 
-describe.only('Columns', () => {
+describe('Columns', () => {
   let configuration = {};
 
   beforeEach(() => {
@@ -86,6 +86,25 @@ describe('getColumn', () => {
     expect(() => {
       grid.getColumn(2);
     }).toThrow(RangeError);
+  });
+
+  test('name is set', () => {
+    configuration.columns = ['one', { name: 'two' }];
+    let grid = zGrid(configuration);
+    expect(grid.getcolumn(0).name).toBe('one');
+    expect(grid.getColumn(1).name).toBe('two');
+  });
+
+  test('sorting is set', () => {
+    configuration.columns = ['one', { name: 'two', sorting: false }];
+    let grid = zGrid(configuration);
+    expect(grid.getColumn(1).sorting).toBe(false);
+  });
+
+  test('hidden is set', () => {
+    configuration.columns = ['one', { name: 'two', hidden: true }];
+    let grid = zGrid(configuration);
+    expect(grid.getColumn(1).hidden).toBe(true);
   });
 
   test('returns object with name, hidden, and sorting properties', () => {
