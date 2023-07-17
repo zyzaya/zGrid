@@ -9,7 +9,7 @@ describe.only('Columns', () => {
   beforeEach(() => {
     configuration = {
       parent: document.createElement('div'),
-      columns: ['one', 'two'],
+      columns: ['one', { name: 'two' }],
       data: [],
     };
   });
@@ -40,6 +40,20 @@ describe.only('Columns', () => {
     expect(() => {
       zGrid(configuration);
     }).toThrow(Error);
+  });
+
+  test('has elements that are neither string nor object', () => {
+    configuration.columns = [[], 1];
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
+  });
+
+  test('object element has no name', () => {
+    configuration.columns = ['one', {}];
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
   });
 
   test('is valid', () => {

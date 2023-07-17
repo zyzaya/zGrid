@@ -31,17 +31,21 @@ export default function zGrid(args) {
       throw new Error('Columns length must be at least 1');
     }
 
-    if (Array.isArray(args.columns)) {
-      configuration.columns = args.columns.map((e) => {
-        return {
-          name: e,
-          sorting: true,
-          hidden: false,
-        };
-      });
-    } else {
-      configuration.columns = args.columns;
-    }
+    configuration.columns = args.columns.map((e) => {
+      let col = {};
+      if (typeof e === 'string') {
+        col.name = e;
+        col.sorting = true;
+        col.hidden = false;
+      } else if (typeof e === 'object') {
+        if (e.name === undefined) {
+          throw new TypeError('Column requires a name');
+        }
+        col.name = e.name;
+        col.sorting = e.sorting === undefined ? true : e.sorting;
+        col.hidden = e.hidden === undefined ? false : e.hidden;
+      }
+    });
   }
   // columns
 
