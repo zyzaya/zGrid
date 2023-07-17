@@ -1,49 +1,48 @@
-export default function zGrid(configuration) {
+export default function zGrid(args) {
   // columns = ['name1', 'name2', 'etc']
   // data = [[], [], []]
   // create html table with columns as defined by configuration.columns
+  let configuration = {};
   let table = document.createElement('table');
   let head = document.createElement('thead');
   let body = document.createElement('tbody');
   let headerRow = document.createElement('tr');
   // configuration
   function configureParent() {
-    if (configuration.parent === null) {
+    if (args.parent === null) {
       throw new TypeError('Parent cannot be null');
-    } else if (configuration.parent === undefined) {
+    } else if (args.parent === undefined) {
       throw new TypeError('Parent cannot be undefined');
-    } else if (!(configuration.parent instanceof HTMLElement)) {
+    } else if (!(args.parent instanceof HTMLElement)) {
       throw new TypeError('Parent must be HTMLElement');
-    } else if (configuration.parent.hasChildNodes()) {
+    } else if (args.parent.hasChildNodes()) {
       throw new TypeError('Parent must not have child nodes');
     }
   }
 
   function configureColumns() {
-    if (configuration.columns === null) {
+    if (args.columns === null) {
       throw new TypeError('Columns cannot be null');
-    } else if (configuration.columns === undefined) {
+    } else if (args.columns === undefined) {
       throw new TypeError('Columns cannot be undefined');
     } else if (
-      !(
-        Array.isArray(configuration.columns) ||
-        typeof configuration.columns == 'object'
-      )
+      !(Array.isArray(args.columns) || typeof args.columns == 'object')
     ) {
       throw new TypeError('Columns must be array or object');
-    } else if (configuration.columns.length < 1) {
+    } else if (args.columns.length < 1) {
       throw new Error('Columns length must be at least 1');
     }
 
-    let columns = configuration.columns;
-    if (Array.isArray(configuration.columns)) {
-      columns = columns.map((e) => {
+    if (Array.isArray(args.columns)) {
+      configuration.columns = args.columns.map((e) => {
         return {
           name: e,
           sorting: true,
           hidden: false,
         };
       });
+    } else {
+      configuration.columns = args.columns;
     }
   }
   // columns
@@ -72,6 +71,8 @@ export default function zGrid(configuration) {
 
   // configuration.parent.appendChild(table);
   let obj = {};
+
+  obj.getColumn = function (index) {};
 
   return obj;
 }
