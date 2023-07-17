@@ -42,7 +42,14 @@ describe('Columns', () => {
     }).toThrow(Error);
   });
 
-  test('is valid', () => {
+  test('is valid array', () => {
+    expect(() => {
+      zGrid(configuration);
+    }).not.toThrow(Error);
+  });
+
+  test('is valid object', () => {
+    configuration.columns = {};
     expect(() => {
       zGrid(configuration);
     }).not.toThrow(Error);
