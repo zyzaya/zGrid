@@ -3,7 +3,7 @@
  */
 import zGrid from '../../zGrid';
 
-describe('Columns', () => {
+describe.only('Columns', () => {
   let configuration = {};
 
   beforeEach(() => {
@@ -28,8 +28,8 @@ describe('Columns', () => {
     }).toThrow(TypeError);
   });
 
-  test('is not array or object', () => {
-    configuration.columns = 'This is not an array or object';
+  test('is not array', () => {
+    configuration.columns = {};
     expect(() => {
       zGrid(configuration);
     }).toThrow(TypeError);
@@ -42,14 +42,7 @@ describe('Columns', () => {
     }).toThrow(Error);
   });
 
-  test('is valid array', () => {
-    expect(() => {
-      zGrid(configuration);
-    }).not.toThrow(Error);
-  });
-
-  test('is valid object', () => {
-    configuration.columns = {};
+  test('is valid', () => {
     expect(() => {
       zGrid(configuration);
     }).not.toThrow(Error);

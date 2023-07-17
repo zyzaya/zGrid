@@ -25,9 +25,7 @@ export default function zGrid(args) {
       throw new TypeError('Columns cannot be null');
     } else if (args.columns === undefined) {
       throw new TypeError('Columns cannot be undefined');
-    } else if (
-      !(Array.isArray(args.columns) || typeof args.columns == 'object')
-    ) {
+    } else if (!Array.isArray(args.columns)) {
       throw new TypeError('Columns must be array or object');
     } else if (args.columns.length < 1) {
       throw new Error('Columns length must be at least 1');
