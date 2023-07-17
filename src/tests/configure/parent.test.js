@@ -35,8 +35,15 @@ describe('Parent', () => {
     }).toThrow(TypeError);
   });
 
+  test('Parent has child nodes', () => {
+    let child = document.createElement('div');
+    configuration.parent.appendChild(child);
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
+  });
+
   test('Parent is a valid HTMLElement', () => {
-    configuration.parent = document.createElement('div');
     expect(() => {
       zGrid(configuration);
     }).not.toThrow(Error);

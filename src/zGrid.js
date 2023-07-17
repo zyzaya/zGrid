@@ -13,6 +13,8 @@ export default function zGrid(configuration) {
     throw new TypeError('Parent cannot be undefined');
   } else if (!(configuration.parent instanceof HTMLElement)) {
     throw new TypeError('Parent must be HTMLElement');
+  } else if (configuration.parent.hasChildNodes()) {
+    throw new TypeError('Parent must not have child nodes');
   }
   configuration.columns.forEach((c) => {
     let title = document.createElement('th');
