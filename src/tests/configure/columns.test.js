@@ -107,6 +107,18 @@ describe('getColumn', () => {
     expect(grid.getColumn(1).hidden).toBe(true);
   });
 
+  test('default sorting is true', () => {
+    configuration.columns = ['one'];
+    let grid = zGrid(configuration);
+    expect(grid.getColumn(0).sorting).toBe(true);
+  });
+
+  test('default hidden is false', () => {
+    configuration.columns = ['one'];
+    let grid = zGrid(configuration);
+    expect(grid.getColumn(0).hidden).toBe(false);
+  });
+
   test('returns object with name, hidden, and sorting properties', () => {
     configuration.columns = ['one'];
     let grid = zGrid(configuration);
