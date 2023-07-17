@@ -91,7 +91,7 @@ describe('getColumn', () => {
   test('name is set', () => {
     configuration.columns = ['one', { name: 'two' }];
     let grid = zGrid(configuration);
-    expect(grid.getcolumn(0).name).toBe('one');
+    expect(grid.getColumn(0).name).toBe('one');
     expect(grid.getColumn(1).name).toBe('two');
   });
 
@@ -108,8 +108,9 @@ describe('getColumn', () => {
   });
 
   test('returns object with name, hidden, and sorting properties', () => {
+    configuration.columns = ['one'];
     let grid = zGrid(configuration);
-    expect(grid.getColumn(1)).toBe({
+    expect(grid.getColumn(0)).toStrictEqual({
       name: 'one',
       sorting: true,
       hidden: false,

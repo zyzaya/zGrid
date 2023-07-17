@@ -45,6 +45,7 @@ export default function zGrid(args) {
         col.sorting = e.sorting === undefined ? true : e.sorting;
         col.hidden = e.hidden === undefined ? false : e.hidden;
       }
+      return col;
     });
   }
   // columns
@@ -75,7 +76,18 @@ export default function zGrid(args) {
   let obj = {};
 
   obj.getColumn = function (index) {
-    console.log(configuration.columns);
+    if (index < 0) {
+      throw new RangeError('index cannot be less than zero');
+    } else if (index >= configuration.columns.length) {
+      throw new RangeError(
+        'index cannot be greater than or equal to the number of columns'
+      );
+    }
+    return {
+      name: configuration.columns[index].name,
+      sorting: configuration.columns[index].sorting,
+      hidden: configuration.columns[index].hidden,
+    };
   };
 
   return obj;
