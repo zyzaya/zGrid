@@ -72,7 +72,9 @@ export default function zGrid(args) {
   // configuration.parent.appendChild(table);
   let obj = {};
 
-  obj.getColumn = function (index) {};
+  obj.getColumn = function (index) {
+    console.log(configuration.columns);
+  };
 
   return obj;
 }
