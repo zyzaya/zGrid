@@ -4,17 +4,41 @@
 import zGrid from '../../zGrid';
 
 describe('Parent', () => {
-  test('Parent is not defined', () => {
-    let configuration = {
-      parent: null,
+  let configuration = {};
+
+  beforeEach(() => {
+    configuration = {
+      parent: document.createElement('div'),
+      columns: [],
+      data: [],
     };
-    expect(zGrid(configuration)).toThrow(Error);
   });
 
-  test('Parent is not an html element', () => {
-    let confiugration = {
-      parent: document.createElement('div'),
-    };
-    expect(zGrid(configuration).not.toThrow(Error));
+  test('Parent is null', () => {
+    configuration.parent = null;
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
+  });
+
+  test('Parent is undefined', () => {
+    configuration.parent = undefined;
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
+  });
+
+  test('Parent is not an HTMLElement', () => {
+    configuration.parent = 'This is not an HTMLElement';
+    expect(() => {
+      zGrid(configuration);
+    }).toThrow(TypeError);
+  });
+
+  test('Parent is a valid HTMLElement', () => {
+    configuration.parent = document.createElement('div');
+    expect(() => {
+      zGrid(configuration);
+    }).not.toThrow(Error);
   });
 });

@@ -6,6 +6,14 @@ export default function zGrid(configuration) {
   let head = document.createElement('thead');
   let body = document.createElement('tbody');
   let headerRow = document.createElement('tr');
+  // configuration
+  if (configuration.parent === null) {
+    throw new TypeError('Parent cannot be null');
+  } else if (configuration.parent === undefined) {
+    throw new TypeError('Parent cannot be undefined');
+  } else if (!(configuration.parent instanceof HTMLElement)) {
+    throw new TypeError('Parent must be HTMLElement');
+  }
   configuration.columns.forEach((c) => {
     let title = document.createElement('th');
     title.innerText = c;
