@@ -16,6 +16,21 @@ export default function zGrid(configuration) {
   } else if (configuration.parent.hasChildNodes()) {
     throw new TypeError('Parent must not have child nodes');
   }
+  // columns
+  if (configuration.columns === null) {
+    throw new TypeError('Columns cannot be null');
+  } else if (configuration.columns === undefined) {
+    throw new TypeError('Columns cannot be undefined');
+  } else if (
+    !(
+      Array.isArray(configuration.columns) ||
+      typeof configuration.columns !== 'object'
+    )
+  ) {
+    throw new TypeError('Columns must be array or object');
+  } else if (configuration.columns.length < 1) {
+    throw new Error('Columns length must be at least 1');
+  }
   configuration.columns.forEach((c) => {
     let title = document.createElement('th');
     title.innerText = c;

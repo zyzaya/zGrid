@@ -9,7 +9,7 @@ describe('Parent', () => {
   beforeEach(() => {
     configuration = {
       parent: document.createElement('div'),
-      columns: [],
+      columns: ['one', 'two'],
       data: [],
     };
   });
