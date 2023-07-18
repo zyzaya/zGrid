@@ -57,10 +57,15 @@ export default function zGrid(args) {
     configuration.data = args.data.map((e) => {
       let row = {};
       if (typeof e === 'string') {
+        configuration.columns.forEach((c, i) => {
+          row[c.name] = e[i];
+        });
       } else if (typeof e === 'object') {
+        row = { ...e };
       } else {
         throw new TypeError('Data elements must be string or object');
       }
+      return row;
     });
   }
 
