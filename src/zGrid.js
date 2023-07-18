@@ -109,7 +109,13 @@ export default function zGrid(args) {
 
   obj.getData = function () {
     let ret = [];
-    configuration.data.forEach((e, i) => {
+    let page = [];
+    if (configuration.pagination) {
+      page = configuration.data.slice(0, configuration.pagination);
+    } else {
+      page = configuration.data;
+    }
+    page.forEach((e, i) => {
       ret.push({ ...e });
     });
     return ret;
