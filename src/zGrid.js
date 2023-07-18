@@ -122,6 +122,9 @@ export default function zGrid(args) {
           );
         });
       } else if (typeof configuration.filter === 'function') {
+        filtered = configuration.data.filter((r) =>
+          configuration.filter({ ...r })
+        );
       }
     } else {
       filtered = configuration.data;

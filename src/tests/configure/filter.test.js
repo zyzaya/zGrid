@@ -60,11 +60,11 @@ describe('Filter', () => {
   });
 
   test('can filter with a function', () => {
+    data[0]['First Name'] = data[0]['First Name'].toUpperCase();
+    data[1]['First Name'] = data[1]['First Name'].toUpperCase();
     let grid = zGrid(configuration);
-    data[0].name = data[0].name.toUpperCase();
-    data[1].name = data[1].name.toUpperCase();
     grid.setFilter((element) => {
-      element.name.toUpperCase() === element.name;
+      return element['First Name'].toUpperCase() === element['First Name'];
     });
     expect(grid.getData()).toStrictEqual(data.slice(0, 2));
   });
@@ -75,11 +75,12 @@ describe('Filter', () => {
       data = data.filter(
         (d) =>
           d['First Name'] == e['First Name'] &&
-          d['Last Name'] == d['Last Name'] &&
-          e.email == d.email
+          d['Last Name'] == e['Last Name'] &&
+          d.email == e.email
       );
       return true;
     });
+    grid.getData();
     expect(data.length).toBe(0);
   });
 });
