@@ -48,10 +48,25 @@ export default function zGrid(args) {
       return col;
     });
   }
-  // columns
+
+  function configureData() {
+    if (!Array.isArray(args.data)) {
+      throw new TypeError('Data must be an array');
+    }
+
+    configuration.data = args.data.map((e) => {
+      let row = {};
+      if (typeof e === 'string') {
+      } else if (typeof e === 'object') {
+      } else {
+        throw new TypeError('Data elements must be string or object');
+      }
+    });
+  }
 
   configureParent();
   configureColumns();
+  configureData();
 
   // configuration.columns.forEach((c) => {
   //   let title = document.createElement('th');

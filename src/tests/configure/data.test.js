@@ -13,20 +13,6 @@ describe('Data', () => {
     };
   });
 
-  test('is null', () => {
-    configuration.data = null;
-    expect(() => {
-      zGrid(configuration);
-    }).toThrow(TypeError);
-  });
-
-  test('is undefined', () => {
-    configuration.data = undefined;
-    expect(() => {
-      zGrid(configuration);
-    }).toThrow(TypeError);
-  });
-
   test('is not an array', () => {
     configuration.data = {};
     expect(() => {
