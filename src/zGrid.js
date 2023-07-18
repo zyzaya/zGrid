@@ -112,12 +112,27 @@ export default function zGrid(args) {
   obj.getData = function () {
     let ret = [];
     let page = [];
+    let filtered = [];
+    // filter
+    if (configuration.filter) {
+      if (typeof configuration.filter === 'string') {
+        filtered = configuration.data.filter((r) => {
+          return Object.entries(r).some((e) =>
+            e[1].includes(configuration.filter)
+          );
+        });
+      } else if (typeof configuration.filter === 'function') {
+      }
+    } else {
+      filtered = configuration.data;
+    }
+    // pagination
     if (configuration.pagination) {
       let start = (currentPage - 1) * configuration.pagination;
       let end = start + configuration.pagination;
-      page = configuration.data.slice(start, end);
+      page = filtered.slice(start, end);
     } else {
-      page = configuration.data;
+      page = filtered;
     }
     page.forEach((e, i) => {
       ret.push({ ...e });
@@ -136,11 +151,11 @@ export default function zGrid(args) {
     currentPage = page;
   };
 
-  obj.setFilter = function (f) {
-    if (!f) {
-      filter = '';
-    } else if (typeof f === 'string' || typeof f === 'function') {
-      filter = f;
+  obj.setFilter = function (filter) {
+    if (!filter) {
+      configuration.filter = '';
+    } else if (typeof filter === 'string' || typeof filter === 'function') {
+      configuration.filter = filter;
     } else {
       throw new TypeError('Filter must be a string or function');
     }
