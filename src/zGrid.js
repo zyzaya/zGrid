@@ -96,6 +96,10 @@ export default function zGrid(args) {
     };
   };
 
+  obj.getData = function () {
+    return configuration.data;
+  };
+
   obj.render = function () {
     let table = document.createElement('table');
     let head = document.createElement('thead');

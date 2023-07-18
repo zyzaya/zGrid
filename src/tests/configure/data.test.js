@@ -83,3 +83,38 @@ describe('getRow', () => {
     expect(grid.getRow(0)).toStrictEqual(configuration.data[0]);
   });
 });
+
+describe('getData', () => {
+  let configuration = {};
+  beforeEach(() => {
+    configuration = {
+      parent: document.createElement('div'),
+      columns: ['First Name', 'Last Name', 'Email'],
+      data: [
+        {
+          'First Name': 'John',
+          'Last Name': 'Smith',
+          Email: 'fake@email.ca',
+        },
+        ['Jane', 'Doe', 'jane.doe@fake.com'],
+      ],
+    };
+  });
+
+  test('returns data', () => {
+    let expected = [
+      {
+        'First Name': 'John',
+        'Last Name': 'Smith',
+        Email: 'fake@email.ca',
+      },
+      {
+        'First Name': 'Jane',
+        'Last Name': 'Doe',
+        Email: 'jane.doe@fake.com',
+      },
+    ];
+    let grid = zGrid(configuration);
+    expect(grid.getData()).toStrictEqual(expected);
+  });
+});
