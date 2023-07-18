@@ -105,5 +105,18 @@ export default function zGrid(args) {
     };
   };
 
+  obj.getRow = function (index) {
+    if (index < 0) {
+      throw new RangeError('index cannot be less than zero');
+    } else if (index >= configuration.data.length) {
+      throw new RangeError(
+        'index cannot be greater than or equal to the number of rows'
+      );
+    }
+    return {
+      ...configuration.data[index],
+    };
+  };
+
   return obj;
 }
