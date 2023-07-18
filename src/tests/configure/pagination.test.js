@@ -93,4 +93,20 @@ describe('setPage', () => {
     grid.setPage(4);
     expect(grid.getData()).toStrictEqual([data[data.length - 1]]);
   });
+
+  test('negative page', () => {
+    configuration.pagination = 4;
+    let grid = zGrid(configuration);
+    expect(() => {
+      grid.setPage(-1);
+    }).toThrow(TypeError);
+  });
+
+  test('page that is not a number', () => {
+    configuration.pagination = 4;
+    let grid = zGrid(configuration);
+    expect(() => {
+      grid.setPage([]);
+    }).toThrow(TypeError);
+  });
 });

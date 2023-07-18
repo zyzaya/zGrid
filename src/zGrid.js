@@ -129,6 +129,9 @@ export default function zGrid(args) {
   };
 
   obj.setPage = function (page) {
+    if (!(typeof page === 'number' && page > 0)) {
+      throw new TypeError('Page must be a postive number');
+    }
     currentPage = page;
   };
 
