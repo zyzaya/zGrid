@@ -22,3 +22,5 @@ let grid = zGrid({
   columns: ['ID', 'First Name', 'Last Name', 'Phone Number', 'Email'],
   data: testData,
 });
+
+grid.render;
