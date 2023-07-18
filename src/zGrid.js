@@ -113,7 +113,6 @@ export default function zGrid(args) {
       let row = document.createElement('tr');
       configuration.columns.forEach((c) => {
         let cell = document.createElement('td');
-        console.log(d);
         cell.innerText = d[c.name];
         row.appendChild(cell);
       });
