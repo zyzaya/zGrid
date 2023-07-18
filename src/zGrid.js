@@ -1,5 +1,6 @@
 export default function zGrid(args) {
   let configuration = {};
+  let currentPage = 1;
   function configureParent() {
     if (args.parent === null) {
       throw new TypeError('Parent cannot be null');
@@ -111,7 +112,9 @@ export default function zGrid(args) {
     let ret = [];
     let page = [];
     if (configuration.pagination) {
-      page = configuration.data.slice(0, configuration.pagination);
+      let start = (currentPage - 1) * configuration.pagination;
+      let end = start + configuration.pagination;
+      page = configuration.data.slice(start, end);
     } else {
       page = configuration.data;
     }
@@ -119,6 +122,14 @@ export default function zGrid(args) {
       ret.push({ ...e });
     });
     return ret;
+  };
+
+  obj.currentPage = function () {
+    return currentPage;
+  };
+
+  obj.setPage = function (page) {
+    currentPage = page;
   };
 
   obj.render = function () {
