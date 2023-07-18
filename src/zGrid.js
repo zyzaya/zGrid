@@ -10,6 +10,7 @@ export default function zGrid(args) {
     } else if (args.parent.hasChildNodes()) {
       throw new TypeError('Parent must not have child nodes');
     }
+    configuration.parent = args.parent;
   }
 
   function configureColumns() {
@@ -48,7 +49,7 @@ export default function zGrid(args) {
 
     configuration.data = args.data.map((e) => {
       let row = {};
-      if (typeof e === 'string') {
+      if (Array.isArray(e)) {
         configuration.columns.forEach((c, i) => {
           row[c.name] = e[i];
         });
@@ -110,9 +111,10 @@ export default function zGrid(args) {
     // add data
     configuration.data.forEach((d) => {
       let row = document.createElement('tr');
-      d.forEach((c) => {
+      configuration.columns.forEach((c) => {
         let cell = document.createElement('td');
-        cell.innerText = c;
+        console.log(d);
+        cell.innerText = d[c.name];
         row.appendChild(cell);
       });
       body.appendChild(row);

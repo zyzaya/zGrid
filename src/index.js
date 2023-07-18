@@ -23,4 +23,4 @@ let grid = zGrid({
   data: testData,
 });
 
-grid.render;
+grid.render();

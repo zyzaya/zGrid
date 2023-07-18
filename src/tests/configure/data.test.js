@@ -28,6 +28,10 @@ describe('Data', () => {
   });
 
   test('is valid', () => {
+    configuration.data = [
+      { 'First Name': 'John', 'Last Name': 'Smith', Email: 'fake@email.ca' },
+      ['Jane', 'Doe', 'jane.doe@fake.com'],
+    ];
     expect(() => {
       zGrid(configuration);
     }).not.toThrow(Error);
@@ -61,7 +65,20 @@ describe('getRow', () => {
     }).toThrow(RangeError);
   });
 
-  test('returns correct row info', () => {
+  test('returns correct info when grid is configured as array', () => {
+    configuration.data = [['Jane', 'Doe', 'jane.doe@fake.com']];
+    let grid = zGrid(configuration);
+    expect(grid.getRow(0)).toStrictEqual({
+      'First Name': 'Jane',
+      'Last Name': 'Doe',
+      Email: 'jane.doe@fake.com',
+    });
+  });
+
+  test('returns correct info when grid is configured as object', () => {
+    configuration.data = [
+      { 'First Name': 'John', 'Last Name': 'Smith', Email: 'fake@email.ca' },
+    ];
     let grid = zGrid(configuration);
     expect(grid.getRow(0)).toStrictEqual(configuration.data[0]);
   });
