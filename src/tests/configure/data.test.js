@@ -101,6 +101,14 @@ describe('getData', () => {
     };
   });
 
+  test('modifying the return object does not modify original data', () => {
+    let grid = zGrid(configuration);
+    let data = grid.getData();
+    data[0]['First Name'] = 'Jelly';
+    expect(grid.getData()[0]['First Name']).toBe('John');
+    expect(grid.getData()[0]['First Name']).not.toBe('Jelly');
+  });
+
   test('returns data', () => {
     let expected = [
       {

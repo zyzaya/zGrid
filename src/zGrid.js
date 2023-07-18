@@ -97,7 +97,11 @@ export default function zGrid(args) {
   };
 
   obj.getData = function () {
-    return configuration.data;
+    let ret = [];
+    configuration.data.forEach((e, i) => {
+      ret.push({ ...e });
+    });
+    return ret;
   };
 
   obj.render = function () {
