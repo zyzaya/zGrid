@@ -7,12 +7,15 @@ import { faker } from '@faker-js/faker';
 describe('Filter', () => {
   let data = [];
   let configuration = {};
+  let markedEmail = [];
+  let markedFirstNames = [];
+  let markedLastNames = [];
   faker.seed(96);
   beforeEach(() => {
-    let markedEmail = [];
-    let markedFirstNames = [];
-    let markedLastNames = [];
     data = [];
+    markedEmail = [];
+    markedFirstNames = [];
+    markedLastNames = [];
 
     for (let i = 0; i < 10; i++) {
       let email = faker.internet.email();

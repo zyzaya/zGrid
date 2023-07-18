@@ -1,6 +1,7 @@
 export default function zGrid(args) {
   let configuration = {};
   let currentPage = 1;
+  let filter = '';
   function configureParent() {
     if (args.parent === null) {
       throw new TypeError('Parent cannot be null');
@@ -133,6 +134,16 @@ export default function zGrid(args) {
       throw new TypeError('Page must be a postive number');
     }
     currentPage = page;
+  };
+
+  obj.setFilter = function (f) {
+    if (!f) {
+      filter = '';
+    } else if (typeof f === 'string' || typeof f === 'function') {
+      filter = f;
+    } else {
+      throw new TypeError('Filter must be a string or function');
+    }
   };
 
   obj.render = function () {
