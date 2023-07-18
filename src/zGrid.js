@@ -62,9 +62,20 @@ export default function zGrid(args) {
     });
   }
 
+  function configurePagination() {
+    if (!args.pagination) {
+      configuration.pagination = false;
+    } else if (typeof args.pagination === 'number' && args.pagination > 0) {
+      configuration.pagination = args.pagination;
+    } else {
+      throw new TypeError('Pagination must be a number greater than 0');
+    }
+  }
+
   configureParent();
   configureColumns();
   configureData();
+  configurePagination();
 
   let obj = {};
 
