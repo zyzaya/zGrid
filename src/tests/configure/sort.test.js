@@ -7,6 +7,12 @@ import { faker } from '@faker-js/faker';
 describe.only('Sort', () => {
   let data = [];
   let configuration = {};
+  let compare = (a, b) => {
+    let a_rev = a.split('').reverse().join('');
+    let b_rev = b.split('').reverse().join('');
+    return a_rev.localeCompare(b_rev);
+  };
+
   faker.seed(96);
   beforeEach(() => {
     data = [];
@@ -69,11 +75,6 @@ describe.only('Sort', () => {
   });
 
   test('can set how a single column is sorted', () => {
-    let compare = (a, b) => {
-      let a_rev = a.split('').reverse().join('');
-      let b_rev = b.split('').reverse().join('');
-      return a_rev.localeCompare(b_rev);
-    };
     let columns = [
       {
         name: 'First Name',
@@ -92,11 +93,6 @@ describe.only('Sort', () => {
   });
 
   test('can sort descending when sorting a column by function', () => {
-    let compare = (a, b) => {
-      let a_rev = a.split('').reverse().join('');
-      let b_rev = b.split('').reverse().join('');
-      return a_rev.localeCompare(b_rev);
-    };
     let columns = [
       {
         name: 'First Name',

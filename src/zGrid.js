@@ -145,7 +145,6 @@ export default function zGrid(args) {
       if (typeof configuration.sort === 'function') {
         // sort by function
       } else if (typeof configuration.sort === 'object') {
-        // sort column
         let col_name = configuration.sort.column;
         let col_config = configuration.columns.find((e) => e.name === col_name);
         if (typeof col_config.sort === 'function') {
@@ -153,7 +152,6 @@ export default function zGrid(args) {
         } else {
           filtered.sort((a, b) => a[col_name].localeCompare(b[col_name]));
         }
-        // get column configuration
 
         if (!configuration.sort.ascending) filtered.reverse();
       }
