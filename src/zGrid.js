@@ -143,7 +143,7 @@ export default function zGrid(args) {
     //
     if (configuration.sort) {
       if (typeof configuration.sort === 'function') {
-        // sort by function
+        filtered.sort(configuration.sort);
       } else if (typeof configuration.sort === 'object') {
         let col_name = configuration.sort.column;
         let col_config = configuration.columns.find((e) => e.name === col_name);
@@ -188,6 +188,8 @@ export default function zGrid(args) {
   obj.sort = function (column, ascending) {
     if (column === undefined && ascending === undefined) {
       configuration.sort = false;
+    } else if (typeof column === 'function') {
+      configuration.sort = column;
     } else {
       let col = configuration.columns.find((e) => e.name === column);
       if (col === undefined) {

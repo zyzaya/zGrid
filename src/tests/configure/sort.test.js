@@ -110,5 +110,17 @@ describe.only('Sort', () => {
     });
   });
 
-  test('can sort by a function', () => {});
+  test('can sort by a function', () => {
+    let compare = (a, b) => {
+      let a_rev = a['Email'].split('').reverse().join('');
+      let b_rev = b['Email'].split('').reverse().join('');
+      return a_rev.localeCompare(b_rev);
+    };
+    let grid = zGrid(configuration);
+    grid.sort(compare);
+    data.sort(compare);
+    grid.getData().forEach((e, i) => {
+      expect(e).toStrictEqual(data[i]);
+    });
+  });
 });
