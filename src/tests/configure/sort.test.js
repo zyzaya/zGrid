@@ -84,6 +84,7 @@ describe.only('Sort', () => {
     ];
     configuration.columns = columns;
     let grid = zGrid(configuration);
+    grid.sort('First Name');
     data.sort((a, b) => compare(a['First Name'], b['First Name']));
     grid.getData().forEach((e, i) => {
       expect(e).toStrictEqual(data[i]);
