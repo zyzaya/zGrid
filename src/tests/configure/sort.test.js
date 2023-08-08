@@ -40,6 +40,13 @@ describe.only('Sort', () => {
     }).toThrow(RangeError);
   });
 
+  test('ascending must be a boolean', () => {
+    let grid = zGrid(configuration);
+    expect(() => {
+      grid.sort('First Name', []);
+    }).toThrow(TypeError);
+  });
+
   test('default sort is ascending', () => {
     let grid = zGrid(configuration);
     grid.sort('First Name');

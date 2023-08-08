@@ -174,8 +174,16 @@ export default function zGrid(args) {
       configuration.sort = false;
     } else {
       let col = configuration.columns.find((e) => e.name === column);
-      if (col === undefined)
+      if (col === undefined) {
         throw new RangeError(`No column named '${column}'`);
+      } else if (ascending && typeof ascending !== 'boolean') {
+        throw new TypeError('Ascending must be boolean');
+      } else {
+        configuration.sort = {
+          column: column,
+          ascending: ascending === undefined ? false : ascending,
+        };
+      }
     }
   };
 
