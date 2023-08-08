@@ -74,10 +74,21 @@ export default function zGrid(args) {
     }
   }
 
+  function configureFilter(filter) {
+    if (!filter) {
+      configuration.filter = '';
+    } else if (typeof filter === 'string' || typeof filter === 'function') {
+      configuration.filter = filter;
+    } else {
+      throw new TypeError('Filter must be a string or function');
+    }
+  }
+
   configureParent();
   configureColumns();
   configureData();
   configurePagination();
+  configureFilter(args.filter);
 
   let obj = {};
 
@@ -155,13 +166,7 @@ export default function zGrid(args) {
   };
 
   obj.setFilter = function (filter) {
-    if (!filter) {
-      configuration.filter = '';
-    } else if (typeof filter === 'string' || typeof filter === 'function') {
-      configuration.filter = filter;
-    } else {
-      throw new TypeError('Filter must be a string or function');
-    }
+    configureFilter(filter);
   };
 
   obj.sort = function (column, ascending) {

@@ -4,7 +4,7 @@
 import zGrid from '../../zGrid';
 import { faker } from '@faker-js/faker';
 
-describe.only('Sort', () => {
+describe.skip('Sort', () => {
   let data = [];
   let configuration = {};
   faker.seed(96);

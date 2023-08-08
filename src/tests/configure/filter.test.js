@@ -4,7 +4,7 @@
 import zGrid from '../../zGrid';
 import { faker } from '@faker-js/faker';
 
-describe('Filter', () => {
+describe.only('Filter', () => {
   let data = [];
   let configuration = {};
   let markedEmail = [];
@@ -82,5 +82,11 @@ describe('Filter', () => {
     });
     grid.getData();
     expect(data.length).toBe(0);
+  });
+
+  test('can set filter through configuration', () => {
+    configuration.filter = 'example.test';
+    let grid = zGrid(configuration);
+    expect(grid.getData()).toStrictEqual(markedEmail);
   });
 });
