@@ -148,6 +148,7 @@ export default function zGrid(args) {
         // sort column
         let col = configuration.sort.column;
         filtered.sort((a, b) => a[col].localeCompare(b[col]));
+        if (!configuration.sort.ascending) filtered.reverse();
       }
     }
     // pagination
@@ -191,7 +192,7 @@ export default function zGrid(args) {
       } else {
         configuration.sort = {
           column: column,
-          ascending: ascending === undefined ? false : ascending,
+          ascending: ascending === undefined ? true : ascending,
         };
       }
     }
