@@ -4,7 +4,7 @@
 import zGrid from '../../zGrid';
 import { faker } from '@faker-js/faker';
 
-describe('Sort', () => {
+describe.only('Sort', () => {
   let data = [];
   let configuration = {};
   faker.seed(96);
@@ -24,4 +24,21 @@ describe('Sort', () => {
       data: data,
     };
   });
+
+  test('no args means no sort', () => {
+    let grid = zGrid(configuration);
+    grid.sort();
+    grid.getData().forEach((e, i) => {
+      expect(e).toStrictEqual(data[i]);
+    });
+  });
+
+  test('throws error if invalid column', () => {
+    let grid = zGrid(configuration);
+    expect(grid.sort('invalid column')).toThrow(TypeError);
+  });
+
+  test('default sort is ascending', () => {});
+
+  test('can sort descending by column', () => {});
 });

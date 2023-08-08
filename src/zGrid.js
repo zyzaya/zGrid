@@ -164,6 +164,12 @@ export default function zGrid(args) {
     }
   };
 
+  obj.sort = function (column, ascending) {
+    if (column === undefined && ascending === undefined) {
+      configuration.sort = false;
+    }
+  };
+
   obj.render = function () {
     let table = document.createElement('table');
     let head = document.createElement('thead');
