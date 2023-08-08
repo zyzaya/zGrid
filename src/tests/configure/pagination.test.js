@@ -109,4 +109,10 @@ describe('setPage', () => {
       grid.setPage([]);
     }).toThrow(TypeError);
   });
+
+  test('pagination value determines number of records per page', () => {
+    configuration.pagination = 2;
+    let grid = zGrid(configuration);
+    expect(grid.getData().length).toBe(2);
+  });
 });

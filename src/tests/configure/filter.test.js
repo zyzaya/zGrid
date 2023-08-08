@@ -4,7 +4,7 @@
 import zGrid from '../../zGrid';
 import { faker } from '@faker-js/faker';
 
-describe.only('Filter', () => {
+describe('Filter', () => {
   let data = [];
   let configuration = {};
   let markedEmail = [];
