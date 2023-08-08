@@ -68,7 +68,27 @@ describe.only('Sort', () => {
     });
   });
 
-  test('can set how a single column is sorted', () => {});
+  test('can set how a single column is sorted', () => {
+    let compare = (a, b) => {
+      let a_rev = a.split('').reverse().join('');
+      let b_rev = b.split('').reverse().join('');
+      return a_rev.localeCompare(b_rev);
+    };
+    let columns = [
+      {
+        name: 'First Name',
+        sort: compare,
+      },
+      'Last Name',
+      'Email',
+    ];
+    configuration.columns = columns;
+    let grid = zGrid(configuration);
+    data.sort((a, b) => compare(a['First Name'], b['First Name']));
+    grid.getData().forEach((e, i) => {
+      expect(e).toStrictEqual(data[i]);
+    });
+  });
 
   test('can sort by a function', () => {});
 });
