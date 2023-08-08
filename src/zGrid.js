@@ -37,7 +37,7 @@ export default function zGrid(args) {
           throw new TypeError('Column requires a name');
         }
         col.name = e.name;
-        col.sorting = e.sorting === undefined ? true : e.sorting;
+        col.sort = e.sort === undefined ? true : e.sort;
         col.hidden = e.hidden === undefined ? false : e.hidden;
       }
       return col;
@@ -102,7 +102,7 @@ export default function zGrid(args) {
     }
     return {
       name: configuration.columns[index].name,
-      sorting: configuration.columns[index].sorting,
+      sort: configuration.columns[index].sort,
       hidden: configuration.columns[index].hidden,
     };
   };

@@ -95,10 +95,10 @@ describe('getColumn', () => {
     expect(grid.getColumn(1).name).toBe('two');
   });
 
-  test('sorting is set', () => {
-    configuration.columns = ['one', { name: 'two', sorting: false }];
+  test('sort is set', () => {
+    configuration.columns = ['one', { name: 'two', sort: false }];
     let grid = zGrid(configuration);
-    expect(grid.getColumn(1).sorting).toBe(false);
+    expect(grid.getColumn(1).sort).toBe(false);
   });
 
   test('hidden is set', () => {
@@ -107,10 +107,10 @@ describe('getColumn', () => {
     expect(grid.getColumn(1).hidden).toBe(true);
   });
 
-  test('default sorting is true', () => {
+  test('default sort is true', () => {
     configuration.columns = ['one'];
     let grid = zGrid(configuration);
-    expect(grid.getColumn(0).sorting).toBe(true);
+    expect(grid.getColumn(0).sort).toBe(true);
   });
 
   test('default hidden is false', () => {
@@ -119,12 +119,12 @@ describe('getColumn', () => {
     expect(grid.getColumn(0).hidden).toBe(false);
   });
 
-  test('returns object with name, hidden, and sorting properties', () => {
+  test('returns object with name, hidden, and sort properties', () => {
     configuration.columns = ['one'];
     let grid = zGrid(configuration);
     expect(grid.getColumn(0)).toStrictEqual({
       name: 'one',
-      sorting: true,
+      sort: true,
       hidden: false,
     });
   });
