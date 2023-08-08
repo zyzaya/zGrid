@@ -172,6 +172,10 @@ export default function zGrid(args) {
   obj.sort = function (column, ascending) {
     if (column === undefined && ascending === undefined) {
       configuration.sort = false;
+    } else {
+      let col = configuration.columns.find((e) => e.name === column);
+      if (col === undefined)
+        throw new RangeError(`No column named '${column}'`);
     }
   };
 

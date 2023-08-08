@@ -4,7 +4,7 @@
 import zGrid from '../../zGrid';
 import { faker } from '@faker-js/faker';
 
-describe.skip('Sort', () => {
+describe.only('Sort', () => {
   let data = [];
   let configuration = {};
   faker.seed(96);
@@ -35,10 +35,24 @@ describe.skip('Sort', () => {
 
   test('throws error if invalid column', () => {
     let grid = zGrid(configuration);
-    expect(grid.sort('invalid column')).toThrow(TypeError);
+    expect(() => {
+      grid.sort('invalid column');
+    }).toThrow(RangeError);
   });
 
-  test('default sort is ascending', () => {});
+  test('default sort is ascending', () => {
+    let grid = zGrid(configuration);
+    grid.sort('First Name');
+    data.sort((a, b) => a['First Name'].localeCompare(b['First Name']));
+
+    grid.getData().forEach((e, i) => {
+      expect(e).toStrictEqual(data[i]);
+    });
+  });
 
   test('can sort descending by column', () => {});
+
+  test('can set how a single column is sorted', () => {});
+
+  test('can sort by a function', () => {});
 });
