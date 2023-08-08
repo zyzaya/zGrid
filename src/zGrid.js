@@ -140,6 +140,16 @@ export default function zGrid(args) {
     } else {
       filtered = configuration.data;
     }
+    //
+    if (configuration.sort) {
+      if (typeof configuration.sort === 'function') {
+        // sort by function
+      } else if (typeof configuration.sort === 'object') {
+        // sort column
+        let col = configuration.sort.column;
+        filtered.sort((a, b) => a[col].localeCompare(b[col]));
+      }
+    }
     // pagination
     if (configuration.pagination) {
       let start = (currentPage - 1) * configuration.pagination;
