@@ -57,7 +57,16 @@ describe.only('Sort', () => {
     });
   });
 
-  test('can sort descending by column', () => {});
+  test('can sort descending by column', () => {
+    let grid = zGrid(configuration);
+    grid.sort('First Name', false);
+    data
+      .sort((a, b) => a['First Name'].localeCompare(b['First Name']))
+      .reverse();
+    grid.getData().forEach((e, i) => {
+      expect(e).toStrictEqual(data[i]);
+    });
+  });
 
   test('can set how a single column is sorted', () => {});
 
