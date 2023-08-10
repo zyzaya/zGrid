@@ -68,17 +68,18 @@ describe('Filter', () => {
 
   test('accepts a function that passes each element', () => {
     let grid = zGrid(configuration);
-    grid.setFilter((e) => {
-      data = data.filter(
-        (d) =>
-          d['First Name'] == e['First Name'] &&
-          d['Last Name'] == e['Last Name'] &&
-          d.email == e.email
-      );
-      return true;
-    });
+    let filter = jest.fn();
+    grid.setFilter(filter);
     grid.getData();
-    expect(data.length).toBe(0);
+    expect(filter).toHaveBeenCalledTimes(data.length);
+    for (let i = 0; i < data.length; i++) {
+      expect(filter).toHaveBeenNthCalledWith(
+        i + 1,
+        data[i]['First Name'],
+        data[i]['Last Name'],
+        data[i]['Email']
+      );
+    }
   });
 
   test('can set filter through configuration', () => {
@@ -98,5 +99,25 @@ describe('Filter', () => {
     let grid = zGrid(configuration);
     grid.setFilter('example');
     expect(grid.getData().some((e) => e['Useless'])).toBe(false);
+  });
+
+  test('filter function does not provide unused column data', () => {
+    let entry = {
+      'First Name': faker.person.firstName(),
+      'Last Name': faker.person.lastName(),
+      Email: faker.internet.email(),
+      Useless: 'example',
+    };
+
+    configuration.data.push(entry);
+    let grid = zGrid(configuration);
+    const filter = jest.fn();
+    grid.setFilter(filter);
+    expect(filter).not.toHaveBeenCalledWith(
+      entry['First Name'],
+      entry['Last Name'],
+      entry['Email'],
+      entry['Useless']
+    );
   });
 });
