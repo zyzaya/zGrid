@@ -18,9 +18,6 @@ describe('Filter', () => {
     markedLastNames = [];
 
     for (let i = 0; i < 10; i++) {
-      let email = faker.internet.email();
-      let first = faker.person.firstName();
-      let last = faker.person.lastName();
       let entry = {
         'First Name': faker.person.firstName(),
         'Last Name': faker.person.lastName(),
@@ -88,5 +85,19 @@ describe('Filter', () => {
     configuration.filter = 'example.test';
     let grid = zGrid(configuration);
     expect(grid.getData()).toStrictEqual(markedEmail);
+  });
+
+  test('filter ignores unused column data', () => {
+    let entry = {
+      'First Name': faker.person.firstName(),
+      'Last Name': faker.person.lastName(),
+      Email: faker.internet.email(),
+      Useless: 'example',
+    };
+    configuration.data.push(entry);
+    let grid = zGrid(configuration);
+    grid.setFilter('example');
+    console.log(grid.getData());
+    expect(grid.getData().some((e) => e['Useless'])).toBe(false);
   });
 });
