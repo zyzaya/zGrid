@@ -46,6 +46,18 @@ describe('Displayed Data', () => {
 
     expect(grid.getData()).toStrictEqual(result);
   });
+
+  test('Sort + Pagination', () => {
+    // sort by first name, 3 units per page
+    let result = [...data].sort((a, b) =>
+      a['First Name'].localeCompare(b['First Name'])
+    );
+    result = result.slice(0, 3);
+    configuration.pagination = 3;
+    let grid = zGrid(configuration);
+    grid.sort('First Name');
+    expect(grid.getData()).toStrictEqual(result);
+  });
   /**
    * sort + pagination + filter
    * sort + pagination
