@@ -128,9 +128,9 @@ export default function zGrid(args) {
     if (configuration.filter) {
       if (typeof configuration.filter === 'string') {
         filtered = configuration.data.filter((r) => {
-          return Object.entries(r).some((e) =>
-            e[1].includes(configuration.filter)
-          );
+          return configuration.columns.some((c) => {
+            r[c.name].includes(configuration.filter);
+          });
         });
       } else if (typeof configuration.filter === 'function') {
         filtered = configuration.data.filter((r) =>
