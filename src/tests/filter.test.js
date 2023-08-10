@@ -24,7 +24,7 @@ describe('Filter', () => {
         Email: faker.internet.email(),
       };
       if (i % 2 == 0) {
-        entry.email = faker.internet.email({ provider: 'example.test' });
+        entry['Email'] = faker.internet.email({ provider: 'example.test' });
         markedEmail.push(entry);
       }
       if (i % 4 == 0) {
@@ -97,7 +97,6 @@ describe('Filter', () => {
     configuration.data.push(entry);
     let grid = zGrid(configuration);
     grid.setFilter('example');
-    console.log(grid.getData());
     expect(grid.getData().some((e) => e['Useless'])).toBe(false);
   });
 });
