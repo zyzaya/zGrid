@@ -56,6 +56,18 @@ describe('Displayed Data', () => {
     configuration.pagination = 3;
     let grid = zGrid(configuration);
     grid.sort('First Name');
+
+    expect(grid.getData()).toStrictEqual(result);
+  });
+
+  test('Sort + Filter', () => {
+    // sort by first name, filter by example.test
+    let result = data.filter((e) => e['Email'].includes('example.test'));
+    result.sort((a, b) => a['First Name'].localeCompare(b['First Name']));
+    let grid = zGrid(configuration);
+    grid.setFilter('example.test');
+    grid.sort('First Name');
+
     expect(grid.getData()).toStrictEqual(result);
   });
   /**
