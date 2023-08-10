@@ -70,14 +70,15 @@ describe('Displayed Data', () => {
 
     expect(grid.getData()).toStrictEqual(result);
   });
-  /**
-   * sort + pagination + filter
-   * sort + pagination
-   * sort + filter
-   *
-   * pagination + filter
-   *
-   */
-  // sort, pagination, filter
-  //
+
+  test('Pagination + Filter', () => {
+    // filter by example.test, 3 units per page
+    let result = data.filter((e) => e['Email'].includes('example.test'));
+    result = result.slice(0, 3);
+    configuration.pagination = 3;
+    let grid = zGrid(configuration);
+    grid.setFilter('example.test');
+
+    expect(grid.getData()).toStrictEqual(result);
+  });
 });
