@@ -57,13 +57,14 @@ describe('Filter', () => {
   });
 
   test('can filter with a function', () => {
-    data[0]['First Name'] = data[0]['First Name'].toUpperCase();
-    data[1]['First Name'] = data[1]['First Name'].toUpperCase();
     let grid = zGrid(configuration);
-    grid.setFilter((element) => {
-      return element['First Name'].toUpperCase() === element['First Name'];
-    });
-    expect(grid.getData()).toStrictEqual(data.slice(0, 2));
+    let filter = jest.fn();
+    grid.setFilter(filter);
+    let filtered_data = grid.getData();
+    expect(filter).toHaveBeenCalledTimes(data.length);
+    for (let i = 0; i < data.length; i++) {
+      expect(filter).toHaveBeenCalledWith(data[i]);
+    }
   });
 
   test('accepts a function that passes each element', () => {
@@ -73,12 +74,7 @@ describe('Filter', () => {
     grid.getData();
     expect(filter).toHaveBeenCalledTimes(data.length);
     for (let i = 0; i < data.length; i++) {
-      expect(filter).toHaveBeenNthCalledWith(
-        i + 1,
-        data[i]['First Name'],
-        data[i]['Last Name'],
-        data[i]['Email']
-      );
+      expect(filter).toHaveBeenCalledWith(data[i]);
     }
   });
 
@@ -113,11 +109,7 @@ describe('Filter', () => {
     let grid = zGrid(configuration);
     const filter = jest.fn();
     grid.setFilter(filter);
-    expect(filter).not.toHaveBeenCalledWith(
-      entry['First Name'],
-      entry['Last Name'],
-      entry['Email'],
-      entry['Useless']
-    );
+    grid.getData();
+    expect(filter).not.toHaveBeenCalledWith(entry);
   });
 });

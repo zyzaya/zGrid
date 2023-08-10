@@ -133,9 +133,11 @@ export default function zGrid(args) {
           );
         });
       } else if (typeof configuration.filter === 'function') {
-        filtered = configuration.data.filter((r) =>
-          configuration.filter({ ...r })
-        );
+        filtered = configuration.data.filter((r) => {
+          let entry = {};
+          configuration.columns.forEach((c) => (entry[c.name] = r[c.name]));
+          return configuration.filter(entry);
+        });
       }
     } else {
       filtered = configuration.data;
