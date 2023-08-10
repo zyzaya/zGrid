@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import zGrid from '../../zGrid';
+import zGrid from '../zGrid';
 import { faker } from '@faker-js/faker';
 
 describe.only('Sort', () => {

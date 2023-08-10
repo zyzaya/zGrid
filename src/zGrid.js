@@ -140,7 +140,7 @@ export default function zGrid(args) {
     } else {
       filtered = configuration.data;
     }
-    //
+    // sorting
     if (configuration.sort) {
       if (typeof configuration.sort === 'function') {
         filtered.sort(configuration.sort);
