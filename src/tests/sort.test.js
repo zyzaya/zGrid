@@ -4,7 +4,7 @@
 import zGrid from '../zGrid';
 import { faker } from '@faker-js/faker';
 
-describe.only('Sort', () => {
+describe('Sort', () => {
   let data = [];
   let configuration = {};
   let compare = (a, b) => {
