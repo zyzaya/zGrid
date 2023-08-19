@@ -1,12 +1,14 @@
-
-
 ```js
 let grid = zGrid(configuration)
 ```
+
 **configuration** is an object with the following properties:
 
-**parent (required):** *the html element that the table is contained in.*
-- must not have child elements
+- parent (required)
+- columns (required)*
+- data
+- pagination
+- filter
 
 **columns (required):** *information pertaining to columns and how they are displayed*
 - is an Array that contains strings or objects.
