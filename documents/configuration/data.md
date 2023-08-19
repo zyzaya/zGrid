@@ -1,6 +1,19 @@
-**data:** *the information displayed in the columns and rows of the table*
-- **default**: an empty array
-- an Array whose elements are either an Array of Strings or an Object of key-value pairs where the key is the column name and the value is data
+**data:** 
+- default: an empty array
+- defines what is displayed in the cells of the table
+- array: each element defines a row of the table. The elements can be arrays or objects
+**elements:**
+- default: empty array
+- array: an array of strings. Each string is a column and will be in the same order that the column headings are defined.
+~~~js
+let grid = zGrid({
+	columns: ['First Name', 'Last Name', 'Email]
+	data: [
+		['John', 'Smith', 'fake@email.ca']
+	]
+})
+~~~
+- object: defines the row using key-value pairs. The key is the name of the column as defined in the **column** configuration. The value is a string that defines what is in the cell
 ~~~js
 let grid = zGrid({
   parent: document.createElement('div'),
@@ -11,10 +24,8 @@ let grid = zGrid({
 	  'Last Name': 'Smith',
 	  Email: 'fake@email.ca',
 	},
-	['Jane', 'Doe', 'jane.doe@fake.com'],
   ],
 });
 ~~~
-- when the row is defined as an array of strings, the order of the values determines which column it belongs to.
-- if a row has more values than the number of columns the additional values are ignored (unless total number of defined columns changes)
-- if a row has fewer values than the number of columns the missing values are set to an empty string.
+- extra values or values with a key that doesn't match a column are ignored. If additional column are added these values can still be displayed
+- values that are not explicitly defined are set to an empty string
