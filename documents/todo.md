@@ -1,0 +1,5 @@
+- column specific sort
+- column specific sort disabling
+- global sort
+- add id value to columan configuration
+	- use id in column related functions
