@@ -1,30 +1,16 @@
-**filter:** *sets parameters to display only certain rows*
-- **default:** ''
-- can be a string or a function
-- if a string it will only display rows that contain that string
+**filter:** 
+- default: an empty string
+- defines conditions to hide or display certain rows
+- string: only display rows that have a cell that contains that string
 ~~~js
 let grid = zGrid({
-	parent: document.createElement('div'),
-	columns: ['First Name', 'Last Name', 'Email'],
-	data: [],
 	filter: 'example'
 });
 ~~~
-- if a function then each element will be passed to that function (in the same format as **getData**). if the function returns true it that element will be displayed, otherwise it wont
+- function: a filter function that passes a row (in the same format as **getData**). If it returns true the row will be displayed. If false that row will not be displayed.
 ~~~js
 let grid = zGrid({
-	parent: document.createElement('div'),
-	columns: ['First Name', 'Last Name', 'Email'],
-	data: [],
 	filter: (row) => {
 		return row['First Name'].toUpperCase() === row['First Name'];
 	},
 });
-~~~
-- the filter can also be set with the setFilter function
-~~~js
-grid.setFilter('example');
-grid.setFilter((row) => {
-	return row['First Name'].toUpperCase() === row['First Name'];
-});
-~~~
