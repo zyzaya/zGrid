@@ -1,6 +1,7 @@
 **filter:** 
 - default: an empty string
 - defines conditions to hide or display certain rows
+- an empty string or false clears the filter
 - string: only display rows that have a cell that contains that string
 ~~~js
 let grid = zGrid({
