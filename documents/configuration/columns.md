@@ -7,12 +7,17 @@ let grid = zGrid({
 ~~~
 - can be an object with the following properties:
 - name (required)
-- sort 
+- sort
+- hide
 
-***Name***
+**Name**
 - the displayed value of the column
 
-***Sort***
+**Hide**
+- default: false
+- defines if the column is visible or not
+
+**Sort**
 - default: true
 - defines if and how the column is sorted
 - false: disables sorting for that column
