@@ -92,20 +92,20 @@ export default function zGrid(args) {
 
   let obj = {};
 
-  obj.getColumn = function (index) {
-    if (index < 0) {
-      throw new RangeError('index cannot be less than zero');
-    } else if (index >= configuration.columns.length) {
-      throw new RangeError(
-        'index cannot be greater than or equal to the number of columns'
-      );
-    }
-    return {
-      name: configuration.columns[index].name,
-      sort: configuration.columns[index].sort,
-      hidden: configuration.columns[index].hidden,
-    };
-  };
+  // obj.getColumn = function (index) {
+  //   if (index < 0) {
+  //     throw new RangeError('index cannot be less than zero');
+  //   } else if (index >= configuration.columns.length) {
+  //     throw new RangeError(
+  //       'index cannot be greater than or equal to the number of columns'
+  //     );
+  //   }
+  //   return {
+  //     name: configuration.columns[index].name,
+  //     sort: configuration.columns[index].sort,
+  //     hidden: configuration.columns[index].hidden,
+  //   };
+  // };
 
   obj.getRow = function (index) {
     if (index < 0) {
