@@ -19,7 +19,7 @@ type CompareEntries = (a: string, b: string) => number;
 type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number
 
 type SortOptions = {
-  column: number
+  column: string
   ascending: boolean
 }
 
@@ -213,7 +213,8 @@ export default function createzGrid(args: Configuration): zGrid {
         let col_name = configuration.sort.column;
         let col_config = configuration.columns.find((e) => e.name === col_name);
         if (typeof col_config.sort === 'function') {
-          filtered.sort((a, b) => col_config.sort(a[col_name], b[col_name]));
+          let col_sort = col_config.sort;
+          filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));
         } else {
           filtered.sort((a, b) => a[col_name].localeCompare(b[col_name]));
         }
