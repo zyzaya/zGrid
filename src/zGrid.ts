@@ -48,7 +48,7 @@ type InternalConfiguration = {
 
 export default function createzGrid(args: Configuration): zGrid {
   
-  let currentPage = 1;
+  let page = 1;
 
   function configureParent(): HTMLElement {
     if (args.parent === null) {
@@ -237,14 +237,14 @@ export default function createzGrid(args: Configuration): zGrid {
   };
 
   let currentPage = function () {
-    return currentPage;
+    return page;
   };
 
-  let setPage = function (page) {
-    if (!(typeof page === 'number' && page > 0)) {
+  let setPage = function (p) {
+    if (!(typeof p === 'number' && p > 0)) {
       throw new TypeError('Page must be a postive number');
     }
-    currentPage = page;
+    page = p;
   };
 
   let setFilter = function (filter) {
