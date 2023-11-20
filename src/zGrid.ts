@@ -7,7 +7,14 @@ type zGrid = {
   render: () => void
 }
 
-type FilterCallback = (row: number) => boolean;
+let a: string | object;
+let b = "this is a string"
+if (typeof a === 'string') {
+  b.includes(a)
+}
+
+
+type FilterCallback = (row: Record<string, string>) => boolean;
 type SortCallback = (a: string, b: string) => number;
 
 type ColumnConfiguration = {
@@ -166,23 +173,25 @@ export default function createzGrid(args: Configuration): zGrid {
     };
   };
 
-  let getData = function () {
-    let ret = [];
+  let getData = function (): Array<Record<string, string>> {
+    let ret: Array<Record<string, string>> = [];
     let page = [];
-    let filtered = [];
+    let filtered: Array<Record<string, string>> = [];
     // filter
     if (configuration.filter) {
       if (typeof configuration.filter === 'string') {
+        let filter = configuration.filter
         filtered = configuration.data.filter((r) => {
           return configuration.columns.some((c) =>
-            r[c.name].includes(configuration.filter)
+            r[c.name].includes(filter)
           );
         });
       } else if (typeof configuration.filter === 'function') {
+        let filter = configuration.filter
         filtered = configuration.data.filter((r) => {
-          let entry = {};
+          let entry: Record<string, string>;
           configuration.columns.forEach((c) => (entry[c.name] = r[c.name]));
-          return configuration.filter(entry);
+          return filter(entry);
         });
       }
     } else {
