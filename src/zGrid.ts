@@ -25,7 +25,7 @@ type Configuration = {
   parent: HTMLElement;
   columns: Array<ColumnConfiguration>;
   data: Array<DataRow>
-  pagination: number;
+  pagination: false | number;
   filter: string | FilterCallback
 }
 
@@ -99,14 +99,16 @@ export default function createzGrid(args) {
     });
   }
 
-  function configurePagination() {
+  function configurePagination(): false | number {
+    let pagination: false | number;
     if (!args.pagination) {
-      configuration.pagination = false;
+      pagination = false;
     } else if (typeof args.pagination === 'number' && args.pagination > 0) {
-      configuration.pagination = args.pagination;
+      pagination = args.pagination;
     } else {
       throw new TypeError('Pagination must be a number greater than 0');
     }
+    return pagination;
   }
 
   function configureFilter(filter) {
@@ -126,8 +128,11 @@ export default function createzGrid(args) {
   configureFilter(args.filter);
 
   let configuration: Configuration = {
-    parent: args.parent,
-    columns: columns
+    parent: configureParent(),
+    columns: configureColumns(),
+    pagination: configurePagination(),
+    data: configureData(),
+    filter: configureFilter(),
   };
   // obj.getColumn = function (index) {
   //   if (index < 0) {
