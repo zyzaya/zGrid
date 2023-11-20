@@ -111,21 +111,23 @@ export default function createzGrid(args) {
     return pagination;
   }
 
-  function configureFilter(filter) {
-    if (!filter) {
-      configuration.filter = '';
-    } else if (typeof filter === 'string' || typeof filter === 'function') {
+  function configureFilter(): string | FilterCallback {
+    let filter: string | FilterCallback;
+    if (!args.filter) {
+      filter = '';
+    } else if (typeof args.filter === 'string' || typeof args.filter === 'function') {
       configuration.filter = filter;
     } else {
       throw new TypeError('Filter must be a string or function');
     }
+    return filter;
   }
 
   configureParent();
   configureColumns();
   configureData();
   configurePagination();
-  configureFilter(args.filter);
+  configureFilter();
 
   let configuration: Configuration = {
     parent: configureParent(),
