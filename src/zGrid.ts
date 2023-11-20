@@ -15,11 +15,17 @@ if (typeof a === 'string') {
 
 
 type FilterCallback = (row: Record<string, string>) => boolean;
-type SortCallback = (a: string, b: string) => number;
+type CompareEntries = (a: string, b: string) => number;
+type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number
+
+type SortOptions = {
+  column: number
+  ascending: boolean
+}
 
 type ColumnConfiguration = {
   name: string;
-  sort: boolean | SortCallback;
+  sort: boolean | CompareEntries;
   hide: boolean;
 }
 
@@ -37,6 +43,7 @@ type InternalConfiguration = {
   data: Array<Record<string, string>>
   pagination: false | number;
   filter: string | FilterCallback
+  sort: false | SortOptions | CompareRows
 }
 
 export default function createzGrid(args: Configuration): zGrid {
@@ -144,6 +151,7 @@ export default function createzGrid(args: Configuration): zGrid {
     pagination: configurePagination(),
     data: configureData(columns),
     filter: configureFilter(),
+    sort: false,
   };
   // obj.getColumn = function (index) {
   //   if (index < 0) {
