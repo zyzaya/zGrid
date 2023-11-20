@@ -239,11 +239,11 @@ export default function createzGrid(args: Configuration): zGrid {
     return currentPage;
   };
 
-  let setPage = function (p) {
-    if (!(typeof p === 'number' && p > 0)) {
+  let setPage = function (page: number) {
+    if (!(typeof page === 'number' && page > 0)) {
       throw new TypeError('Page must be a postive number');
     }
-    page = p;
+    currentPage = page;
   };
 
   let setFilter = function (filter?: string | FilterCallback) {
