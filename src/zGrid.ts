@@ -247,8 +247,13 @@ export default function createzGrid(args: Configuration): zGrid {
     page = p;
   };
 
-  let setFilter = function (filter) {
-    configureFilter(filter);
+  let setFilter = function (filter?: string | FilterCallback) {
+    let f = filter === undefined ? '' : filter;
+    if (typeof filter === 'string' || typeof filter === 'function') {
+      configuration.filter = f;
+    } else {
+      throw new TypeError('Filter must be a string or function')
+    }
   };
 
   let sort = function (column, ascending) {
