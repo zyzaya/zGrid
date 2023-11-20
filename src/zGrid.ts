@@ -47,8 +47,7 @@ type InternalConfiguration = {
 }
 
 export default function createzGrid(args: Configuration): zGrid {
-  
-  let page = 1;
+  let currentPage = 1;
 
   function configureParent(): HTMLElement {
     if (args.parent === null) {
@@ -236,8 +235,8 @@ export default function createzGrid(args: Configuration): zGrid {
     return ret;
   };
 
-  let currentPage = function () {
-    return page;
+  let getPage = function () {
+    return currentPage;
   };
 
   let setPage = function (p) {
