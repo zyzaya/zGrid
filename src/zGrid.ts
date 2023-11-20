@@ -17,6 +17,14 @@ type ColumnConfiguration = {
 }
 
 type Configuration = {
+  parent: HTMLElement
+  columns: Array<ColumnConfiguration> | Array<string>
+  data?: Array<Record<string, string>> | Array<Array<string>>
+  pagination?: false | number;
+  filter?: string | FilterCallback;
+}
+
+type InternalConfiguration = {
   parent: HTMLElement;
   columns: Array<ColumnConfiguration>;
   data: Array<Record<string, string>>
@@ -24,9 +32,8 @@ type Configuration = {
   filter: string | FilterCallback
 }
 
-export default function createzGrid(args) {
+export default function createzGrid(args: Configuration): zGrid {
   let currentPage = 1;
-  let filter = '';
   function configureParent(): HTMLElement {
     if (args.parent === null) {
       throw new TypeError('Parent cannot be null');
@@ -122,7 +129,7 @@ export default function createzGrid(args) {
 
   let columns = configureColumns()
 
-  let configuration: Configuration = {
+  let configuration: InternalConfiguration = {
     parent: configureParent(),
     columns: columns,
     pagination: configurePagination(),
@@ -144,7 +151,7 @@ export default function createzGrid(args) {
   //   };
   // };
 
-  let getRow = function (index: number):  {
+  let getRow = function (index: number)  {
     if (index < 0) {
       throw new RangeError('index cannot be less than zero');
     } else if (index >= configuration.data.length) {
