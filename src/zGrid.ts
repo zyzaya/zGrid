@@ -7,10 +7,6 @@ type zGrid = {
   render: () => void
 }
 
-type DataRow = {
-
-}
-
 type FilterCallback = (row: number) => boolean;
 type SortCallback = (a: string, b: string) => number;
 
@@ -20,11 +16,10 @@ type ColumnConfiguration = {
   hide: boolean;
 }
 
-
 type Configuration = {
   parent: HTMLElement;
   columns: Array<ColumnConfiguration>;
-  data: Array<DataRow>
+  data: Array<Record<string, string>>
   pagination: false | number;
   filter: string | FilterCallback
 }
@@ -79,15 +74,16 @@ export default function createzGrid(args) {
     return columns;
   }
 
-  function configureData() {
+  function configureData(columns: Array<ColumnConfiguration>): Array<Record<string, string>> {
+    let data: Array<Record<string, string>>
     if (!Array.isArray(args.data)) {
       throw new TypeError('Data must be an array');
     }
 
-    configuration.data = args.data.map((e) => {
-      let row = {};
+    data = args.data.map((e) => {
+      let row: Record<string, string>;
       if (Array.isArray(e)) {
-        configuration.columns.forEach((c, i) => {
+        columns.forEach((c, i) => {
           row[c.name] = e[i];
         });
       } else if (typeof e === 'object') {
@@ -97,6 +93,7 @@ export default function createzGrid(args) {
       }
       return row;
     });
+    return data;
   }
 
   function configurePagination(): false | number {
@@ -123,17 +120,13 @@ export default function createzGrid(args) {
     return filter;
   }
 
-  configureParent();
-  configureColumns();
-  configureData();
-  configurePagination();
-  configureFilter();
+  let columns = configureColumns()
 
   let configuration: Configuration = {
     parent: configureParent(),
-    columns: configureColumns(),
+    columns: columns,
     pagination: configurePagination(),
-    data: configureData(),
+    data: configureData(columns),
     filter: configureFilter(),
   };
   // obj.getColumn = function (index) {
