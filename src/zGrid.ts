@@ -1,8 +1,38 @@
-export default function zGrid(args) {
-  let configuration = {};
+type zGrid = {
+  getRow: (r: number) => void;
+  getData: () => void;
+  getPage: () => number;
+  setPage: (n: number) => void;
+  setFilter: () => void;
+  render: () => void
+}
+
+type DataRow = {
+
+}
+
+type FilterCallback = (row: number) => boolean;
+type SortCallback = (a: string, b: string) => number;
+
+type ColumnConfiguration = {
+  name: string;
+  sort: boolean | SortCallback;
+  hide: boolean;
+}
+
+
+type Configuration = {
+  parent: HTMLElement;
+  columns: Array<ColumnConfiguration>;
+  data: Array<DataRow>
+  pagination: number;
+  filter: string | FilterCallback
+}
+
+export default function createzGrid(args) {
   let currentPage = 1;
   let filter = '';
-  function configureParent() {
+  function configureParent(): HTMLElement {
     if (args.parent === null) {
       throw new TypeError('Parent cannot be null');
     } else if (args.parent === undefined) {
@@ -12,10 +42,10 @@ export default function zGrid(args) {
     } else if (args.parent.hasChildNodes()) {
       throw new TypeError('Parent must not have child nodes');
     }
-    configuration.parent = args.parent;
+    return args.parent;
   }
 
-  function configureColumns() {
+  function configureColumns(): Array<ColumnConfiguration> {
     if (args.columns === null) {
       throw new TypeError('Columns cannot be null');
     } else if (args.columns === undefined) {
@@ -25,23 +55,28 @@ export default function zGrid(args) {
     } else if (args.columns.length < 1) {
       throw new Error('Columns length must be at least 1');
     }
-
-    configuration.columns = args.columns.map((e) => {
-      let col = {};
+    let columns: Array<ColumnConfiguration> = [];
+    columns = args.columns.map((e) => {
+      let col: ColumnConfiguration;
       if (typeof e === 'string') {
-        col.name = e;
-        col.sort = true;
-        col.hidden = false;
+        col = {
+          name: e,
+          sort: true,
+          hide: false
+        }
       } else if (typeof e === 'object') {
         if (e.name === undefined) {
           throw new TypeError('Column requires a name');
         }
-        col.name = e.name;
-        col.sort = e.sort === undefined ? true : e.sort;
-        col.hidden = e.hidden === undefined ? false : e.hidden;
+        col = {
+          name: e.name,
+          sort: e.sort === undefined ? true : e.sort,
+          hide: e.hide === undefined ? false : e.hide,
+        }
       }
       return col;
     });
+    return columns;
   }
 
   function configureData() {
@@ -90,8 +125,10 @@ export default function zGrid(args) {
   configurePagination();
   configureFilter(args.filter);
 
-  let obj = {};
-
+  let configuration: Configuration = {
+    parent: args.parent,
+    columns: columns
+  };
   // obj.getColumn = function (index) {
   //   if (index < 0) {
   //     throw new RangeError('index cannot be less than zero');
@@ -107,7 +144,7 @@ export default function zGrid(args) {
   //   };
   // };
 
-  obj.getRow = function (index) {
+  let getRow = function (index: number):  {
     if (index < 0) {
       throw new RangeError('index cannot be less than zero');
     } else if (index >= configuration.data.length) {
@@ -120,7 +157,7 @@ export default function zGrid(args) {
     };
   };
 
-  obj.getData = function () {
+  let getData = function () {
     let ret = [];
     let page = [];
     let filtered = [];
@@ -172,22 +209,22 @@ export default function zGrid(args) {
     return ret;
   };
 
-  obj.currentPage = function () {
+  let currentPage = function () {
     return currentPage;
   };
 
-  obj.setPage = function (page) {
+  let setPage = function (page) {
     if (!(typeof page === 'number' && page > 0)) {
       throw new TypeError('Page must be a postive number');
     }
     currentPage = page;
   };
 
-  obj.setFilter = function (filter) {
+  let setFilter = function (filter) {
     configureFilter(filter);
   };
 
-  obj.sort = function (column, ascending) {
+  let sort = function (column, ascending) {
     if (column === undefined && ascending === undefined) {
       configuration.sort = false;
     } else if (typeof column === 'function') {
@@ -207,7 +244,7 @@ export default function zGrid(args) {
     }
   };
 
-  obj.render = function () {
+  let render = function () {
     let table = document.createElement('table');
     let head = document.createElement('thead');
     let body = document.createElement('tbody');
@@ -234,5 +271,8 @@ export default function zGrid(args) {
     configuration.parent.appendChild(table);
   };
 
+  let obj: zGrid = {
+    getRow, getData, getPage, setPage, setFilter, render
+  };
   return obj;
 }
