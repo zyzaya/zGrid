@@ -1,5 +1,5 @@
 type zGrid = {
-  getRow: (r: number) => void;
+  getRow: (r: number) => Record<string, string>;
   getData: () => void;
   getPage: () => number;
   setPage: (n: number) => void;
@@ -33,7 +33,9 @@ type InternalConfiguration = {
 }
 
 export default function createzGrid(args: Configuration): zGrid {
+  
   let currentPage = 1;
+
   function configureParent(): HTMLElement {
     if (args.parent === null) {
       throw new TypeError('Parent cannot be null');
@@ -151,7 +153,7 @@ export default function createzGrid(args: Configuration): zGrid {
   //   };
   // };
 
-  let getRow = function (index: number)  {
+  let getRow = function (index: number): Record<string, string>  {
     if (index < 0) {
       throw new RangeError('index cannot be less than zero');
     } else if (index >= configuration.data.length) {
