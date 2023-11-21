@@ -7,13 +7,6 @@ type zGrid = {
   render: () => void
 }
 
-let a: string | object;
-let b = "this is a string"
-if (typeof a === 'string') {
-  b.includes(a)
-}
-
-
 type FilterCallback = (row: Record<string, string>) => boolean;
 type CompareEntries = (a: string, b: string) => number;
 type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number
@@ -255,7 +248,8 @@ export default function createzGrid(args: Configuration): zGrid {
     }
   };
 
-  let sort = function (column, ascending) {
+  
+  let sort = function (column: string, ascending: boolean) {
     if (column === undefined && ascending === undefined) {
       configuration.sort = false;
     } else if (typeof column === 'function') {
