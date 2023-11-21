@@ -76,14 +76,14 @@ describe('setPage', () => {
 
   test('starts on page 1', () => {
     let grid = zGrid(configuration);
-    expect(grid.currentPage()).toBe(1);
+    expect(grid.getPage()).toBe(1);
   });
 
   test('changing page changes available data', () => {
     configuration.pagination = 3;
     let grid = zGrid(configuration);
     grid.setPage(2);
-    expect(grid.currentPage()).toBe(2);
+    expect(grid.getPage()).toBe(2);
     expect(grid.getData()).toStrictEqual(data.slice(3, 6));
   });
 
