@@ -128,7 +128,7 @@ export default function createzGrid(args: Configuration): zGrid {
     if (!args.filter) {
       filter = '';
     } else if (typeof args.filter === 'string' || typeof args.filter === 'function') {
-      configuration.filter = filter;
+      filter = args.filter;
     } else {
       throw new TypeError('Filter must be a string or function');
     }
@@ -189,7 +189,7 @@ export default function createzGrid(args: Configuration): zGrid {
       } else if (typeof configuration.filter === 'function') {
         let filter = configuration.filter
         filtered = configuration.data.filter((r) => {
-          let entry: Record<string, string>;
+          let entry: Record<string, string> = {};
           configuration.columns.forEach((c) => (entry[c.name] = r[c.name]));
           return filter(entry);
         });

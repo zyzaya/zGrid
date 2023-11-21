@@ -104,7 +104,7 @@ export default function createzGrid(args) {
             filter = '';
         }
         else if (typeof args.filter === 'string' || typeof args.filter === 'function') {
-            configuration.filter = filter;
+            filter = args.filter;
         }
         else {
             throw new TypeError('Filter must be a string or function');
@@ -160,7 +160,7 @@ export default function createzGrid(args) {
             else if (typeof configuration.filter === 'function') {
                 var filter_2 = configuration.filter;
                 filtered = configuration.data.filter(function (r) {
-                    var entry;
+                    var entry = {};
                     configuration.columns.forEach(function (c) { return (entry[c.name] = r[c.name]); });
                     return filter_2(entry);
                 });
