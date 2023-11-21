@@ -9,11 +9,6 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var a;
-var b = "this is a string";
-if (typeof a === 'string') {
-    b.includes(a);
-}
 export default function createzGrid(args) {
     var currentPage = 1;
     function configureParent() {
@@ -74,7 +69,7 @@ export default function createzGrid(args) {
             throw new TypeError('Data must be an array');
         }
         data = args.data.map(function (e) {
-            var row;
+            var row = {};
             if (Array.isArray(e)) {
                 columns.forEach(function (c, i) {
                     row[c.name] = e[i];

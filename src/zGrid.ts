@@ -96,7 +96,7 @@ export default function createzGrid(args: Configuration): zGrid {
     }
 
     data = args.data.map((e) => {
-      let row: Record<string, string>;
+      let row: Record<string, string> = {};
       if (Array.isArray(e)) {
         columns.forEach((c, i) => {
           row[c.name] = e[i];
