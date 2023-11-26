@@ -254,6 +254,7 @@ var zGrid = /** @class */ (function () {
         head.appendChild(headerRow);
         table.appendChild(head);
         // add data
+        console.log(this.data);
         this.data.forEach(function (d) {
             var row = document.createElement('tr');
             _this.columns.forEach(function (c) {

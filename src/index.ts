@@ -6,22 +6,22 @@ let container = document.getElementById('container');
 faker.seed(96);
 
 type testRecord = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
+  'ID': string;
+  'First Name': string;
+  'Last Name': string;
+  'Phone Number': string;
+  'Email': string;
 }
 
 let testData: testRecord[] = [];
 
 for (let i = 0; i < 10; i++) {
   let record = {
-    id: faker.string.numeric(),
-    firstName: faker.person.firstName(),
-    lastName: faker.person.lastName(),
-    phone: faker.phone.number(),
-    email: faker.internet.email(),
+    'ID': faker.string.numeric(),
+    'First Name': faker.person.firstName(),
+    'Last Name': faker.person.lastName(),
+    'Phone Number': faker.phone.number(),
+    'Email': faker.internet.email(),
   };
   testData.push(record);
 }

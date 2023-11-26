@@ -256,6 +256,7 @@ export default class zGrid {
     head.appendChild(headerRow);
     table.appendChild(head);
     // add data
+    console.log(this.data)
     this.data.forEach((d) => {
       let row = document.createElement('tr');
       this.columns.forEach((c) => {

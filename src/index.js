@@ -5,11 +5,11 @@ faker.seed(96);
 var testData = [];
 for (var i = 0; i < 10; i++) {
     var record = {
-        id: faker.string.numeric(),
-        firstName: faker.person.firstName(),
-        lastName: faker.person.lastName(),
-        phone: faker.phone.number(),
-        email: faker.internet.email(),
+        'ID': faker.string.numeric(),
+        'First Name': faker.person.firstName(),
+        'Last Name': faker.person.lastName(),
+        'Phone Number': faker.phone.number(),
+        'Email': faker.internet.email(),
     };
     testData.push(record);
 }
