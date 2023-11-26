@@ -181,7 +181,6 @@ export default class zGrid {
         } else {
           filtered.sort((a, b) => a[col_name].localeCompare(b[col_name]));
         }
-
         if (!this.sortConfig.ascending) filtered.reverse();
       }
     }
@@ -224,7 +223,7 @@ export default class zGrid {
   public sort(sort: CompareRows): void;
   public sort(column: string): void;
   public sort(column: string, ascending: boolean): void;
-  public sort(column?: string | false | CompareRows, ascending: boolean = false) {
+  public sort(column?: string | false | CompareRows, ascending: boolean = true) {
     if (column == undefined || column == false) {
       this.sortConfig = false;
     } else if (typeof column === 'function') {
@@ -238,7 +237,7 @@ export default class zGrid {
       } else {
         this.sortConfig = {
           column: column,
-          ascending: ascending === undefined ? true : ascending,
+          ascending: ascending,
         };
       }
     }

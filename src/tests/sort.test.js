@@ -4,7 +4,7 @@
 import zGrid from '../zGrid';
 import { faker } from '@faker-js/faker';
 
-describe.skip('Sort', () => {
+describe('Sort', () => {
   let data = [];
   let configuration = {};
   let compare = (a, b) => {
@@ -32,7 +32,7 @@ describe.skip('Sort', () => {
   });
 
   test('no args means no sort', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.sort();
     grid.getData().forEach((e, i) => {
       expect(e).toStrictEqual(data[i]);
@@ -40,31 +40,30 @@ describe.skip('Sort', () => {
   });
 
   test('throws error if invalid column', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(() => {
       grid.sort('invalid column');
     }).toThrow(RangeError);
   });
 
   test('ascending must be a boolean', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(() => {
       grid.sort('First Name', []);
     }).toThrow(TypeError);
   });
 
   test('default sort is ascending', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.sort('First Name');
     data.sort((a, b) => a['First Name'].localeCompare(b['First Name']));
-
     grid.getData().forEach((e, i) => {
       expect(e).toStrictEqual(data[i]);
     });
   });
 
   test('can sort descending by column', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.sort('First Name', false);
     data
       .sort((a, b) => a['First Name'].localeCompare(b['First Name']))
@@ -84,7 +83,7 @@ describe.skip('Sort', () => {
       'Email',
     ];
     configuration.columns = columns;
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.sort('First Name');
     data.sort((a, b) => compare(a['First Name'], b['First Name']));
     grid.getData().forEach((e, i) => {
@@ -102,7 +101,7 @@ describe.skip('Sort', () => {
       'Email',
     ];
     configuration.columns = columns;
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.sort('First Name', false);
     data.sort((a, b) => compare(a['First Name'], b['First Name'])).reverse();
     grid.getData().forEach((e, i) => {
@@ -116,7 +115,7 @@ describe.skip('Sort', () => {
       let b_rev = b['Email'].split('').reverse().join('');
       return a_rev.localeCompare(b_rev);
     };
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.sort(compare);
     data.sort(compare);
     grid.getData().forEach((e, i) => {
