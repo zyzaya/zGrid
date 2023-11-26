@@ -1,11 +1,11 @@
-type zGrid = {
-  getRow: (r: number) => Record<string, string>;
-  getData: () => void;
-  getPage: () => number;
-  setPage: (n: number) => void;
-  setFilter: () => void;
-  render: () => void
-}
+// type zGrid = {
+//   getRow: (r: number) => Record<string, string>;
+//   getData: () => void;
+//   getPage: () => number;
+//   setPage: (n: number) => void;
+//   setFilter: () => void;
+//   render: () => void
+// }
 
 type FilterCallback = (row: Record<string, string>) => boolean;
 type CompareEntries = (a: string, b: string) => number;
@@ -39,10 +39,24 @@ type InternalConfiguration = {
   sort: false | SortOptions | CompareRows
 }
 
-export default function createzGrid(args: Configuration): zGrid {
-  let currentPage = 1;
+export default class zGrid {
+  private currentPage = 1;
+  private parent: HTMLElement;
+  private columns: Array<ColumnConfiguration>;
+  private data: Array<Record<string, string>>;
+  private pagination: false | number;
+  private filter: string | FilterCallback;
+  private sort: false | SortOptions | CompareRows;
 
-  function configureParent(): HTMLElement {
+  constructor(args: Configuration) {
+    this.parent = this.configureParent(args);
+    this.columns = this.configureColumns(args);
+    this.data = this.configureData(args);
+    this.pagination = this.configurePagination(args);
+    this.filter = this.configureFilter(args);
+  }
+
+  private configureParent(args: Configuration): HTMLElement {
     if (args.parent === null) {
       throw new TypeError('Parent cannot be null');
     } else if (args.parent === undefined) {
@@ -55,7 +69,7 @@ export default function createzGrid(args: Configuration): zGrid {
     return args.parent;
   }
 
-  function configureColumns(): Array<ColumnConfiguration> {
+  private configureColumns(args: Configuration): Array<ColumnConfiguration> {
     if (args.columns === null) {
       throw new TypeError('Columns cannot be null');
     } else if (args.columns === undefined) {
@@ -89,7 +103,7 @@ export default function createzGrid(args: Configuration): zGrid {
     return columns;
   }
 
-  function configureData(columns: Array<ColumnConfiguration>): Array<Record<string, string>> {
+  private configureData(args: Configuration): Array<Record<string, string>> {
     let data: Array<Record<string, string>>
     if (!Array.isArray(args.data)) {
       throw new TypeError('Data must be an array');
@@ -98,7 +112,7 @@ export default function createzGrid(args: Configuration): zGrid {
     data = args.data.map((e) => {
       let row: Record<string, string> = {};
       if (Array.isArray(e)) {
-        columns.forEach((c, i) => {
+        this.columns.forEach((c, i) => {
           row[c.name] = e[i];
         });
       } else if (typeof e === 'object') {
@@ -111,7 +125,7 @@ export default function createzGrid(args: Configuration): zGrid {
     return data;
   }
 
-  function configurePagination(): false | number {
+  private configurePagination(args: Configuration): false | number {
     let pagination: false | number;
     if (!args.pagination) {
       pagination = false;
@@ -123,7 +137,7 @@ export default function createzGrid(args: Configuration): zGrid {
     return pagination;
   }
 
-  function configureFilter(): string | FilterCallback {
+  private configureFilter(args: Configuration): string | FilterCallback {
     let filter: string | FilterCallback;
     if (!args.filter) {
       filter = '';
@@ -135,16 +149,16 @@ export default function createzGrid(args: Configuration): zGrid {
     return filter;
   }
 
-  let columns = configureColumns()
+  // let columns = configureColumns()
 
-  let configuration: InternalConfiguration = {
-    parent: configureParent(),
-    columns: columns,
-    pagination: configurePagination(),
-    data: configureData(columns),
-    filter: configureFilter(),
-    sort: false,
-  };
+  // let configuration: InternalConfiguration = {
+  //   parent: configureParent(),
+  //   columns: columns,
+  //   pagination: configurePagination(),
+  //   data: configureData(columns),
+  //   filter: configureFilter(),
+  //   sort: false,
+  // };
   // obj.getColumn = function (index) {
   //   if (index < 0) {
   //     throw new RangeError('index cannot be less than zero');
