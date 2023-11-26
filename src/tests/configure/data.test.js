@@ -16,14 +16,14 @@ describe('Data', () => {
   test('is not an array', () => {
     configuration.data = {};
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).toThrow(TypeError);
   });
 
   test('has elements that are neither array nor object', () => {
     configuration.data = [false, 1];
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).toThrow(TypeError);
   });
 
@@ -33,7 +33,7 @@ describe('Data', () => {
       ['Jane', 'Doe', 'jane.doe@fake.com'],
     ];
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).not.toThrow(Error);
   });
 });
@@ -52,14 +52,14 @@ describe('getRow', () => {
   });
 
   test('index less than zero', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(() => {
       grid.getRow(-1);
     }).toThrow(RangeError);
   });
 
   test('index greater than or equal to number of rows', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(() => {
       grid.getRow(2);
     }).toThrow(RangeError);
@@ -67,7 +67,7 @@ describe('getRow', () => {
 
   test('returns correct info when grid is configured as array', () => {
     configuration.data = [['Jane', 'Doe', 'jane.doe@fake.com']];
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(grid.getRow(0)).toStrictEqual({
       'First Name': 'Jane',
       'Last Name': 'Doe',
@@ -79,7 +79,7 @@ describe('getRow', () => {
     configuration.data = [
       { 'First Name': 'John', 'Last Name': 'Smith', Email: 'fake@email.ca' },
     ];
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(grid.getRow(0)).toStrictEqual(configuration.data[0]);
   });
 });
@@ -102,7 +102,7 @@ describe('getData', () => {
   });
 
   test('modifying the return object does not modify original data', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     let data = grid.getData();
     data[0]['First Name'] = 'Jelly';
     expect(grid.getData()[0]['First Name']).toBe('John');
@@ -122,7 +122,7 @@ describe('getData', () => {
         Email: 'jane.doe@fake.com',
       },
     ];
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(grid.getData()).toStrictEqual(expected);
   });
 });
