@@ -46,7 +46,7 @@ export default class zGrid {
   private data: Array<Record<string, string>>;
   private pagination: false | number;
   private filter: string | FilterCallback;
-  private sort: false | SortOptions | CompareRows;
+  private sortConfig: false | SortOptions | CompareRows;
 
   constructor(args: Configuration) {
     this.parent = this.configureParent(args);
@@ -174,50 +174,50 @@ export default class zGrid {
   //   };
   // };
 
-  let getRow = function (index: number): Record<string, string>  {
+  public getRow(index: number): Record<string, string>  {
     if (index < 0) {
       throw new RangeError('index cannot be less than zero');
-    } else if (index >= configuration.data.length) {
+    } else if (index >= this.data.length) {
       throw new RangeError(
         'index cannot be greater than or equal to the number of rows'
       );
     }
     return {
-      ...configuration.data[index],
+      ...this.data[index],
     };
   };
 
-  let getData = function (): Array<Record<string, string>> {
+  public getData(): Array<Record<string, string>> {
     let ret: Array<Record<string, string>> = [];
     let page = [];
     let filtered: Array<Record<string, string>> = [];
     // filter
-    if (configuration.filter) {
-      if (typeof configuration.filter === 'string') {
-        let filter = configuration.filter
-        filtered = configuration.data.filter((r) => {
-          return configuration.columns.some((c) =>
+    if (this.filter) {
+      if (typeof this.filter === 'string') {
+        let filter = this.filter
+        filtered = this.data.filter((r) => {
+          return this.columns.some((c) =>
             r[c.name].includes(filter)
           );
         });
-      } else if (typeof configuration.filter === 'function') {
-        let filter = configuration.filter
-        filtered = configuration.data.filter((r) => {
+      } else if (typeof this.filter === 'function') {
+        let filter = this.filter
+        filtered = this.data.filter((r) => {
           let entry: Record<string, string> = {};
-          configuration.columns.forEach((c) => (entry[c.name] = r[c.name]));
+          this.columns.forEach((c) => (entry[c.name] = r[c.name]));
           return filter(entry);
         });
       }
     } else {
-      filtered = configuration.data;
+      filtered = this.data;
     }
     // sorting
-    if (configuration.sort) {
-      if (typeof configuration.sort === 'function') {
-        filtered.sort(configuration.sort);
-      } else if (typeof configuration.sort === 'object') {
-        let col_name = configuration.sort.column;
-        let col_config = configuration.columns.find((e) => e.name === col_name);
+    if (this.sort) {
+      if (typeof this.sort === 'function') {
+        filtered.sort(this.sort);
+      } else if (typeof this.sort === 'object') {
+        let col_name = this.sort.column;
+        let col_config = this.columns.find((e) => e.name === col_name);
         if (typeof col_config.sort === 'function') {
           let col_sort = col_config.sort;
           filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));
@@ -225,13 +225,13 @@ export default class zGrid {
           filtered.sort((a, b) => a[col_name].localeCompare(b[col_name]));
         }
 
-        if (!configuration.sort.ascending) filtered.reverse();
+        if (!this.sort.ascending) filtered.reverse();
       }
     }
     // pagination
-    if (configuration.pagination) {
-      let start = (currentPage - 1) * configuration.pagination;
-      let end = start + configuration.pagination;
+    if (this.pagination) {
+      let start = (this.currentPage - 1) * this.pagination;
+      let end = start + this.pagination;
       page = filtered.slice(start, end);
     } else {
       page = filtered;
@@ -242,40 +242,40 @@ export default class zGrid {
     return ret;
   };
 
-  let getPage = function () {
-    return currentPage;
+  get page() {
+    return this.currentPage;
   };
 
-  let setPage = function (page: number) {
+  set page(page: number) {
     if (!(typeof page === 'number' && page > 0)) {
       throw new TypeError('Page must be a postive number');
     }
-    currentPage = page;
+    this.currentPage = page;
   };
 
-  let setFilter = function (filter?: string | FilterCallback) {
+  public setFilter(filter?: string | FilterCallback) {
     let f = filter === undefined ? '' : filter;
     if (typeof filter === 'string' || typeof filter === 'function') {
-      configuration.filter = f;
+      this.filter = f;
     } else {
       throw new TypeError('Filter must be a string or function')
     }
   };
 
   
-  let sort = function (column: string, ascending: boolean) {
+  public sort(column: string, ascending: boolean) {
     if (column === undefined && ascending === undefined) {
-      configuration.sort = false;
+      this.sortConfig = false;
     } else if (typeof column === 'function') {
-      configuration.sort = column;
+      this.sortConfig = column;
     } else {
-      let col = configuration.columns.find((e) => e.name === column);
+      let col = this.columns.find((e) => e.name === column);
       if (col === undefined) {
         throw new RangeError(`No column named '${column}'`);
       } else if (ascending && typeof ascending !== 'boolean') {
         throw new TypeError('Ascending must be boolean');
       } else {
-        configuration.sort = {
+        this.sortConfig = {
           column: column,
           ascending: ascending === undefined ? true : ascending,
         };
@@ -283,12 +283,12 @@ export default class zGrid {
     }
   };
 
-  let render = function () {
+  public render() {
     let table = document.createElement('table');
     let head = document.createElement('thead');
     let body = document.createElement('tbody');
     let headerRow = document.createElement('tr');
-    configuration.columns.forEach((c) => {
+    this.columns.forEach((c) => {
       let title = document.createElement('th');
       title.innerText = c.name;
       headerRow.appendChild(title);
@@ -296,9 +296,9 @@ export default class zGrid {
     head.appendChild(headerRow);
     table.appendChild(head);
     // add data
-    configuration.data.forEach((d) => {
+    this.data.forEach((d) => {
       let row = document.createElement('tr');
-      configuration.columns.forEach((c) => {
+      this.columns.forEach((c) => {
         let cell = document.createElement('td');
         cell.innerText = d[c.name];
         row.appendChild(cell);
@@ -307,11 +307,6 @@ export default class zGrid {
     });
     table.appendChild(body);
 
-    configuration.parent.appendChild(table);
+    this.parent.appendChild(table);
   };
-
-  let obj: zGrid = {
-    getRow, getData, getPage, setPage, setFilter, render
-  };
-  return obj;
 }
