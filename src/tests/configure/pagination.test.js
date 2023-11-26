@@ -28,27 +28,25 @@ describe('Pagination', () => {
   test('cannot be negative integer', () => {
     configuration.pagination = -1;
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).toThrow(TypeError);
   });
 
   test('can only be falsey or positive integer', () => {
     configuration.pagination = 'This is invalid';
     expect(() => {
-      zGrid(() => {
-        zGrid(configuration);
-      }).toThrow(TypeError);
-    });
+      new zGrid(configuration);
+    }).toThrow(TypeError);
   });
 
   test('unset pagination is no pagination', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(grid.getData()).toStrictEqual(data);
   });
 
   test('pagination of 5 shows first 5 elements', () => {
     configuration.pagination = 5;
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(grid.getData()).toStrictEqual(data.slice(0, 5));
   });
 });
@@ -75,44 +73,44 @@ describe('setPage', () => {
   });
 
   test('starts on page 1', () => {
-    let grid = zGrid(configuration);
-    expect(grid.getPage()).toBe(1);
+    let grid = new zGrid(configuration);
+    expect(grid.page).toBe(1);
   });
 
   test('changing page changes available data', () => {
     configuration.pagination = 3;
-    let grid = zGrid(configuration);
-    grid.setPage(2);
-    expect(grid.getPage()).toBe(2);
+    let grid = new zGrid(configuration);
+    grid.page = 2;
+    expect(grid.page).toBe(2);
     expect(grid.getData()).toStrictEqual(data.slice(3, 6));
   });
 
   test('last page is remainaining data', () => {
     configuration.pagination = 3;
-    let grid = zGrid(configuration);
-    grid.setPage(4);
+    let grid = new zGrid(configuration);
+    grid.page = 4;
     expect(grid.getData()).toStrictEqual([data[data.length - 1]]);
   });
 
   test('negative page', () => {
     configuration.pagination = 4;
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(() => {
-      grid.setPage(-1);
+      grid.page = -1;
     }).toThrow(TypeError);
   });
 
   test('page that is not a number', () => {
     configuration.pagination = 4;
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(() => {
-      grid.setPage([]);
+      grid.page = [];
     }).toThrow(TypeError);
   });
 
   test('pagination value determines number of records per page', () => {
     configuration.pagination = 2;
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(grid.getData().length).toBe(2);
   });
 });
