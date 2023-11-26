@@ -46,18 +46,18 @@ describe('Filter', () => {
   });
 
   test('default is no filter', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(grid.getData()).toStrictEqual(data);
   });
 
   test('basic filter only includes elements that contain value', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.setFilter('example.test');
     expect(grid.getData()).toStrictEqual(markedEmail);
   });
 
   test('can filter with a function', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     let filter = jest.fn();
     grid.setFilter(filter);
     let filtered_data = grid.getData();
@@ -68,7 +68,7 @@ describe('Filter', () => {
   });
 
   test('accepts a function that passes each element', () => {
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     let filter = jest.fn();
     grid.setFilter(filter);
     grid.getData();
@@ -80,7 +80,7 @@ describe('Filter', () => {
 
   test('can set filter through configuration', () => {
     configuration.filter = 'example.test';
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     expect(grid.getData()).toStrictEqual(markedEmail);
   });
 
@@ -92,7 +92,7 @@ describe('Filter', () => {
       Useless: 'example',
     };
     configuration.data.push(entry);
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.setFilter('example');
     expect(grid.getData().some((e) => e['Useless'])).toBe(false);
   });
@@ -106,7 +106,7 @@ describe('Filter', () => {
     };
 
     configuration.data.push(entry);
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     const filter = jest.fn();
     grid.setFilter(filter);
     grid.getData();
