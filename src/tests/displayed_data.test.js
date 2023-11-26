@@ -4,7 +4,7 @@
 import zGrid from '../zGrid';
 import { faker, fakerTR } from '@faker-js/faker';
 
-describe.skip('Displayed Data', () => {
+describe('Displayed Data', () => {
   let data = [];
   let configuration = {};
   faker.seed(96);
@@ -40,7 +40,7 @@ describe.skip('Displayed Data', () => {
     result.sort((a, b) => a['First Name'].localeCompare(b['First Name']));
     result = result.slice(0, 3);
     configuration.pagination = 3;
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.setFilter('example.test');
     grid.sort('First Name');
 
@@ -54,7 +54,7 @@ describe.skip('Displayed Data', () => {
     );
     result = result.slice(0, 3);
     configuration.pagination = 3;
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.sort('First Name');
 
     expect(grid.getData()).toStrictEqual(result);
@@ -64,7 +64,7 @@ describe.skip('Displayed Data', () => {
     // sort by first name, filter by example.test
     let result = data.filter((e) => e['Email'].includes('example.test'));
     result.sort((a, b) => a['First Name'].localeCompare(b['First Name']));
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.setFilter('example.test');
     grid.sort('First Name');
 
@@ -76,7 +76,7 @@ describe.skip('Displayed Data', () => {
     let result = data.filter((e) => e['Email'].includes('example.test'));
     result = result.slice(0, 3);
     configuration.pagination = 3;
-    let grid = zGrid(configuration);
+    let grid = new zGrid(configuration);
     grid.setFilter('example.test');
 
     expect(grid.getData()).toStrictEqual(result);
