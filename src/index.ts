@@ -13,15 +13,16 @@ type testRecord = {
   email: string;
 }
 
-let testData: testRecord[];
+let testData: testRecord[] = [];
 
 for (let i = 0; i < 10; i++) {
-  let record: testRecord;
-  record.id = faker.string.numeric();
-  record.firstName = faker.person.firstName();
-  record.lastName = faker.person.lastName()
-  record.phone = faker.phone.number()
-  record.email = faker.internet.email();
+  let record = {
+    id: faker.string.numeric(),
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    phone: faker.phone.number(),
+    email: faker.internet.email(),
+  };
   testData.push(record);
 }
 
