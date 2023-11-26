@@ -219,9 +219,13 @@ export default class zGrid {
     }
   };
 
-  
-  public sort(column: string, ascending: boolean) {
-    if (column === undefined && ascending === undefined) {
+  public sort(): void;
+  public sort(sort: false): void;
+  public sort(sort: CompareRows): void;
+  public sort(column: string): void;
+  public sort(column: string, ascending: boolean): void;
+  public sort(column?: string | false | CompareRows, ascending: boolean = false) {
+    if (column == undefined || column == false) {
       this.sortConfig = false;
     } else if (typeof column === 'function') {
       this.sortConfig = column;

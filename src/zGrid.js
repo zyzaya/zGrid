@@ -216,7 +216,8 @@ var zGrid = /** @class */ (function () {
     };
     ;
     zGrid.prototype.sort = function (column, ascending) {
-        if (column === undefined && ascending === undefined) {
+        if (ascending === void 0) { ascending = false; }
+        if (column == undefined || column == false) {
             this.sortConfig = false;
         }
         else if (typeof column === 'function') {
