@@ -1,12 +1,3 @@
-// type zGrid = {
-//   getRow: (r: number) => Record<string, string>;
-//   getData: () => void;
-//   getPage: () => number;
-//   setPage: (n: number) => void;
-//   setFilter: () => void;
-//   render: () => void
-// }
-
 type FilterCallback = (row: Record<string, string>) => boolean;
 type CompareEntries = (a: string, b: string) => number;
 type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number
@@ -28,15 +19,6 @@ type Configuration = {
   data?: Array<Record<string, string>> | Array<Array<string>>
   pagination?: false | number;
   filter?: string | FilterCallback;
-}
-
-type InternalConfiguration = {
-  parent: HTMLElement;
-  columns: Array<ColumnConfiguration>;
-  data: Array<Record<string, string>>
-  pagination: false | number;
-  filter: string | FilterCallback
-  sort: false | SortOptions | CompareRows
 }
 
 export default class zGrid {
@@ -149,31 +131,6 @@ export default class zGrid {
     return filter;
   }
 
-  // let columns = configureColumns()
-
-  // let configuration: InternalConfiguration = {
-  //   parent: configureParent(),
-  //   columns: columns,
-  //   pagination: configurePagination(),
-  //   data: configureData(columns),
-  //   filter: configureFilter(),
-  //   sort: false,
-  // };
-  // obj.getColumn = function (index) {
-  //   if (index < 0) {
-  //     throw new RangeError('index cannot be less than zero');
-  //   } else if (index >= configuration.columns.length) {
-  //     throw new RangeError(
-  //       'index cannot be greater than or equal to the number of columns'
-  //     );
-  //   }
-  //   return {
-  //     name: configuration.columns[index].name,
-  //     sort: configuration.columns[index].sort,
-  //     hidden: configuration.columns[index].hidden,
-  //   };
-  // };
-
   public getRow(index: number): Record<string, string>  {
     if (index < 0) {
       throw new RangeError('index cannot be less than zero');
@@ -212,11 +169,11 @@ export default class zGrid {
       filtered = this.data;
     }
     // sorting
-    if (this.sort) {
-      if (typeof this.sort === 'function') {
-        filtered.sort(this.sort);
-      } else if (typeof this.sort === 'object') {
-        let col_name = this.sort.column;
+    if (this.sortConfig) {
+      if (typeof this.sortConfig === 'function') {
+        filtered.sort(this.sortConfig);
+      } else if (typeof this.sortConfig === 'object') {
+        let col_name = this.sortConfig.column;
         let col_config = this.columns.find((e) => e.name === col_name);
         if (typeof col_config.sort === 'function') {
           let col_sort = col_config.sort;
@@ -225,7 +182,7 @@ export default class zGrid {
           filtered.sort((a, b) => a[col_name].localeCompare(b[col_name]));
         }
 
-        if (!this.sort.ascending) filtered.reverse();
+        if (!this.sortConfig.ascending) filtered.reverse();
       }
     }
     // pagination
