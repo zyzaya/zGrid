@@ -9,9 +9,16 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-export default function createzGrid(args) {
-    var currentPage = 1;
-    function configureParent() {
+var zGrid = /** @class */ (function () {
+    function zGrid(args) {
+        this.currentPage = 1;
+        this.parent = this.configureParent(args);
+        this.columns = this.configureColumns(args);
+        this.data = this.configureData(args);
+        this.pagination = this.configurePagination(args);
+        this.filter = this.configureFilter(args);
+    }
+    zGrid.prototype.configureParent = function (args) {
         if (args.parent === null) {
             throw new TypeError('Parent cannot be null');
         }
@@ -25,8 +32,8 @@ export default function createzGrid(args) {
             throw new TypeError('Parent must not have child nodes');
         }
         return args.parent;
-    }
-    function configureColumns() {
+    };
+    zGrid.prototype.configureColumns = function (args) {
         if (args.columns === null) {
             throw new TypeError('Columns cannot be null');
         }
@@ -62,8 +69,9 @@ export default function createzGrid(args) {
             return col;
         });
         return columns;
-    }
-    function configureData(columns) {
+    };
+    zGrid.prototype.configureData = function (args) {
+        var _this = this;
         var data;
         if (!Array.isArray(args.data)) {
             throw new TypeError('Data must be an array');
@@ -71,7 +79,7 @@ export default function createzGrid(args) {
         data = args.data.map(function (e) {
             var row = {};
             if (Array.isArray(e)) {
-                columns.forEach(function (c, i) {
+                _this.columns.forEach(function (c, i) {
                     row[c.name] = e[i];
                 });
             }
@@ -84,8 +92,8 @@ export default function createzGrid(args) {
             return row;
         });
         return data;
-    }
-    function configurePagination() {
+    };
+    zGrid.prototype.configurePagination = function (args) {
         var pagination;
         if (!args.pagination) {
             pagination = false;
@@ -97,8 +105,8 @@ export default function createzGrid(args) {
             throw new TypeError('Pagination must be a number greater than 0');
         }
         return pagination;
-    }
-    function configureFilter() {
+    };
+    zGrid.prototype.configureFilter = function (args) {
         var filter;
         if (!args.filter) {
             filter = '';
@@ -110,73 +118,52 @@ export default function createzGrid(args) {
             throw new TypeError('Filter must be a string or function');
         }
         return filter;
-    }
-    var columns = configureColumns();
-    var configuration = {
-        parent: configureParent(),
-        columns: columns,
-        pagination: configurePagination(),
-        data: configureData(columns),
-        filter: configureFilter(),
-        sort: false,
     };
-    // obj.getColumn = function (index) {
-    //   if (index < 0) {
-    //     throw new RangeError('index cannot be less than zero');
-    //   } else if (index >= configuration.columns.length) {
-    //     throw new RangeError(
-    //       'index cannot be greater than or equal to the number of columns'
-    //     );
-    //   }
-    //   return {
-    //     name: configuration.columns[index].name,
-    //     sort: configuration.columns[index].sort,
-    //     hidden: configuration.columns[index].hidden,
-    //   };
-    // };
-    var getRow = function (index) {
+    zGrid.prototype.getRow = function (index) {
         if (index < 0) {
             throw new RangeError('index cannot be less than zero');
         }
-        else if (index >= configuration.data.length) {
+        else if (index >= this.data.length) {
             throw new RangeError('index cannot be greater than or equal to the number of rows');
         }
-        return __assign({}, configuration.data[index]);
+        return __assign({}, this.data[index]);
     };
-    var getData = function () {
+    ;
+    zGrid.prototype.getData = function () {
+        var _this = this;
         var ret = [];
         var page = [];
         var filtered = [];
         // filter
-        if (configuration.filter) {
-            if (typeof configuration.filter === 'string') {
-                var filter_1 = configuration.filter;
-                filtered = configuration.data.filter(function (r) {
-                    return configuration.columns.some(function (c) {
+        if (this.filter) {
+            if (typeof this.filter === 'string') {
+                var filter_1 = this.filter;
+                filtered = this.data.filter(function (r) {
+                    return _this.columns.some(function (c) {
                         return r[c.name].includes(filter_1);
                     });
                 });
             }
-            else if (typeof configuration.filter === 'function') {
-                var filter_2 = configuration.filter;
-                filtered = configuration.data.filter(function (r) {
+            else if (typeof this.filter === 'function') {
+                var filter_2 = this.filter;
+                filtered = this.data.filter(function (r) {
                     var entry = {};
-                    configuration.columns.forEach(function (c) { return (entry[c.name] = r[c.name]); });
+                    _this.columns.forEach(function (c) { return (entry[c.name] = r[c.name]); });
                     return filter_2(entry);
                 });
             }
         }
         else {
-            filtered = configuration.data;
+            filtered = this.data;
         }
         // sorting
-        if (configuration.sort) {
-            if (typeof configuration.sort === 'function') {
-                filtered.sort(configuration.sort);
+        if (this.sortConfig) {
+            if (typeof this.sortConfig === 'function') {
+                filtered.sort(this.sortConfig);
             }
-            else if (typeof configuration.sort === 'object') {
-                var col_name_1 = configuration.sort.column;
-                var col_config = configuration.columns.find(function (e) { return e.name === col_name_1; });
+            else if (typeof this.sortConfig === 'object') {
+                var col_name_1 = this.sortConfig.column;
+                var col_config = this.columns.find(function (e) { return e.name === col_name_1; });
                 if (typeof col_config.sort === 'function') {
                     var col_sort_1 = col_config.sort;
                     filtered.sort(function (a, b) { return col_sort_1(a[col_name_1], b[col_name_1]); });
@@ -184,14 +171,14 @@ export default function createzGrid(args) {
                 else {
                     filtered.sort(function (a, b) { return a[col_name_1].localeCompare(b[col_name_1]); });
                 }
-                if (!configuration.sort.ascending)
+                if (!this.sortConfig.ascending)
                     filtered.reverse();
             }
         }
         // pagination
-        if (configuration.pagination) {
-            var start = (currentPage - 1) * configuration.pagination;
-            var end = start + configuration.pagination;
+        if (this.pagination) {
+            var start = (this.currentPage - 1) * this.pagination;
+            var end = start + this.pagination;
             page = filtered.slice(start, end);
         }
         else {
@@ -202,33 +189,41 @@ export default function createzGrid(args) {
         });
         return ret;
     };
-    var getPage = function () {
-        return currentPage;
-    };
-    var setPage = function (page) {
-        if (!(typeof page === 'number' && page > 0)) {
-            throw new TypeError('Page must be a postive number');
-        }
-        currentPage = page;
-    };
-    var setFilter = function (filter) {
+    ;
+    Object.defineProperty(zGrid.prototype, "page", {
+        get: function () {
+            return this.currentPage;
+        },
+        set: function (page) {
+            if (!(typeof page === 'number' && page > 0)) {
+                throw new TypeError('Page must be a postive number');
+            }
+            this.currentPage = page;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    ;
+    ;
+    zGrid.prototype.setFilter = function (filter) {
         var f = filter === undefined ? '' : filter;
         if (typeof filter === 'string' || typeof filter === 'function') {
-            configuration.filter = f;
+            this.filter = f;
         }
         else {
             throw new TypeError('Filter must be a string or function');
         }
     };
-    var sort = function (column, ascending) {
+    ;
+    zGrid.prototype.sort = function (column, ascending) {
         if (column === undefined && ascending === undefined) {
-            configuration.sort = false;
+            this.sortConfig = false;
         }
         else if (typeof column === 'function') {
-            configuration.sort = column;
+            this.sortConfig = column;
         }
         else {
-            var col = configuration.columns.find(function (e) { return e.name === column; });
+            var col = this.columns.find(function (e) { return e.name === column; });
             if (col === undefined) {
                 throw new RangeError("No column named '".concat(column, "'"));
             }
@@ -236,19 +231,21 @@ export default function createzGrid(args) {
                 throw new TypeError('Ascending must be boolean');
             }
             else {
-                configuration.sort = {
+                this.sortConfig = {
                     column: column,
                     ascending: ascending === undefined ? true : ascending,
                 };
             }
         }
     };
-    var render = function () {
+    ;
+    zGrid.prototype.render = function () {
+        var _this = this;
         var table = document.createElement('table');
         var head = document.createElement('thead');
         var body = document.createElement('tbody');
         var headerRow = document.createElement('tr');
-        configuration.columns.forEach(function (c) {
+        this.columns.forEach(function (c) {
             var title = document.createElement('th');
             title.innerText = c.name;
             headerRow.appendChild(title);
@@ -256,9 +253,9 @@ export default function createzGrid(args) {
         head.appendChild(headerRow);
         table.appendChild(head);
         // add data
-        configuration.data.forEach(function (d) {
+        this.data.forEach(function (d) {
             var row = document.createElement('tr');
-            configuration.columns.forEach(function (c) {
+            _this.columns.forEach(function (c) {
                 var cell = document.createElement('td');
                 cell.innerText = d[c.name];
                 row.appendChild(cell);
@@ -266,15 +263,9 @@ export default function createzGrid(args) {
             body.appendChild(row);
         });
         table.appendChild(body);
-        configuration.parent.appendChild(table);
+        this.parent.appendChild(table);
     };
-    var obj = {
-        getRow: getRow,
-        getData: getData,
-        getPage: getPage,
-        setPage: setPage,
-        setFilter: setFilter,
-        render: render
-    };
-    return obj;
-}
+    ;
+    return zGrid;
+}());
+export default zGrid;
