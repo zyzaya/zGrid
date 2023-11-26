@@ -17,48 +17,48 @@ describe('Columns', () => {
   test('is null', () => {
     configuration.columns = null;
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).toThrow(TypeError);
   });
 
   test('is undefined', () => {
     configuration.columns = undefined;
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).toThrow(TypeError);
   });
 
   test('is not array', () => {
     configuration.columns = {};
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).toThrow(TypeError);
   });
 
   test('is empty', () => {
     configuration.columns = [];
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).toThrow(Error);
   });
 
   test('has elements that are neither string nor object', () => {
     configuration.columns = [[], 1];
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).toThrow(TypeError);
   });
 
   test('object element has no name', () => {
     configuration.columns = ['one', {}];
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).toThrow(TypeError);
   });
 
   test('is valid', () => {
     expect(() => {
-      zGrid(configuration);
+      new zGrid(configuration);
     }).not.toThrow(Error);
   });
 });
