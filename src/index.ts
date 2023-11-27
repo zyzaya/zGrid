@@ -1,7 +1,7 @@
 import zGrid from './zGrid';
 import { faker } from '@faker-js/faker';
 
-let container = document.getElementById('container');
+let container = document.getElementById('container1');
 
 faker.seed(96);
 
@@ -31,6 +31,20 @@ let grid = new zGrid({
   columns: ['ID', 'First Name', 'Last Name', 'Phone Number', 'Email'],
   data: testData,
 });
+
+let current = 1;
+let toggle = document.getElementById('switch');
+toggle.onclick = (e) => {
+  current = current === 1 ? 2 : 1
+  console.log(current)
+  grid.reconfigure({
+    parent: document.getElementById(`container${current}`),
+    columns: [],
+  })
+  grid.render()
+}
+
+
 grid.sort((a, b) => { return 0 })
 grid.sort('ID', false)
 grid.render();
