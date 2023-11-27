@@ -49,6 +49,19 @@ describe('Pagination', () => {
     let grid = new zGrid(configuration);
     expect(grid.getData()).toStrictEqual(data.slice(0, 5));
   });
+
+  describe('Reconfigure', () => {
+    test('reconfiguring pagination', () => {
+      configuration.pagination = 3;
+      let grid = new zGrid(configuration);
+      expect(grid.getData().length).toBe(3);
+      grid.reconfigure({
+        pagination: 10,
+      });
+      console.log(grid.getData().length);
+      expect(grid.getData().length).toBe(10);
+    });
+  });
 });
 
 // set page (get page + 1), set page (get page -1), set page, get page, last page, setpage(0)

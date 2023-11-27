@@ -216,6 +216,9 @@ export default class zGrid {
     if (config.columns !== undefined) {
       this.columns = this.configureColumns(config.columns)
     }
+    if (config.pagination !== undefined) {
+      this.pagination = this.configurePagination(config.pagination)
+    }
   }
 
   public getRow(index: number): Record<string, string>  {
