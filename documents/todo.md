@@ -1,5 +1,13 @@
-- column specific sort
-- column specific sort disabling
-- global sort
 - add id value to columan configuration
 	- use id in column related functions
+- implemenent ability to programmatically reconfigure
+- add getAllData function
+- update ui
+  - resizing
+  - sorting by clicking on column header
+  - search box
+  - pagination elements
+  - user defined styling
+- selections
+- callbacks
+- data populated by server request?
