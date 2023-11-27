@@ -108,38 +108,38 @@ export default class zGrid {
    * @param config.filter How the grid is filtered
    */
   constructor(config: Configuration) {
-    this.parent = this.configureParent(config);
-    this.columns = this.configureColumns(config);
-    this.data = this.configureData(config);
-    this.pagination = this.configurePagination(config);
-    this.filter = this.configureFilter(config);
+    this.parent = this.configureParent(config.parent);
+    this.columns = this.configureColumns(config.columns);
+    this.data = this.configureData(config.data);
+    this.pagination = this.configurePagination(config.pagination);
+    this.filter = this.configureFilter(config.filter);
   }
 
-  private configureParent(args: Configuration): HTMLElement {
-    if (args.parent === null) {
+  private configureParent(parent: HTMLElement): HTMLElement {
+    if (parent === null) {
       throw new TypeError('Parent cannot be null');
-    } else if (args.parent === undefined) {
+    } else if (parent === undefined) {
       throw new TypeError('Parent cannot be undefined');
-    } else if (!(args.parent instanceof HTMLElement)) {
+    } else if (!(parent instanceof HTMLElement)) {
       throw new TypeError('Parent must be HTMLElement');
-    } else if (args.parent.hasChildNodes()) {
+    } else if (parent.hasChildNodes()) {
       throw new TypeError('Parent must not have child nodes');
     }
-    return args.parent;
+    return parent;
   }
 
-  private configureColumns(args: Configuration): Array<ColumnConfiguration> {
-    if (args.columns === null) {
+  private configureColumns(columns: Array<ColumnConfiguration | string>): Array<ColumnConfiguration> {
+    if (columns === null) {
       throw new TypeError('Columns cannot be null');
-    } else if (args.columns === undefined) {
+    } else if (columns === undefined) {
       throw new TypeError('Columns cannot be undefined');
-    } else if (!Array.isArray(args.columns)) {
+    } else if (!Array.isArray(columns)) {
       throw new TypeError('Columns must be array or object');
-    } else if (args.columns.length < 1) {
+    } else if (columns.length < 1) {
       throw new Error('Columns length must be at least 1');
     }
-    let columns: Array<ColumnConfiguration> = [];
-    columns = args.columns.map((e) => {
+    let ret: Array<ColumnConfiguration> = [];
+    ret = columns.map((e) => {
       let col: ColumnConfiguration;
       if (typeof e === 'string') {
         col = {
@@ -159,16 +159,16 @@ export default class zGrid {
       }
       return col;
     });
-    return columns;
+    return ret;
   }
 
-  private configureData(args: Configuration): Array<Record<string, string>> {
-    let data: Array<Record<string, string>>
-    if (!Array.isArray(args.data)) {
+  private configureData(data: Array<Record<string, string> | Array<string>>): Array<Record<string, string>> {
+    let ret: Array<Record<string, string>>
+    if (!Array.isArray(data)) {
       throw new TypeError('Data must be an array');
     }
 
-    data = args.data.map((e) => {
+    ret = data.map((e) => {
       let row: Record<string, string> = {};
       if (Array.isArray(e)) {
         this.columns.forEach((c, i) => {
@@ -181,37 +181,37 @@ export default class zGrid {
       }
       return row;
     });
-    return data;
+    return ret;
   }
 
-  private configurePagination(args: Configuration): false | number {
-    let pagination: false | number;
-    if (!args.pagination) {
-      pagination = false;
-    } else if (typeof args.pagination === 'number' && args.pagination > 0) {
-      pagination = args.pagination;
+  private configurePagination(pagination: false | number): false | number {
+    let ret: false | number;
+    if (!pagination) {
+      ret = false;
+    } else if (typeof pagination === 'number' && pagination > 0) {
+      ret = pagination;
     } else {
       throw new TypeError('Pagination must be a number greater than 0');
     }
-    return pagination;
+    return ret;
   }
 
-  private configureFilter(args: Configuration): string | FilterCallback {
-    let filter: string | FilterCallback;
-    if (!args.filter) {
-      filter = '';
-    } else if (typeof args.filter === 'string' || typeof args.filter === 'function') {
-      filter = args.filter;
+  private configureFilter(filter: string | FilterCallback): string | FilterCallback {
+    let ret: string | FilterCallback;
+    if (!filter) {
+      ret = '';
+    } else if (typeof filter === 'string' || typeof filter === 'function') {
+      ret = filter;
     } else {
       throw new TypeError('Filter must be a string or function');
     }
-    return filter;
+    return ret;
   }
 
-  public reconfigure(config: Configuration = {parent: this.parent, columns: this.columns}) {
-    if (config.parent !== this.parent) {
+  public reconfigure(config: Partial<Configuration>) {
+    if (config.parent !== undefined) {
       this.parent.replaceChildren()
-      this.parent = this.configureParent(config)
+      this.parent = this.configureParent(config.parent)
     }
   }
 
@@ -388,7 +388,6 @@ export default class zGrid {
     head.appendChild(headerRow);
     table.appendChild(head);
     // add data
-    console.log(this.data)
     this.data.forEach((d) => {
       let row = document.createElement('tr');
       this.columns.forEach((c) => {

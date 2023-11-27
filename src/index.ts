@@ -44,7 +44,6 @@ toggle.onclick = (e) => {
   grid.render()
 }
 
-
 grid.sort((a, b) => { return 0 })
 grid.sort('ID', false)
 grid.render();
