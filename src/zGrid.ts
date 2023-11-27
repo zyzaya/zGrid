@@ -208,6 +208,10 @@ export default class zGrid {
     return filter;
   }
 
+  public reconfigure(config: Configuration = {parent: this.parent, columns: this.columns}) {
+    if (config.parent !== this.parent) this.configureParent(config)
+  }
+
   public getRow(index: number): Record<string, string>  {
     if (index < 0) {
       throw new RangeError('index cannot be less than zero');
