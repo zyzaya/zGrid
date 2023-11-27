@@ -30,12 +30,18 @@ export default class zGrid {
   private filter: string | FilterCallback;
   private sortConfig: false | SortOptions | CompareRows;
 
-  constructor(args: Configuration) {
-    this.parent = this.configureParent(args);
-    this.columns = this.configureColumns(args);
-    this.data = this.configureData(args);
-    this.pagination = this.configurePagination(args);
-    this.filter = this.configureFilter(args);
+  /**
+   * 
+   * @param {Configuration} config 
+   * A configuration object defining how the grid 
+   * functions and the data it contains.
+   */
+  constructor(config: Configuration) {
+    this.parent = this.configureParent(config);
+    this.columns = this.configureColumns(config);
+    this.data = this.configureData(config);
+    this.pagination = this.configurePagination(config);
+    this.filter = this.configureFilter(config);
   }
 
   private configureParent(args: Configuration): HTMLElement {
@@ -218,10 +224,30 @@ export default class zGrid {
     }
   };
 
+  /**
+   * Clears any existing sort.
+   */
   public sort(): void;
+  /**
+   * Clears any existing sort when sort is set to false.
+   * @param sort
+   */
   public sort(sort: false): void;
+  /**
+   * Defines a compare function to sort the data by.
+   * @param sort 
+   */
   public sort(sort: CompareRows): void;
+  /**
+   * Sorts the data by the named column
+   * @param {string} column The name of the column to sort by.
+   */
   public sort(column: string): void;
+  /**
+   * Sorts the data by the named column
+   * @param column The name of the column to sort by.
+   * @param ascending Whether to sort in ascending or descending order. 
+   */
   public sort(column: string, ascending: boolean): void;
   public sort(column?: string | false | CompareRows, ascending: boolean = true) {
     if (column == undefined || column == false) {

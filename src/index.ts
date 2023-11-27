@@ -26,12 +26,11 @@ for (let i = 0; i < 10; i++) {
   testData.push(record);
 }
 
-console.log(testData);
-
 let grid = new zGrid({
   parent: container,
   columns: ['ID', 'First Name', 'Last Name', 'Phone Number', 'Email'],
   data: testData,
 });
 
+grid.sort('ID', false)
 grid.render();
