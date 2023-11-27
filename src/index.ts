@@ -32,18 +32,5 @@ let grid = new zGrid({
   data: testData,
 });
 
-new zGrid({
-  parent: container,
-  columns: [
-    'one', 
-    {
-      name: 'two',
-      sort: (a, b) => {return 1},
-      visible: false
-    }
-  ],
-  pagination: 1,
-})
-
 grid.sort('ID', false)
 grid.render();

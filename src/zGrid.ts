@@ -220,7 +220,13 @@ export default class zGrid {
       ...this.data[index],
     };
   };
-
+  /**
+   * Gets the currently displayed data, after filtering
+   * sorting, and pagination are applied.
+   * @returns An array of objects. Each element of the array is a single row.
+   * The objects are key-value pairs where the key is the name of a column and
+   * the value is what is in that cell.
+   */
   public getData(): Array<Record<string, string>> {
     let ret: Array<Record<string, string>> = [];
     let page = [];
@@ -285,7 +291,10 @@ export default class zGrid {
     }
     this.currentPage = page;
   };
-
+  /**
+   * Sets 
+   * @param filter 
+   */
   public setFilter(filter?: string | FilterCallback) {
     let f = filter === undefined ? '' : filter;
     if (typeof filter === 'string' || typeof filter === 'function') {
