@@ -36,6 +36,28 @@ describe('Data', () => {
       new zGrid(configuration);
     }).not.toThrow(Error);
   });
+
+  describe('Reconfigure', () => {
+    test('reconfiguring data', () => {
+      let grid = new zGrid(configuration);
+      let data = [
+        {
+          'first name': 'first',
+          'last name': 'last',
+          email: 'email@email.ca',
+        },
+        {
+          'first name': 'Jane',
+          'last name': 'Smith',
+          email: 'janesmith@some.thing',
+        },
+      ];
+      grid.reconfigure({
+        data: data,
+      });
+      expect(grid.getData()).toStrictEqual(data);
+    });
+  });
 });
 
 describe('getRow', () => {

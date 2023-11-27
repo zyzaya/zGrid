@@ -216,6 +216,9 @@ export default class zGrid {
     if (config.columns !== undefined) {
       this.columns = this.configureColumns(config.columns)
     }
+    if (config.data !== undefined) {
+      this.data = this.configureData(config.data)
+    }
     if (config.pagination !== undefined) {
       this.pagination = this.configurePagination(config.pagination)
     }
