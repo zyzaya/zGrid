@@ -8,16 +8,82 @@ type SortOptions = {
 }
 
 type ColumnConfiguration = {
+  /**
+   * The name of the column
+   */
   name: string;
-  sort: boolean | CompareEntries;
-  visible: boolean;
+  /**
+   * When set to a boolean it defines if the grid can (or cannot)
+   * be sorted by that column
+   * Default value is true.
+   * 
+   * Alternatively it can be set to a compare function that takes
+   * two rows (a, b) as parameters and returns 0, >0, or <0. 
+   * 
+   * return value | sort order |
+   * :----------- | ---------- |
+   * \> 0         | sort a after b, e.g. b, a |
+   * \< 0         | sort b after a, e.g. a, b |
+   * === 0        | keep original order of a and b |
+   * 
+   */
+  sort?: boolean | CompareEntries;
+  /**
+   * If the column should be displayed.
+   * Defaults value is true.
+   */
+  visible?: boolean;
 }
 
 type Configuration = {
+  /**
+   * Contains the grid. Cannot have any child elements.
+   */
   parent: HTMLElement
+  /**
+   * Defines the columns of the grid.
+   */
   columns: Array<ColumnConfiguration | string>
+  /**
+   * Defines what is displayed in the cells of the table.
+   * Default value is an empty array.
+   * 
+   * An array where each element is a row. Rows can be described using either
+   * an array or an object.
+   * 
+   * - **array**: Defines the row as an array of strings. Each
+   * string is a column and will be in the same order that the column headings
+   * are defined in.
+   * - **object**: Defines the row using key-value pairs. The key is the name of the
+   * column as defined in the column configuration. The value is a string that is
+   * displayed in the cell
+   * 
+   * Extra values or values with a key that doesn't match a column are ignored. If
+   * additional columns are added later these values can still be displayed
+   * 
+   * Values that are not explicitly defined are set to an empty string.
+   */
   data?: Array<Record<string, string> | Array<string>>
+  /**
+   * Defines how pagination functions in the grid.
+   * Default value is false.
+   * 
+   * - **false**: pagination is disabled and all values are displayed
+   * on a single page.
+   * - **number**: defines how many rows are displayed per page.
+   * Must be positive.
+   */
   pagination?: false | number;
+  /**
+   * Defines conditions to hide or display certain rows
+   * Default value is an empty string.
+   * 
+   * - **string**: only displays rows that have a cell that contains that string
+   * - **FilterCallBack**: a function that accepts a row as an argument and returns a boolean.
+   * If true that row will be displayed, otherwise it will be hidden. The row
+   * argument is an object where the keys are column names and the values are 
+   * the entries in that column.
+   */
   filter?: string | FilterCallback;
 }
 
@@ -34,16 +100,12 @@ export default class zGrid {
    * 
    * @param {Configuration} config 
    * A configuration object defining how the grid 
-   * functions and the data it contains. It contains the following options:
-   * @param config.parent
-   * An HTMLElement that is the container to the grid.
-   * It cannot have any child elements.
-   * @param config.columns
-   * An array defining the columns. Elements of the array can be a string,
-   * representing the columns names. Or an object with the following properties: 
-   * name - a string that is the column name
-   * sort - undefined or a compare function describing how the column should be sorted
-   * visible - a boolean describing if the column is displayed. Defaults to true.
+   * functions and the data it contains.
+   * @param config.parent The HTMLElement that contains the grid
+   * @param config.columns The columns that the grid contains
+   * @param config.data The data within the grid
+   * @param config.pagination How the grid handles pagination
+   * @param config.filter How the grid is filtered
    */
   constructor(config: Configuration) {
     this.parent = this.configureParent(config);
