@@ -222,6 +222,9 @@ export default class zGrid {
     if (config.pagination !== undefined) {
       this.pagination = this.configurePagination(config.pagination)
     }
+    if (config.filter !== undefined) {
+      this.filter = this.configureFilter(config.filter)
+    }
   }
 
   public getRow(index: number): Record<string, string>  {

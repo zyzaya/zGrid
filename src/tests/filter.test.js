@@ -112,4 +112,12 @@ describe('Filter', () => {
     grid.getData();
     expect(filter).not.toHaveBeenCalledWith(entry);
   });
+
+  describe('Reconfigure', () => {
+    test('reconfigure filter', () => {
+      let grid = new zGrid(configuration);
+      grid.reconfigure({ filter: 'example.test' });
+      expect(grid.getData()).toStrictEqual(markedEmail);
+    });
+  });
 });
