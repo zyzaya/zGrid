@@ -39,7 +39,6 @@ toggle.onclick = (e) => {
   console.log(current)
   grid.reconfigure({
     parent: document.getElementById(`container${current}`),
-    columns: [],
   })
   grid.render()
 }

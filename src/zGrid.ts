@@ -213,6 +213,9 @@ export default class zGrid {
       this.parent.replaceChildren()
       this.parent = this.configureParent(config.parent)
     }
+    // if (config.columns !== undefined) {
+    //   this.columns = this.configureColumns(config.columns)
+    // }
   }
 
   public getRow(index: number): Record<string, string>  {
