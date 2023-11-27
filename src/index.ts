@@ -31,6 +31,6 @@ let grid = new zGrid({
   columns: ['ID', 'First Name', 'Last Name', 'Phone Number', 'Email'],
   data: testData,
 });
-
+grid.sort((a, b) => { return 0 })
 grid.sort('ID', false)
 grid.render();

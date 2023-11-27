@@ -321,17 +321,29 @@ export default class zGrid {
    */
   public sort(sort: false): void;
   /**
-   * Defines a compare function to sort the data by.
-   * @param sort 
+   * Sorts data by using the given compare function.
+   * @param sort
+   * A compare function that takes
+   * two rows (a, b) as parameters and returns 0, >0, or <0. 
+   * 
+   * return value | sort order |
+   * :----------- | ---------- |
+   * \> 0         | sort a after b, e.g. b, a |
+   * \< 0         | sort b after a, e.g. a, b |
+   * === 0        | keep original order of a and b |
    */
   public sort(sort: CompareRows): void;
   /**
-   * Sorts the data by the named column
-   * @param {string} column The name of the column to sort by.
+   * Sorts the data by the named column. If the configuration for that
+   * column has a sort function that function is used to sort it. Otherwise it uses
+   * Javascript's localeCompare.
+   * @param column The name of the column to sort by.
    */
   public sort(column: string): void;
   /**
-   * Sorts the data by the named column
+      * Sorts the data by the named column. If the configuration for that
+   * column has a sort function that function is used to sort it. Otherwise it uses
+   * Javascript's localeCompare.
    * @param column The name of the column to sort by.
    * @param ascending Whether to sort in ascending or descending order. 
    */
