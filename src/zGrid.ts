@@ -79,7 +79,7 @@ type Configuration = {
    * Default value is an empty string.
    * 
    * - **string**: only displays rows that have a cell that contains that string
-   * - **FilterCallBack**: a function that accepts a row as an argument and returns a boolean.
+   * - **FilterCallback**: a function that accepts a row as an argument and returns a boolean.
    * If true that row will be displayed, otherwise it will be hidden. The row
    * argument is an object where the keys are column names and the values are 
    * the entries in that column.
@@ -292,8 +292,15 @@ export default class zGrid {
     this.currentPage = page;
   };
   /**
-   * Sets 
-   * @param filter 
+   * Defines conditions to hide or display certain rows 
+   * @param filter How to filter the data 
+   * 
+   * - **string**: Only displays rows that have a cell that contains
+   * that string
+   * - **FilterCallback**: a function that accepts a row as an argument and returns a boolean.
+   * If true that row will be displayed, otherwise it will be hidden. The row
+   * argument is an object where the keys are column names and the values are 
+   * the entries in that column.
    */
   public setFilter(filter?: string | FilterCallback) {
     let f = filter === undefined ? '' : filter;
