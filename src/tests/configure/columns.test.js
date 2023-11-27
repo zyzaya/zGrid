@@ -61,4 +61,32 @@ describe('Columns', () => {
       new zGrid(configuration);
     }).not.toThrow(Error);
   });
+
+  describe('Reconfigure', () => {
+    test('reconfiguring columns', () => {
+      let grid = new zGrid(configuration);
+      let newColumns = ['two', { name: 'three' }];
+      expect(() => {
+        grid.reconfigure({
+          columns: newColumns,
+        });
+      }).not.toThrow(Error);
+    });
+
+    test('changes available columns', () => {
+      configuration.data = [{ one: 'a', two: 'b', three: 'c' }];
+      configuration.columns = ['one', 'two'];
+      let grid = new zGrid(configuration);
+      let data = grid.getData();
+      expect(() => {
+        grid.sort('one');
+      }).not.toThrow(Error);
+      grid.reconfigure({
+        columns: ['two', 'three'],
+      });
+      expect(() => {
+        grid.sort('one');
+      }).toThrow(Error);
+    });
+  });
 });
