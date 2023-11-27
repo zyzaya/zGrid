@@ -209,7 +209,10 @@ export default class zGrid {
   }
 
   public reconfigure(config: Configuration = {parent: this.parent, columns: this.columns}) {
-    if (config.parent !== this.parent) this.parent = this.configureParent(config)
+    if (config.parent !== this.parent) {
+      this.parent.replaceChildren()
+      this.parent = this.configureParent(config)
+    }
   }
 
   public getRow(index: number): Record<string, string>  {
@@ -396,7 +399,6 @@ export default class zGrid {
       body.appendChild(row);
     });
     table.appendChild(body);
-    console.log(this.parent)
     this.parent.appendChild(table);
   };
 }
