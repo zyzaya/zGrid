@@ -15,8 +15,8 @@ type ColumnConfiguration = {
 
 type Configuration = {
   parent: HTMLElement
-  columns: Array<ColumnConfiguration> | Array<string>
-  data?: Array<Record<string, string>> | Array<Array<string>>
+  columns: Array<ColumnConfiguration | string>
+  data?: Array<Record<string, string> | Array<string>>
   pagination?: false | number;
   filter?: string | FilterCallback;
 }
@@ -34,7 +34,16 @@ export default class zGrid {
    * 
    * @param {Configuration} config 
    * A configuration object defining how the grid 
-   * functions and the data it contains.
+   * functions and the data it contains. It contains the following options:
+   * @param config.parent
+   * An HTMLElement that is the container to the grid.
+   * It cannot have any child elements.
+   * @param config.columns
+   * An array defining the columns. Elements of the array can be a string,
+   * representing the columns names. Or an object with the following properties: 
+   * name - a string that is the column name
+   * sort - undefined or a compare function describing how the column should be sorted
+   * hide - a boolean describing if the column is displayed. Defaults to true.
    */
   constructor(config: Configuration) {
     this.parent = this.configureParent(config);
