@@ -10,7 +10,7 @@ type SortOptions = {
 type ColumnConfiguration = {
   name: string;
   sort: boolean | CompareEntries;
-  hide: boolean;
+  visible: boolean;
 }
 
 type Configuration = {
@@ -43,7 +43,7 @@ export default class zGrid {
    * representing the columns names. Or an object with the following properties: 
    * name - a string that is the column name
    * sort - undefined or a compare function describing how the column should be sorted
-   * hide - a boolean describing if the column is displayed. Defaults to true.
+   * visible - a boolean describing if the column is displayed. Defaults to true.
    */
   constructor(config: Configuration) {
     this.parent = this.configureParent(config);
@@ -83,7 +83,7 @@ export default class zGrid {
         col = {
           name: e,
           sort: true,
-          hide: false
+          visible: true
         }
       } else if (typeof e === 'object') {
         if (e.name === undefined) {
@@ -92,7 +92,7 @@ export default class zGrid {
         col = {
           name: e.name,
           sort: e.sort === undefined ? true : e.sort,
-          hide: e.hide === undefined ? false : e.hide,
+          visible: e.visible === undefined ? true : e.visible,
         }
       }
       return col;
