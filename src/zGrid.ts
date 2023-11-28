@@ -1,3 +1,5 @@
+import HeaderCell from "./HeaderCell";
+
 type FilterCallback = (row: Record<string, string>) => boolean;
 type CompareEntries = (a: string, b: string) => number;
 type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number
@@ -394,10 +396,8 @@ export default class zGrid {
     let body = document.createElement('tbody');
     let headerRow = document.createElement('tr');
     this.columns.forEach((c) => {
-      let title = document.createElement('th');
-      title.classList.add('zgrid_header');
+      let title = new HeaderCell(headerRow);
       title.innerText = c.name;
-      headerRow.appendChild(title);
     });
     head.appendChild(headerRow);
     table.appendChild(head);
