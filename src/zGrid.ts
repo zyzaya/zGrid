@@ -396,6 +396,9 @@ export default class zGrid {
     let body = document.createElement('tbody');
     let headerRow = document.createElement('tr');
     this.columns.forEach((c) => {
+      let config = this.columns.find((e) => e.name === c.name)
+      if (config.visible === false) return;
+
       let title = new HeaderCell(headerRow);
       title.onsort = (sort) => {
         if (sort === "none") {
@@ -410,10 +413,11 @@ export default class zGrid {
       if (typeof this.sortConfig === "object" && this.sortConfig.column === c.name) {
         title.sort = this.sortConfig.ascending ? "ascending" : "descending"
       }
-      let config = this.columns.find((e) => e.name === c.name)
-      if (config !== undefined && config.sort === false) {
-        title.enableSort(false)
+      
+      if (config !== undefined) {
+        if (config.sort === false) title.enableSort(false);
       }
+
       title.innerText = c.name;
     });
     head.appendChild(headerRow);
@@ -423,6 +427,9 @@ export default class zGrid {
       let row = document.createElement('tr');
       row.classList.add('zgrid_row');
       this.columns.forEach((c) => {
+        let config = this.columns.find((e) => e.name === c.name)
+        if (config.visible === false) return;
+        
         let cell = document.createElement('td');
         cell.classList.add('zgrid_cell');
         cell.innerText = d[c.name];

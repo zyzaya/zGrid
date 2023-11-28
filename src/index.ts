@@ -30,7 +30,8 @@ let grid = new zGrid({
   parent: container,
   columns: [
     {
-      name: 'ID'
+      name: 'ID',
+      visible: false
     }, 
     'First Name', 
     {

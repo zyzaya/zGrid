@@ -8,6 +8,7 @@ export default class HeaderCell {
   private sortDescending: HTMLButtonElement;
   private current_sort: Sort = "none";
   private sort_enabled: boolean = true;
+  private visible: boolean = true;
   onsort: (sort: Sort) => void
 
   constructor(parent: HTMLTableRowElement) {
