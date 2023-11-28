@@ -410,6 +410,11 @@ export default class zGrid {
       if (typeof this.sortConfig === "object" && this.sortConfig.column === c.name) {
         title.sort = this.sortConfig.ascending ? "ascending" : "descending"
       }
+      let config = this.columns.find((e) => e.name === c.name)
+      console.log(config)
+      if (config !== undefined && config.sort === false) {
+        title.enableSort(false)
+      }
       title.innerText = c.name;
     });
     head.appendChild(headerRow);

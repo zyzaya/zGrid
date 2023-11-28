@@ -28,7 +28,17 @@ for (let i = 0; i < 10; i++) {
 
 let grid = new zGrid({
   parent: container,
-  columns: ['ID', 'First Name', 'Last Name', 'Phone Number', 'Email'],
+  columns: [
+    {
+      name: 'ID'
+    }, 
+    'First Name', 
+    {
+      name: 'Last Name',
+      sort: false
+    },
+    'Phone Number',
+    'Email'],
   data: testData,
 });
 
@@ -42,6 +52,8 @@ toggle.onclick = (e) => {
   })
   grid.render()
 }
+
+
 
 grid.sort((a, b) => { return 0 })
 grid.sort('ID', false)

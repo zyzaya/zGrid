@@ -3,9 +3,11 @@ type Sort = "ascending" | "descending" | "none";
 export default class HeaderCell {
   private element: HTMLTableCellElement;
   private title: HTMLDivElement;
+  private buttonContainer: HTMLDivElement;
   private sortAscending: HTMLButtonElement;
   private sortDescending: HTMLButtonElement;
   private current_sort: Sort = "none";
+  private sort_enabled: boolean = true;
   onsort: (sort: Sort) => void
 
   constructor(parent: HTMLTableRowElement) {
@@ -18,12 +20,14 @@ export default class HeaderCell {
     this.title = document.createElement('div')
     this.title.classList.add('zgrid_title')
 
-    let button_container = document.createElement('div')
-    button_container.classList.add('zgrid_sort_button_container')
+    this.buttonContainer = document.createElement('div')
+    this.buttonContainer.classList.add('zgrid_sort_button_container')
     this.sortAscending = document.createElement('button')
     this.sortAscending.classList.add('zgrid_sort_button')
     this.sortAscending.innerText = "▲"
     this.sortAscending.onclick = (e) => {
+      if (!this.sort_enabled) return
+
       this.sort = this.current_sort === "ascending" ? "none" : "ascending"
       if (this.onsort !== undefined) this.onsort(this.current_sort)
       e.stopPropagation()
@@ -32,22 +36,26 @@ export default class HeaderCell {
     this.sortDescending.classList.add('zgrid_sort_button')
     this.sortDescending.innerText = "▼"
     this.sortDescending.onclick = (e) => {
+      if (!this.sort_enabled) return
+
       this.sort = this.sort === "descending" ? "none" : "descending"
       if (this.onsort !== undefined) this.onsort(this.sort)
       e.stopPropagation()
     }
 
     this.element.onclick = (e) => {
+      if (!this.sort_enabled) return
+      
       if (this.sort === "none") this.sort = "ascending"
       else if (this.sort === "ascending") this.sort = "descending"
       else if (this.sort === "descending") this.sort = "none"
       if (this.onsort !== undefined) this.onsort(this.sort)
     }
-    button_container.appendChild(this.sortAscending)
-    button_container.appendChild(this.sortDescending)
+    this.buttonContainer.appendChild(this.sortAscending)
+    this.buttonContainer.appendChild(this.sortDescending)
     
     container.appendChild(this.title)
-    container.appendChild(button_container);
+    container.appendChild(this.buttonContainer);
     
     this.element.appendChild(container);
     parent.appendChild(this.element)
@@ -76,5 +84,11 @@ export default class HeaderCell {
 
   get sort() {
     return this.current_sort;
+  }
+
+  enableSort(enable: boolean) {
+    if (enable) this.buttonContainer.classList.remove("zgrid_hidden")
+    else this.buttonContainer.classList.add("zgrid_hidden")
+    this.sort_enabled = enable;
   }
 }
