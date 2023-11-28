@@ -6,7 +6,7 @@ export default class HeaderCell {
   private sortAscending: HTMLButtonElement;
   private sortDescending: HTMLButtonElement;
   private current_sort: Sort = "none";
-  private onsort: (sort: Sort) => {}
+  onsort: (sort: Sort) => void
 
   constructor(parent: HTMLTableRowElement) {
     this.element = document.createElement('th');

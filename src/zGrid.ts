@@ -397,12 +397,25 @@ export default class zGrid {
     let headerRow = document.createElement('tr');
     this.columns.forEach((c) => {
       let title = new HeaderCell(headerRow);
+      title.onsort = (sort) => {
+        if (sort === "none") {
+          this.sort(false)
+        } else {
+          let ascending = sort === "ascending"
+          this.sort(c.name, ascending)
+        }
+        this.parent.replaceChildren()
+        this.render()
+      }
+      if (typeof this.sortConfig === "object" && this.sortConfig.column === c.name) {
+        title.sort = this.sortConfig.ascending ? "ascending" : "descending"
+      }
       title.innerText = c.name;
     });
     head.appendChild(headerRow);
     table.appendChild(head);
     // add data
-    this.data.forEach((d) => {
+    this.getData().forEach((d) => {
       let row = document.createElement('tr');
       row.classList.add('zgrid_row');
       this.columns.forEach((c) => {
