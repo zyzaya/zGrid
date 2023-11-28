@@ -55,6 +55,6 @@ toggle.onclick = (e) => {
 
 
 
-grid.sort((a, b) => { return 0 })
-grid.sort('ID', false)
+// grid.sort((a, b) => { return 0 })
+// grid.sort('ID', false)
 grid.render();

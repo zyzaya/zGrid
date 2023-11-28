@@ -270,7 +270,7 @@ export default class zGrid {
         });
       }
     } else {
-      filtered = this.data;
+      filtered = [...this.data];
     }
     // sorting
     if (this.sortConfig) {
@@ -411,7 +411,6 @@ export default class zGrid {
         title.sort = this.sortConfig.ascending ? "ascending" : "descending"
       }
       let config = this.columns.find((e) => e.name === c.name)
-      console.log(config)
       if (config !== undefined && config.sort === false) {
         title.enableSort(false)
       }
