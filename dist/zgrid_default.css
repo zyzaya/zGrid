@@ -39,6 +39,14 @@
   border: none;
 }
 
+.zgrid_sort_button:hover {
+  cursor: pointer;
+}
+
+.zgrid_sort_button_active {
+  color: black;
+}
+
 .zgrid_header:first-child {
   border-left: none;
 }
@@ -49,10 +57,6 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.zgrid_row {
-
 }
 
 .zgrid_cell:first-child {
