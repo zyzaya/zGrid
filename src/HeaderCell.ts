@@ -54,7 +54,7 @@ export default class HeaderCell {
     this.buttonContainer.appendChild(this.sortAscending)
     this.buttonContainer.appendChild(this.sortDescending)
     
-    let resize = document.createElement('div');
+    let resize = document.createElement('button');
     resize.classList.add('zgrid_column_resize');
 
     container.appendChild(this.title)
