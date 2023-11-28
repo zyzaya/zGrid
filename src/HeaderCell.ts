@@ -8,7 +8,6 @@ export default class HeaderCell {
   private sortDescending: HTMLButtonElement;
   private current_sort: Sort = "none";
   private sort_enabled: boolean = true;
-  private visible: boolean = true;
   onsort: (sort: Sort) => void
 
   constructor(parent: HTMLTableRowElement) {
@@ -55,9 +54,13 @@ export default class HeaderCell {
     this.buttonContainer.appendChild(this.sortAscending)
     this.buttonContainer.appendChild(this.sortDescending)
     
+    let resize = document.createElement('div');
+    resize.classList.add('zgrid_column_resize');
+
     container.appendChild(this.title)
     container.appendChild(this.buttonContainer);
-    
+    container.appendChild(resize);
+
     this.element.appendChild(container);
     parent.appendChild(this.element)
   }
