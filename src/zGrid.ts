@@ -389,11 +389,13 @@ export default class zGrid {
 
   public render() {
     let table = document.createElement('table');
+    table.classList.add('zgrid_table');
     let head = document.createElement('thead');
     let body = document.createElement('tbody');
     let headerRow = document.createElement('tr');
     this.columns.forEach((c) => {
       let title = document.createElement('th');
+      title.classList.add('zgrid_header');
       title.innerText = c.name;
       headerRow.appendChild(title);
     });
@@ -402,8 +404,10 @@ export default class zGrid {
     // add data
     this.data.forEach((d) => {
       let row = document.createElement('tr');
+      row.classList.add('zgrid_row');
       this.columns.forEach((c) => {
         let cell = document.createElement('td');
+        cell.classList.add('zgrid_cell');
         cell.innerText = d[c.name];
         row.appendChild(cell);
       });

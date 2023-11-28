@@ -1,0 +1,41 @@
+.zgrid_table {
+  border: 1px solid gray;
+  border-radius: 10px;
+  border-spacing: 0;
+  border-bottom: 2px solid gray;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.zgrid_header {
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 12px 20px;
+}
+
+.zgrid_header:first-child {
+  border-left: none;
+}
+
+.zgrid_cell {
+  padding: 10px 20px;
+  border-left: 1px solid gray;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.zgrid_row {
+
+}
+
+.zgrid_cell:first-child {
+  border-left: none;
+}
+
+.zgrid_row:nth-child(odd) {
+  background-color: rgb(220, 220, 220);
+}
