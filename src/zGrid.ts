@@ -35,6 +35,12 @@ type ColumnConfiguration = {
    * Defaults value is true.
    */
   visible?: boolean;
+  /**
+   * The width, in pixels, of the column
+   * Columns with undefined widths will evenly share the
+   * remaining space.
+   */
+  width?: number;
 }
 
 type Configuration = {
@@ -410,12 +416,17 @@ export default class zGrid {
         this.parent.replaceChildren()
         this.render()
       }
+      title.onresize = (width) => {
+        config.width = width
+        console.log(config)
+      }
       if (typeof this.sortConfig === "object" && this.sortConfig.column === c.name) {
         title.sort = this.sortConfig.ascending ? "ascending" : "descending"
       }
       
       if (config !== undefined) {
         if (config.sort === false) title.enableSort(false);
+        if (config.width !== undefined) title.width = config.width
       }
 
       title.innerText = c.name;

@@ -8,7 +8,9 @@ export default class HeaderCell {
   private sortDescending: HTMLButtonElement;
   private current_sort: Sort = "none";
   private sort_enabled: boolean = true;
+  private resizing: boolean = false;
   onsort: (sort: Sort) => void
+  onresize: (width: number) => void;
 
   constructor(parent: HTMLTableRowElement) {
     this.element = document.createElement('th');
@@ -55,6 +57,22 @@ export default class HeaderCell {
     this.buttonContainer.appendChild(this.sortDescending)
     
     let resize = document.createElement('button');
+    let x = 0
+    let width = 0;
+    document.addEventListener('mousemove', (e) => {
+      if (!this.resizing) return
+      let dx = e.clientX - x;
+      this.element.style.width = `${width + dx}px`
+      if (this.onresize != undefined) this.onresize(width + dx)
+    })
+    document.addEventListener('mouseup', (e) => {
+      this.resizing = false
+    })
+    resize.onmousedown = (e) => {
+      this.resizing = true
+      x = e.clientX;
+      width = this.element.offsetWidth;
+    }
     resize.classList.add('zgrid_column_resize');
 
     container.appendChild(this.title)
@@ -88,6 +106,11 @@ export default class HeaderCell {
 
   get sort() {
     return this.current_sort;
+  }
+
+  set width(w: number | undefined) {
+    if (w === undefined) this.element.style.width = '';
+    else this.element.style.width = `${w}px`
   }
 
   enableSort(enable: boolean) {
