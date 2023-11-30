@@ -28,7 +28,7 @@ export default class HeaderCell {
     this.sortAscending.classList.add('zgrid_sort_button')
     this.sortAscending.innerText = "▲"
     this.sortAscending.onclick = (e) => {
-      if (!this.sort_enabled) return
+      if (!this.sort_enabled || this.resizing) return
 
       this.sort = this.current_sort === "ascending" ? "none" : "ascending"
       if (this.onsort !== undefined) this.onsort(this.current_sort)
@@ -38,15 +38,15 @@ export default class HeaderCell {
     this.sortDescending.classList.add('zgrid_sort_button')
     this.sortDescending.innerText = "▼"
     this.sortDescending.onclick = (e) => {
-      if (!this.sort_enabled) return
+      if (!this.sort_enabled || this.resizing) return
 
       this.sort = this.sort === "descending" ? "none" : "descending"
       if (this.onsort !== undefined) this.onsort(this.sort)
       e.stopPropagation()
     }
 
-    this.element.onclick = (e) => {
-      if (!this.sort_enabled) return
+    this.title.onclick = (e) => {
+      if (!this.sort_enabled || this.resizing) return
       
       if (this.sort === "none") this.sort = "ascending"
       else if (this.sort === "ascending") this.sort = "descending"
@@ -66,12 +66,14 @@ export default class HeaderCell {
       if (this.onresize != undefined) this.onresize(width + dx)
     })
     document.addEventListener('mouseup', (e) => {
+      if (!this.resizing) return
       this.resizing = false
     })
     resize.onmousedown = (e) => {
       this.resizing = true
       x = e.clientX;
       width = this.element.offsetWidth;
+      e.stopPropagation()
     }
     resize.classList.add('zgrid_column_resize');
 

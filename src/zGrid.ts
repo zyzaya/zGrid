@@ -418,7 +418,6 @@ export default class zGrid {
       }
       title.onresize = (width) => {
         config.width = width
-        console.log(config)
       }
       if (typeof this.sortConfig === "object" && this.sortConfig.column === c.name) {
         title.sort = this.sortConfig.ascending ? "ascending" : "descending"
