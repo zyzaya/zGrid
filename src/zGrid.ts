@@ -1,3 +1,4 @@
+import Filter from "./Filter";
 import HeaderCell from "./HeaderCell";
 
 type FilterCallback = (row: Record<string, string>) => boolean;
@@ -403,6 +404,8 @@ export default class zGrid {
     let head = document.createElement('thead');
     let body = document.createElement('tbody');
     
+    let filter = new Filter(container);
+
     this.createHeader(head)  
     table.appendChild(head);
     this.fillData(body);

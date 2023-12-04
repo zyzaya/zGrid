@@ -89,3 +89,12 @@
 .zgrid_hidden {
   display: none;
 }
+
+.zgrid_filter {
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline-offset: 2px;
+  outline-color: lightblue;
+}
