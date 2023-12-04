@@ -6,6 +6,7 @@ export default class HeaderCell {
   private buttonContainer: HTMLDivElement;
   private sortAscending: HTMLButtonElement;
   private sortDescending: HTMLButtonElement;
+  private resize: HTMLButtonElement;
   private current_sort: Sort = "none";
   private sort_enabled: boolean = true;
   private resizing: boolean = false;
@@ -22,8 +23,21 @@ export default class HeaderCell {
     this.title = document.createElement('div')
     this.title.classList.add('zgrid_title')
 
+    this.setupSorting()
+    this.setupResizing();
+      
+    container.appendChild(this.title)
+    container.appendChild(this.buttonContainer);
+    container.appendChild(this.resize);
+
+    this.element.appendChild(container);
+    parent.appendChild(this.element)
+  }
+
+  private setupSorting() {
     this.buttonContainer = document.createElement('div')
     this.buttonContainer.classList.add('zgrid_sort_button_container')
+    
     this.sortAscending = document.createElement('button')
     this.sortAscending.classList.add('zgrid_sort_button')
     this.sortAscending.innerText = "▲"
@@ -55,8 +69,10 @@ export default class HeaderCell {
     }
     this.buttonContainer.appendChild(this.sortAscending)
     this.buttonContainer.appendChild(this.sortDescending)
-    
-    let resize = document.createElement('button');
+  }
+
+  private setupResizing() {
+    this.resize = document.createElement('button')
     let x = 0
     let width = 0;
     document.addEventListener('mousemove', (e) => {
@@ -69,20 +85,13 @@ export default class HeaderCell {
       if (!this.resizing) return
       this.resizing = false
     })
-    resize.onmousedown = (e) => {
+    this.resize.onmousedown = (e) => {
       this.resizing = true
       x = e.clientX;
       width = this.element.offsetWidth;
       e.stopPropagation()
     }
-    resize.classList.add('zgrid_column_resize');
-
-    container.appendChild(this.title)
-    container.appendChild(this.buttonContainer);
-    container.appendChild(resize);
-
-    this.element.appendChild(container);
-    parent.appendChild(this.element)
+    this.resize.classList.add('zgrid_column_resize');
   }
 
   set innerText(text: string) {
