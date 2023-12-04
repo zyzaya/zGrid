@@ -99,6 +99,7 @@ type Configuration = {
 export default class zGrid {
   private currentPage = 1;
   private parent: HTMLElement;
+  private body: HTMLTableSectionElement;
   private columns: Array<ColumnConfiguration>;
   private data: Array<Record<string, string>>;
   private pagination: false | number;
@@ -118,6 +119,7 @@ export default class zGrid {
    */
   constructor(config: Configuration) {
     this.parent = this.configureParent(config.parent);
+    this.body = document.createElement('tbody');
     this.columns = this.configureColumns(config.columns);
     this.data = this.configureData(config.data);
     this.pagination = this.configurePagination(config.pagination);
@@ -402,18 +404,29 @@ export default class zGrid {
     let table = document.createElement('table');
     table.classList.add('zgrid_table');
     let head = document.createElement('thead');
-    let body = document.createElement('tbody');
     
-    let filter = new Filter(container);
+    this.renderFilter(container);
 
     this.createHeader(head)  
     table.appendChild(head);
-    this.fillData(body);
-    table.appendChild(body);
+    
+    this.fillData();
+    table.appendChild(this.body);
     
     container.appendChild(table)
     this.parent.appendChild(container);
   };
+
+  private renderFilter(container: HTMLDivElement) {
+    let filter = new Filter(container);
+    filter.oninput = (e, v) => {
+      this.reconfigure({
+        filter: v,
+      })
+      this.body.replaceChildren()
+      this.fillData();
+    }
+  }
 
   private createHeader(head: HTMLTableSectionElement) {
     let headerRow = document.createElement('tr');
@@ -449,7 +462,7 @@ export default class zGrid {
     head.appendChild(headerRow);
   }
 
-  private fillData(body: HTMLTableSectionElement) {
+  private fillData() {
     this.getData().forEach((d) => {
       let row = document.createElement('tr');
       row.classList.add('zgrid_row');
@@ -462,7 +475,7 @@ export default class zGrid {
         cell.innerText = d[c.name];
         row.appendChild(cell);
       });
-      body.appendChild(row);
+      this.body.appendChild(row);
     });
   }
 }
