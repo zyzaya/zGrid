@@ -396,6 +396,8 @@ export default class zGrid {
   };
 
   public render() {
+    let container = document.createElement('div')
+    container.classList.add('zgrid_container')
     let table = document.createElement('table');
     table.classList.add('zgrid_table');
     let head = document.createElement('thead');
@@ -406,7 +408,8 @@ export default class zGrid {
     this.fillData(body);
     table.appendChild(body);
     
-    this.parent.appendChild(table);
+    container.appendChild(table)
+    this.parent.appendChild(container);
   };
 
   private createHeader(head: HTMLTableSectionElement) {
