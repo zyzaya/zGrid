@@ -400,6 +400,16 @@ export default class zGrid {
     table.classList.add('zgrid_table');
     let head = document.createElement('thead');
     let body = document.createElement('tbody');
+    
+    this.createHeader(head)  
+    table.appendChild(head);
+    this.fillData(body);
+    table.appendChild(body);
+    
+    this.parent.appendChild(table);
+  };
+
+  private createHeader(head: HTMLTableSectionElement) {
     let headerRow = document.createElement('tr');
     this.columns.forEach((c) => {
       let config = this.columns.find((e) => e.name === c.name)
@@ -431,8 +441,9 @@ export default class zGrid {
       title.innerText = c.name;
     });
     head.appendChild(headerRow);
-    table.appendChild(head);
-    // add data
+  }
+
+  private fillData(body: HTMLTableSectionElement) {
     this.getData().forEach((d) => {
       let row = document.createElement('tr');
       row.classList.add('zgrid_row');
@@ -447,7 +458,5 @@ export default class zGrid {
       });
       body.appendChild(row);
     });
-    table.appendChild(body);
-    this.parent.appendChild(table);
-  };
+  }
 }
