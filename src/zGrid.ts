@@ -267,7 +267,7 @@ export default class zGrid {
         let filter = this.filter
         filtered = this.data.filter((r) => {
           return this.columns.some((c) =>
-            r[c.name].includes(filter)
+            r[c.name].toLocaleLowerCase().includes(filter.toLocaleLowerCase())
           );
         });
       } else if (typeof this.filter === 'function') {
