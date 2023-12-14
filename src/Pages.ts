@@ -62,8 +62,6 @@ export default class Pages {
       throw new RangeError('page cannot be less than zero')
     } else if (p > this.maxPages) {
       throw new RangeError(`page cannot be greater than the total number of pages ${this.maxPages}`)
-    } else if (this.currentPage = p) {
-      return;
     }
     
     for (let i = 0; i < this.buttons.length; i++) {

@@ -15,7 +15,7 @@ type testRecord = {
 
 let testData: testRecord[] = [];
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 100; i++) {
   let record = {
     'ID': faker.string.numeric(),
     'First Name': faker.person.firstName(),
@@ -41,6 +41,7 @@ let grid = new zGrid({
     'Phone Number',
     'Email'],
   data: testData,
+  pagination: 7
 });
 
 let current = 1;

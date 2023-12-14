@@ -415,8 +415,7 @@ export default class zGrid {
     table.appendChild(this.body);  
     container.appendChild(table)
 
-    let pagination = new Pages(container, 15)
-    // pagination.page = 13;
+    this.renderPages(container)
 
     this.parent.appendChild(container);
   };
@@ -481,5 +480,19 @@ export default class zGrid {
       });
       this.body.appendChild(row);
     });
+  }
+
+  private renderPages(container: HTMLDivElement) {
+    if (this.pagination) {
+      let pages = Math.ceil(this.data.length / this.pagination)
+      let pagination = new Pages(container, pages)
+      pagination.page = this.currentPage
+      pagination.onpagechange = (p) => {
+        this.currentPage = p;
+        this.parent.replaceChildren()
+        this.body.replaceChildren();
+        this.render();
+      }
+    }
   }
 }
