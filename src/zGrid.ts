@@ -415,8 +415,8 @@ export default class zGrid {
     table.appendChild(this.body);  
     container.appendChild(table)
 
-    let pagination = new Pages(container)
-    pagination.page = 1;
+    let pagination = new Pages(container, 15)
+    // pagination.page = 13;
 
     this.parent.appendChild(container);
   };

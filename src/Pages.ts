@@ -3,40 +3,51 @@ export default class Pages {
   private container: HTMLDivElement;
   private maxPages: number;
   private currentPage: number;
+  private buttons: HTMLButtonElement[];
 
   constructor(parent: HTMLDivElement, pages = 1) {
     this.container = document.createElement('div')
     this.container.classList.add('zgrid_pages_container')
 
-    this.totalPages = pages;
-
-    parent.appendChild(this.container)
-  }
-
-  set totalPages(pages: number) {
-    if (pages === this.maxPages) return;
-    
-    this.maxPages = pages;
-
     let previous = document.createElement('button')
     previous.classList.add('zgrid_page_button')
     previous.innerText = 'Previous'
     this.container.appendChild(previous)
-    
-    for (let i = 1; i <= pages; i++) {
-      let button = document.createElement('button')
-      button.classList.add('zgrid_page_button')
-      button.innerText = `${i}`
-      button.onclick = (e) => {
-        this.page = i;
-      }
-      this.container.appendChild(button)
+
+    this.buttons = [];
+
+    for (let i = 0; i < 7; i++) {
+      this.buttons[i] = document.createElement('button')
+      this.buttons[i].classList.add('zgrid_page_button')
+      this.buttons[i].innerText = `${i + 1}`
+      this.container.appendChild(this.buttons[i]);
     }
 
     let next = document.createElement('button')
     next.classList.add('zgrid_page_button')
     next.innerText = 'Next'
     this.container.appendChild(next);
+
+    parent.appendChild(this.container)
+
+    this.currentPage = 1;
+    this.totalPages = pages;
+  }
+
+  set totalPages(pages: number) {
+    if (pages === this.maxPages) return;
+
+    if (pages <= 7) {
+      for (let i = pages; i < 7; i++) {
+        this.buttons[i].classList.add('zgrid_hidden')
+      }
+    } else {
+      for (let i = 0; i < 7; i++) {
+        this.buttons[i].classList.remove('zgrid_hidden')
+      }
+    }
+    this.maxPages = pages;
+    this.page = this.currentPage;
   }
 
   get totalPages(): number {
@@ -44,6 +55,35 @@ export default class Pages {
   }
 
   set page(p: number) {
-    console.log(`setting page to ${p}`)
+    for (let i = 0; i < this.buttons.length; i++) {
+      let newPage: number | undefined;
+      if (this.maxPages <= 7) {
+        newPage = i + 1
+      } else if (i == 0) {
+        newPage = 1
+      } else if ((i == 1 && p > 4)
+            || (i == this.buttons.length - 2 && p < this.maxPages - 3)) {
+        newPage = undefined
+      } else if (i == this.buttons.length - 1) {
+        newPage = this.maxPages
+      } else {
+        let adjust = p <= 4 ? 4 : p
+        adjust = p >= this.maxPages - 3 ? this.maxPages - 3 : adjust;
+        newPage = adjust + (i - 3);
+      }
+      this.buttons[i].innerText = `${newPage ? newPage : '...'}`
+      if (newPage === undefined) {
+        this.buttons[i].onclick = undefined;
+      } else {
+        this.buttons[i].onclick = (e) => {
+          this.page = newPage;
+        }
+        if (newPage == p) {
+          this.buttons[i].classList.add('zgrid_current_page')
+        } else {
+          this.buttons[i].classList.remove('zgrid_current_page')
+        }
+      }
+    }
   }
 }
