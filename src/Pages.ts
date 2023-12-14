@@ -12,7 +12,9 @@ export default class Pages {
     let previous = document.createElement('button')
     previous.classList.add('zgrid_page_button')
     previous.innerText = 'Previous'
+    previous.onclick = () => this.previousPage();
     this.container.appendChild(previous)
+    
 
     this.buttons = [];
 
@@ -26,6 +28,7 @@ export default class Pages {
     let next = document.createElement('button')
     next.classList.add('zgrid_page_button')
     next.innerText = 'Next'
+    next.onclick = (e) => this.nextPage();
     this.container.appendChild(next);
 
     parent.appendChild(this.container)
@@ -86,5 +89,16 @@ export default class Pages {
         }
       }
     }
+    this.currentPage = p;
+  }
+
+  public nextPage(): void {
+    if (this.currentPage == this.maxPages) return
+    this.page = this.currentPage + 1
+  }
+
+  public previousPage(): void {
+    if (this.currentPage == 1) return
+    this.page = this.currentPage - 1
   }
 }
