@@ -74,6 +74,7 @@ export default class Pages {
       this.buttons[i].innerText = `${newPage ? newPage : '...'}`
       if (newPage === undefined) {
         this.buttons[i].onclick = undefined;
+        this.buttons[i].classList.remove('zgrid_current_page')
       } else {
         this.buttons[i].onclick = (e) => {
           this.page = newPage;
