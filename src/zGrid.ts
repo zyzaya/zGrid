@@ -1,5 +1,6 @@
 import Filter from "./Filter";
 import HeaderCell from "./HeaderCell";
+import Pages from "./Pages";
 
 type FilterCallback = (row: Record<string, string>) => boolean;
 type CompareEntries = (a: string, b: string) => number;
@@ -411,9 +412,12 @@ export default class zGrid {
     table.appendChild(head);
     
     this.fillData();
-    table.appendChild(this.body);
-    
+    table.appendChild(this.body);  
     container.appendChild(table)
+
+    let pagination = new Pages(container)
+    pagination.page = 1;
+
     this.parent.appendChild(container);
   };
 
