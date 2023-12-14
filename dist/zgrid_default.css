@@ -107,10 +107,16 @@
 .zgrid_page_button {
   padding: 5px 10px;
   margin-top: 5px;
-  /* margin-left: 5px; */
-  /* border-radius: 5px; */
   border: 1px solid gray;
   background: none;
+}
+
+.zgrid_page_button:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.zgrid_page_button:active {
+  background-color: rgb(240, 240, 240);
 }
 
 .zgrid_page_button:first-child {
@@ -122,5 +128,5 @@
 }
 
 .zgrid_current_page {
-  background-color: red;
+  background-color: rgb(230, 230, 230);
 }
