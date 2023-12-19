@@ -109,6 +109,7 @@ export default class zGrid {
   private body: HTMLTableSectionElement;
   private head: HTMLTableSectionElement;
   private ui_pages: Pages;
+  private pages_info: HTMLDivElement;
 
   /**
    * 
@@ -247,12 +248,20 @@ export default class zGrid {
     table.appendChild(this.body)
     container.appendChild(table)
     // pages
-    this.ui_pages = new Pages(container)
+    let pages_info_container = document.createElement('div')
+    pages_info_container.classList.add('zgrid_pages_info_container')
+
+    this.pages_info = document.createElement('div')
+    this.pages_info.classList.add('zgrid_pages_info')
+    pages_info_container.appendChild(this.pages_info)
+
+    this.ui_pages = new Pages(pages_info_container)
     this.ui_pages.page = 1
     this.ui_pages.onpagechange = (p) => {
       this.currentPage = p;
       this.render();
     }
+    container.appendChild(pages_info_container)
 
     this.parent.appendChild(container)
   }
@@ -502,10 +511,17 @@ export default class zGrid {
   }
 
   private renderPages() {
-    if (this.currentPage > this.ui_pages.totalPages) {
-      this.currentPage = this.ui_pages.totalPages
-      this.ui_pages.page = this.currentPage
+    if (this.pagination) {
+      if (this.currentPage > this.ui_pages.totalPages) {
+        this.currentPage = this.ui_pages.totalPages
+        this.ui_pages.page = this.currentPage
+      }
+      let start = (this.currentPage - 1) * this.pagination
+      let end = start + this.pagination
+      end = end > this.data.length ? this.data.length : end;
+      this.pages_info.innerText = `Showing ${start + 1} to ${end} of ${this.data.length} results`
     }
+    
   }
 
   private clearAll() {

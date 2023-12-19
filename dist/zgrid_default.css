@@ -99,6 +99,18 @@
   outline-color: lightblue;
 }
 
+.zgrid_pages_info_container {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 5px;
+}
+
+.zgrid_pages_info {
+  white-space: nowrap;
+  height: min-content;
+  align-self: center;
+}
+
 .zgrid_pages_container {
   display: flex;
   justify-content: flex-end;
