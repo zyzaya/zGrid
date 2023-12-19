@@ -99,13 +99,16 @@ type Configuration = {
 
 export default class zGrid {
   private currentPage = 1;
-  private parent: HTMLElement;
-  private body: HTMLTableSectionElement;
   private columns: Array<ColumnConfiguration>;
   private data: Array<Record<string, string>>;
   private pagination: false | number;
   private filter: string | FilterCallback;
   private sortConfig: false | SortOptions | CompareRows;
+
+  private parent: HTMLElement;
+  private body: HTMLTableSectionElement;
+  private head: HTMLTableSectionElement;
+  private ui_pages: Pages;
 
   /**
    * 
@@ -120,11 +123,12 @@ export default class zGrid {
    */
   constructor(config: Configuration) {
     this.parent = this.configureParent(config.parent);
-    this.body = document.createElement('tbody');
     this.columns = this.configureColumns(config.columns);
     this.data = this.configureData(config.data);
     this.pagination = this.configurePagination(config.pagination);
     this.filter = this.configureFilter(config.filter);
+
+    this.configureUI()
   }
 
   private configureParent(parent: HTMLElement): HTMLElement {
@@ -220,9 +224,42 @@ export default class zGrid {
     return ret;
   }
 
+  private configureUI() {
+    this.body = document.createElement('tbody');
+    let container = document.createElement('div')
+    container.classList.add('zgrid_container')
+    let table = document.createElement('table')
+    table.classList.add('zgrid_table')
+    this. head = document.createElement('thead')
+    // filter
+    let filter = new Filter(container)
+    filter.oninput = (_, v) => {
+      this.reconfigure({
+        filter: v,
+      })
+      // modify data & pageui
+      this.render();
+    }
+    // header
+    // this.createHeader(head);
+    table.appendChild(this.head);
+    // data
+    // this.fillData()
+    table.appendChild(this.body)
+    container.appendChild(table)
+    // pages
+    let pages = new Pages(container)
+    pages.onpagechange = (p) => {
+      this.currentPage = p;
+      this.render();
+    }
+
+    this.parent.appendChild(container)
+  }
+
   public reconfigure(config: Partial<Configuration>) {
     if (config.parent !== undefined) {
-      this.parent.replaceChildren()
+      this.clearAll()
       this.parent = this.configureParent(config.parent)
     }
     if (config.columns !== undefined) {
@@ -399,39 +436,19 @@ export default class zGrid {
     }
   };
 
-  public render() {
-    let container = document.createElement('div')
-    container.classList.add('zgrid_container')
-    let table = document.createElement('table');
-    table.classList.add('zgrid_table');
-    let head = document.createElement('thead');
-    
-    this.renderFilter(container);
-
-    this.createHeader(head)  
-    table.appendChild(head);
-    
-    this.fillData();
-    table.appendChild(this.body);  
-    container.appendChild(table)
-
-    this.renderPages(container)
-
-    this.parent.appendChild(container);
+  public render() {               
+    this.renderFilter();
+    this.renderHeader()  
+    this.renderData();
+    this.renderPages()
   };
 
-  private renderFilter(container: HTMLDivElement) {
-    let filter = new Filter(container);
-    filter.oninput = (e, v) => {
-      this.reconfigure({
-        filter: v,
-      })
-      this.body.replaceChildren()
-      this.fillData();
-    }
+  private renderFilter() {
+    
   }
 
-  private createHeader(head: HTMLTableSectionElement) {
+  private renderHeader() {
+    this.head.replaceChildren();
     let headerRow = document.createElement('tr');
     this.columns.forEach((c) => {
       let config = this.columns.find((e) => e.name === c.name)
@@ -445,7 +462,6 @@ export default class zGrid {
           let ascending = sort === "ascending"
           this.sort(c.name, ascending)
         }
-        this.parent.replaceChildren()
         this.render()
       }
       title.onresize = (width) => {
@@ -462,10 +478,11 @@ export default class zGrid {
 
       title.innerText = c.name;
     });
-    head.appendChild(headerRow);
+    this.head.appendChild(headerRow);
   }
 
-  private fillData() {
+  private renderData() {
+    this.body.replaceChildren()
     this.getData().forEach((d) => {
       let row = document.createElement('tr');
       row.classList.add('zgrid_row');
@@ -482,17 +499,11 @@ export default class zGrid {
     });
   }
 
-  private renderPages(container: HTMLDivElement) {
-    if (this.pagination) {
-      let pages = Math.ceil(this.data.length / this.pagination)
-      let pagination = new Pages(container, pages)
-      pagination.page = this.currentPage
-      pagination.onpagechange = (p) => {
-        this.currentPage = p;
-        this.parent.replaceChildren()
-        this.body.replaceChildren();
-        this.render();
-      }
-    }
+  private renderPages() {
+    //
+  }
+
+  private clearAll() {
+    this.parent.replaceChildren()
   }
 }

@@ -48,14 +48,13 @@ let current = 1;
 let toggle = document.getElementById('switch');
 toggle.onclick = (e) => {
   current = current === 1 ? 2 : 1
-  console.log(current)
   grid.reconfigure({
     parent: document.getElementById(`container${current}`),
   })
   grid.render()
 }
 
-
+console.log(testData)
 
 // grid.sort((a, b) => { return 0 })
 // grid.sort('ID', false)
