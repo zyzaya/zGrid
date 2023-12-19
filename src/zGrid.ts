@@ -244,12 +244,11 @@ export default class zGrid {
     // this.createHeader(head);
     table.appendChild(this.head);
     // data
-    // this.fillData()
     table.appendChild(this.body)
     container.appendChild(table)
     // pages
-    let pages = new Pages(container)
-    pages.onpagechange = (p) => {
+    this.ui_pages = new Pages(container)
+    this.ui_pages.onpagechange = (p) => {
       this.currentPage = p;
       this.render();
     }
@@ -337,6 +336,9 @@ export default class zGrid {
     }
     // pagination
     if (this.pagination) {
+      this.ui_pages.totalPages = Math.ceil(filtered.length / this.pagination)
+      this.currentPage = this.ui_pages.page
+
       let start = (this.currentPage - 1) * this.pagination;
       let end = start + this.pagination;
       page = filtered.slice(start, end);

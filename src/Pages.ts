@@ -50,7 +50,7 @@ export default class Pages {
       }
     }
     this.maxPages = pages;
-    this.page = this.currentPage;
+    this.page = this.currentPage > pages ? pages : this.currentPage;
   }
 
   get totalPages(): number {
@@ -59,9 +59,9 @@ export default class Pages {
 
   set page(p: number) {
     if (p <= 0) {
-      throw new RangeError('page cannot be less than zero')
+      throw new RangeError(`page (${p}) cannot be less than zero`)
     } else if (p > this.maxPages) {
-      throw new RangeError(`page cannot be greater than the total number of pages ${this.maxPages}`)
+      throw new RangeError(`page (${p}) cannot be greater than the total number of pages ${this.maxPages}`)
     }
     
     for (let i = 0; i < this.buttons.length; i++) {
@@ -97,6 +97,10 @@ export default class Pages {
     }
     this.currentPage = p;
     if (this.onpagechange !== undefined) this.onpagechange(p);
+  }
+
+  get page():number {
+    return this.currentPage;
   }
 
   public nextPage(): void {
