@@ -248,6 +248,7 @@ export default class zGrid {
     container.appendChild(table)
     // pages
     this.ui_pages = new Pages(container)
+    this.ui_pages.page = 1
     this.ui_pages.onpagechange = (p) => {
       this.currentPage = p;
       this.render();
@@ -337,7 +338,6 @@ export default class zGrid {
     // pagination
     if (this.pagination) {
       this.ui_pages.totalPages = Math.ceil(filtered.length / this.pagination)
-      this.currentPage = this.ui_pages.page
 
       let start = (this.currentPage - 1) * this.pagination;
       let end = start + this.pagination;
@@ -502,7 +502,10 @@ export default class zGrid {
   }
 
   private renderPages() {
-    //
+    if (this.currentPage > this.ui_pages.totalPages) {
+      this.currentPage = this.ui_pages.totalPages
+      this.ui_pages.page = this.currentPage
+    }
   }
 
   private clearAll() {

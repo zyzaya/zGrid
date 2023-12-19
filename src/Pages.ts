@@ -50,7 +50,6 @@ export default class Pages {
       }
     }
     this.maxPages = pages;
-    this.page = this.currentPage > pages ? pages : this.currentPage;
   }
 
   get totalPages(): number {
