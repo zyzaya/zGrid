@@ -348,11 +348,13 @@ export default class zGrid {
     // pagination
     if (this.pagination) {
       this.ui_pages.totalPages = Math.ceil(filtered.length / this.pagination)
+      if (this.currentPage > this.ui_pages.totalPages) {
+        this.currentPage = this.ui_pages.totalPages
+      }
 
       let start = (this.currentPage - 1) * this.pagination;
       let end = start + this.pagination;
       page = filtered.slice(start, end);
-
       this.pages_info.innerText = `Showing ${start + 1} to ${start + page.length} of ${filtered.length} results`
     } else {
       page = filtered;
@@ -515,9 +517,6 @@ export default class zGrid {
 
   private renderPages() {
     if (this.pagination) {
-      if (this.currentPage > this.ui_pages.totalPages) {
-        this.currentPage = this.ui_pages.totalPages
-      }
       this.ui_pages.page = this.currentPage
     }
     
