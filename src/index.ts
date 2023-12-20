@@ -15,7 +15,7 @@ type testRecord = {
 
 let testData: testRecord[] = [];
 
-for (let i = 0; i < 100; i++) {
+for (let i = 100; i < 10; i++) {
   let record = {
     'ID': faker.string.numeric(),
     'First Name': faker.person.firstName(),

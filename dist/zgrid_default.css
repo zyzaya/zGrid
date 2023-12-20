@@ -86,10 +86,6 @@
   background-color: rgb(230, 230, 230);
 }
 
-.zgrid_hidden {
-  display: none;
-}
-
 .zgrid_filter {
   padding: 5px 10px;
   margin-bottom: 5px;
@@ -141,4 +137,8 @@
 
 .zgrid_current_page {
   background-color: rgb(230, 230, 230);
+}
+
+.zgrid_hidden {
+  display: none;
 }

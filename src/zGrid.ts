@@ -110,6 +110,7 @@ export default class zGrid {
   private head: HTMLTableSectionElement;
   private ui_pages: Pages;
   private pages_info: HTMLDivElement;
+  private pages_info_container: HTMLDivElement;
 
   /**
    * 
@@ -248,21 +249,21 @@ export default class zGrid {
     table.appendChild(this.body)
     container.appendChild(table)
     // pages
-    let pages_info_container = document.createElement('div')
-    pages_info_container.classList.add('zgrid_pages_info_container')
+    this.pages_info_container = document.createElement('div')
+    this.pages_info_container.classList.add('zgrid_pages_info_container')
 
     this.pages_info = document.createElement('div')
     this.pages_info.classList.add('zgrid_pages_info')
-    pages_info_container.appendChild(this.pages_info)
+    this.pages_info_container.appendChild(this.pages_info)
 
-    this.ui_pages = new Pages(pages_info_container)
+    this.ui_pages = new Pages(this.pages_info_container)
     this.ui_pages.page = 1
     this.ui_pages.onpagechange = (p) => {
       if (p === this.currentPage) return;
       this.currentPage = p;
       this.render();
     }
-    container.appendChild(pages_info_container)
+    container.appendChild(this.pages_info_container)
 
     this.parent.appendChild(container)
   }
@@ -518,6 +519,9 @@ export default class zGrid {
   private renderPages() {
     if (this.pagination) {
       this.ui_pages.page = this.currentPage
+      this.pages_info_container.classList.remove('zgrid_hidden')
+    } else {
+      this.pages_info_container.classList.add('zgrid_hidden')
     }
     
   }
