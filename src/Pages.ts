@@ -33,8 +33,8 @@ export default class Pages {
 
     parent.appendChild(this.container)
 
-    this.currentPage = 1;
     this.totalPages = pages;
+    this.page = 1;
   }
 
   set totalPages(pages: number) {

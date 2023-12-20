@@ -258,6 +258,7 @@ export default class zGrid {
     this.ui_pages = new Pages(pages_info_container)
     this.ui_pages.page = 1
     this.ui_pages.onpagechange = (p) => {
+      if (p === this.currentPage) return;
       this.currentPage = p;
       this.render();
     }
@@ -514,8 +515,8 @@ export default class zGrid {
     if (this.pagination) {
       if (this.currentPage > this.ui_pages.totalPages) {
         this.currentPage = this.ui_pages.totalPages
-        this.ui_pages.page = this.currentPage
       }
+      this.ui_pages.page = this.currentPage
       let start = (this.currentPage - 1) * this.pagination
       let end = start + this.pagination
       end = end > this.data.length ? this.data.length : end;
