@@ -296,6 +296,10 @@ export default class zGrid {
     if (config.filter !== undefined) {
       this.filter = this.configureFilter(config.filter)
     }
+    if (config.searchbox !== undefined) {
+      this.showFilter = config.searchbox
+      this.renderFilter()
+    }
   }
 
   public getRow(index: number): Record<string, string>  {
