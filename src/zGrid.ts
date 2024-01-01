@@ -270,8 +270,9 @@ export default class zGrid {
 
   public reconfigure(config: Partial<Configuration>) {
     if (config.parent !== undefined) {
-      this.clearAll()
+      let old_parent = this.parent
       this.parent = this.configureParent(config.parent)
+      this.parent.appendChild(old_parent.firstChild)
     }
     if (config.columns !== undefined) {
       this.columns = this.configureColumns(config.columns)
@@ -522,11 +523,6 @@ export default class zGrid {
       this.pages_info_container.classList.remove('zgrid_hidden')
     } else {
       this.pages_info_container.classList.add('zgrid_hidden')
-    }
-    
-  }
-
-  private clearAll() {
-    this.parent.replaceChildren()
+    } 
   }
 }
