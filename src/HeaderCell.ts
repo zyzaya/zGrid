@@ -78,10 +78,15 @@ export default class HeaderCell {
     document.addEventListener('mousemove', (e) => {
       if (!this.resizing) return
       let dx = e.clientX - x;
-      this.element.style.width = `${width + dx}px`
+      let new_width = width + dx;
+      if (new_width < 0) {
+        new_width = 0;
+        dx = new_width - width;
+      }
+      this.element.style.width = `${new_width}px`
       x = e.clientX;
-      width = width + dx;
-      if (this.onresize != undefined) this.onresize(width + dx, dx)
+      width = new_width;
+      if (this.onresize != undefined) this.onresize(width, dx)
     })
     document.addEventListener('mouseup', (e) => {
       if (!this.resizing) return
