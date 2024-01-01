@@ -57,7 +57,7 @@ export default class Pages {
   }
 
   set page(p: number) {
-    if (p <= 0) {
+    if (p < 0) {
       throw new RangeError(`page (${p}) cannot be less than zero`)
     } else if (p > this.maxPages) {
       throw new RangeError(`page (${p}) cannot be greater than the total number of pages ${this.maxPages}`)
