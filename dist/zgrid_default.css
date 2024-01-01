@@ -56,7 +56,7 @@
 
 .zgrid_column_resize {
   border: none;
-  background: none;
+  background: red;
   padding: 0;
   margin: 0;
   width: 5px;

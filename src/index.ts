@@ -54,10 +54,6 @@ toggle.onclick = (e) => {
   grid.render()
 }
 
-grid.reconfigure({
-  searchbox: false
-})
-
 console.log(testData)
 
 // grid.sort((a, b) => { return 0 })

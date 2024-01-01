@@ -482,24 +482,33 @@ export default class zGrid {
   private renderHeader() {
     this.head.replaceChildren();
     let headerRow = document.createElement('tr');
-    this.columns.forEach((c) => {
-      let config = this.columns.find((e) => e.name === c.name)
+    let col_count = this.columns.filter((c) => c.visible).length
+    let prev: HeaderCell = undefined;
+    this.columns.forEach((config) => {
       if (config.visible === false) return;
 
       let title = new HeaderCell(headerRow);
+      title.width = this.head.clientWidth / col_count
       title.onsort = (sort) => {
         if (sort === "none") {
           this.sort(false)
         } else {
           let ascending = sort === "ascending"
-          this.sort(c.name, ascending)
+          this.sort(config.name, ascending)
         }
         this.render()
       }
-      title.onresize = (width) => {
-        config.width = width
+      if (prev !== undefined) {
+        prev.onresize = (width, change) => {
+          title.width = title.width - change;
+        }
       }
-      if (typeof this.sortConfig === "object" && this.sortConfig.column === c.name) {
+      prev = title
+      // title.onresize = (width, change) => {
+      //   config.width = width
+      // }
+      
+      if (typeof this.sortConfig === "object" && this.sortConfig.column === config.name) {
         title.sort = this.sortConfig.ascending ? "ascending" : "descending"
       }
       
@@ -508,7 +517,7 @@ export default class zGrid {
         if (config.width !== undefined) title.width = config.width
       }
 
-      title.innerText = c.name;
+      title.innerText = config.name;
     });
     this.head.appendChild(headerRow);
   }

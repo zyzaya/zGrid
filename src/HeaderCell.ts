@@ -11,7 +11,7 @@ export default class HeaderCell {
   private sort_enabled: boolean = true;
   private resizing: boolean = false;
   onsort: (sort: Sort) => void
-  onresize: (width: number) => void;
+  onresize: (width: number, change: number) => void;
 
   constructor(parent: HTMLTableRowElement) {
     this.element = document.createElement('th');
@@ -79,7 +79,9 @@ export default class HeaderCell {
       if (!this.resizing) return
       let dx = e.clientX - x;
       this.element.style.width = `${width + dx}px`
-      if (this.onresize != undefined) this.onresize(width + dx)
+      x = e.clientX;
+      width = width + dx;
+      if (this.onresize != undefined) this.onresize(width + dx, dx)
     })
     document.addEventListener('mouseup', (e) => {
       if (!this.resizing) return
@@ -122,6 +124,10 @@ export default class HeaderCell {
   set width(w: number | undefined) {
     if (w === undefined) this.element.style.width = '';
     else this.element.style.width = `${w}px`
+  }
+
+  get width(): number {
+    return parseFloat(this.element.style.width)
   }
 
   enableSort(enable: boolean) {
