@@ -95,6 +95,11 @@ type Configuration = {
    * the entries in that column.
    */
   filter?: string | FilterCallback;
+  /**
+   * Indicates if the default search box elements should be displayed.
+   * Default value is true.
+   */
+  searchbox?: boolean
 }
 
 export default class zGrid {
@@ -103,11 +108,13 @@ export default class zGrid {
   private data: Array<Record<string, string>>;
   private pagination: false | number;
   private filter: string | FilterCallback;
+  private showFilter: boolean;
   private sortConfig: false | SortOptions | CompareRows;
 
   private parent: HTMLElement;
   private body: HTMLTableSectionElement;
   private head: HTMLTableSectionElement;
+  private ui_filter: Filter;
   private ui_pages: Pages;
   private pages_info: HTMLDivElement;
   private pages_info_container: HTMLDivElement;
@@ -129,6 +136,9 @@ export default class zGrid {
     this.data = this.configureData(config.data);
     this.pagination = this.configurePagination(config.pagination);
     this.filter = this.configureFilter(config.filter);
+    
+    console.log(config.searchbox)
+    this.showFilter = config.searchbox === undefined ? true : false;
 
     this.configureUI()
   }
@@ -234,8 +244,8 @@ export default class zGrid {
     table.classList.add('zgrid_table')
     this. head = document.createElement('thead')
     // filter
-    let filter = new Filter(container)
-    filter.oninput = (_, v) => {
+    this.ui_filter = new Filter(container)
+    this.ui_filter.oninput = (_, v) => {
       this.reconfigure({
         filter: v,
       })
@@ -462,7 +472,7 @@ export default class zGrid {
   };
 
   private renderFilter() {
-    
+    this.ui_filter.visible = this.showFilter;
   }
 
   private renderHeader() {
