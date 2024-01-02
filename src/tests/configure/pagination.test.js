@@ -58,7 +58,6 @@ describe('Pagination', () => {
       grid.reconfigure({
         pagination: 10,
       });
-      console.log(grid.getData().length);
       expect(grid.getData().length).toBe(10);
     });
   });

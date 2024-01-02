@@ -37,12 +37,6 @@ type ColumnConfiguration = {
    * Defaults value is true.
    */
   visible?: boolean;
-  /**
-   * The width, in pixels, of the column
-   * Columns with undefined widths will evenly share the
-   * remaining space.
-   */
-  width?: number;
 }
 
 type Configuration = {
@@ -136,8 +130,6 @@ export default class zGrid {
     this.data = this.configureData(config.data);
     this.pagination = this.configurePagination(config.pagination);
     this.filter = this.configureFilter(config.filter);
-    
-    console.log(config.searchbox)
     this.showFilter = config.searchbox === undefined ? true : false;
 
     this.configureUI()
@@ -511,7 +503,6 @@ export default class zGrid {
       
       if (config !== undefined) {
         if (config.sort === false) title.enableSort(false);
-        if (config.width !== undefined) title.width = config.width
       }
 
       title.innerText = config.name;
