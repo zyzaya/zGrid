@@ -1,12 +1,21 @@
-- add id value to columan configuration
+- ui testing
+  - parent (re)configure
+  - searchbox configuration
+  - pagination displays proper #records
+  - only visible columns are shown
+  - interactions
+    - header sorts on click
+    - resize button resizes
+    - searchbox filters
+  - classes
+    - Filter.ts
+    - HeaderCell.ts
+    - Pages.ts
+- add id value to column configuration
 	- use id in column related functions
 - implemenent ability to programmatically reconfigure
 - add getAllData function
 - update ui
-  - resizing
-  - sorting by clicking on column header
-  - search box
-  - pagination elements
   - user defined styling
 - selections
 - callbacks
