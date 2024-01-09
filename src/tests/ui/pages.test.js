@@ -48,11 +48,21 @@ describe('Pages', () => {
     expect(pages.page).toBe(3);
   });
 
-  test('next page does nothing when at last page', () => {
+  test('next page does nothing when on last page', () => {
     pages.page = 10;
     pages.nextPage();
     expect(pages.page).toBe(10);
   });
-  // set/get page
-  // next page, previous page
+
+  test('previous page', () => {
+    pages.page = 2;
+    pages.previousPage();
+    expect(pages.page).toBe(1);
+  });
+
+  test('previous page does nothing when on first page', () => {
+    pages.page = 1;
+    pages.previousPage();
+    expect(pages.page).toBe(1);
+  });
 });
