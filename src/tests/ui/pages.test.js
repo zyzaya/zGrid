@@ -41,6 +41,18 @@ describe('Pages', () => {
       pages.page = 11;
     }).toThrow(RangeError);
   });
+
+  test('next page', () => {
+    pages.page = 2;
+    pages.nextPage();
+    expect(pages.page).toBe(3);
+  });
+
+  test('next page does nothing when at last page', () => {
+    pages.page = 10;
+    pages.nextPage();
+    expect(pages.page).toBe(10);
+  });
   // set/get page
   // next page, previous page
 });
