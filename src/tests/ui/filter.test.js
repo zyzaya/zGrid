@@ -3,7 +3,7 @@
  */
 import Filter from '../../Filter';
 
-describe.only('Filter', () => {
+describe('Filter', () => {
   let parent;
   let filter;
   beforeEach(() => {
