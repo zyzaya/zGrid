@@ -1,22 +1,23 @@
-- ui testing
-  - parent (re)configure
-  - searchbox configuration
-  - pagination displays proper #records
-  - only visible columns are shown
-  - interactions
-    - header sorts on click
-    - resize button resizes
-    - searchbox filters
-  - classes
-    - Filter.ts
-    - HeaderCell.ts
-    - Pages.ts
-- add id value to column configuration
-	- use id in column related functions
-- implemenent ability to programmatically reconfigure
-- add getAllData function
-- update ui
-  - user defined styling
-- selections
 - callbacks
+  - on filter
+  - on page change
+  - on sort
+  - on click
+- user defined styling
+  - className
+    - filter_container
+    - filter
+    - table
+    - th
+    - thead
+    - tbody
+    - tr
+    - td
+    - pagination_container
+    - pagination_info
+    - pagination_button
+    - pagination_previous
+    - pagination_current
+    - pagination_next
+- selections
 - data populated by server request?
