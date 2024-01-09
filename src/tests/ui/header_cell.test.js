@@ -11,7 +11,6 @@ describe('HeaderCell', () => {
     header = new HeaderCell(parent);
   });
 
-  // sort: modifies active class, modifies sort
   test('setting sort sets active button', () => {
     header.sort = 'ascending';
     expect(
@@ -28,6 +27,14 @@ describe('HeaderCell', () => {
     ).toBe(0);
   });
 
-  // width: sets element width
+  test('setting width', () => {
+    header.width = 24;
+    expect(header.width).toBe(24);
+  });
+
+  test('unsetting width', () => {
+    header.width = undefined;
+    expect(header.width).toBeDefined();
+  });
   // enableSort: hides element(s)
 });
