@@ -36,5 +36,15 @@ describe('HeaderCell', () => {
     header.width = undefined;
     expect(header.width).toBeDefined();
   });
-  // enableSort: hides element(s)
+
+  test('disabled sort', () => {
+    header.enableSort(false);
+    expect(parent.getElementsByClassName('zgrid_hidden').length).toBe(1);
+  });
+
+  test('enabling sort', () => {
+    header.enableSort(false);
+    header.enableSort(true);
+    expect(parent.getElementsByClassName('zgrid_hidden').length).toBe(0);
+  });
 });
