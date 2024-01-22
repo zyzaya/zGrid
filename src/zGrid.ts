@@ -93,7 +93,11 @@ type Configuration = {
    * Indicates if the default search box elements should be displayed.
    * Default value is true.
    */
-  searchbox?: boolean
+  searchbox?: boolean;
+  onFilter?: (value: string) => void;
+  onPageChange?: (page: number) => void;
+  onSort?: (column: number, asending: boolean) => void;
+  onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
 }
 
 export default class zGrid {
