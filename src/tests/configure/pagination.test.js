@@ -7,9 +7,11 @@ import { faker } from '@faker-js/faker';
 describe('Pagination', () => {
   let data = [];
   let configuration = {};
+  let parent;
   faker.seed(96);
   beforeEach(() => {
     data = [];
+    parent = document.createElement('div');
     for (let i = 0; i < 10; i++) {
       data.push({
         'First Name': faker.person.firstName(),
@@ -19,7 +21,7 @@ describe('Pagination', () => {
     }
 
     configuration = {
-      parent: document.createElement('div'),
+      parent: parent,
       columns: ['First Name', 'Last Name', 'Email'],
       data: data,
     };
@@ -48,6 +50,59 @@ describe('Pagination', () => {
     configuration.pagination = 5;
     let grid = new zGrid(configuration);
     expect(grid.getData()).toStrictEqual(data.slice(0, 5));
+  });
+
+  describe('onPageChange', () => {
+    test('next page triggers callback', () => {
+      let callback = jest.fn();
+      configuration.onPageChange = callback;
+      configuration.pagination = 2;
+      let grid = new zGrid(configuration);
+      grid.page = 1;
+
+      let next = Array.from(
+        parent.getElementsByClassName('zgrid_page_button')
+      ).find((e) => {
+        return e.innerText.toLowerCase() === 'next';
+      });
+      next.click();
+
+      expect(callback).toHaveBeenCalledWith(2);
+    });
+
+    test('previous page triggers callback', () => {
+      let callback = jest.fn();
+      configuration.onPageChange = callback;
+      configuration.pagination = 2;
+      let grid = new zGrid(configuration);
+      grid.page = 2;
+
+      let prev = Array.from(
+        parent.getElementsByClassName('zgrid_page_button')
+      ).find((e) => {
+        return e.innerText.toLowerCase() === 'previous';
+      });
+      prev.click();
+
+      expect(callback).toHaveBeenCalledWith(1);
+    });
+
+    test('page button triggers callback', () => {
+      let callback = jest.fn();
+      configuration.onPageChange = callback;
+      configuration.pagination = 2;
+      let grid = new zGrid(configuration);
+      grid.page = 1;
+
+      let three = Array.from(
+        parent.getElementsByClassName('zgrid_page_button')
+      ).find((e) => {
+        return e.innerText === '3';
+      });
+      three.click();
+
+      expect(callback).toHaveBeenCalledWith(3);
+    });
   });
 
   describe('Reconfigure', () => {
@@ -84,7 +139,17 @@ describe('setPage', () => {
     };
   });
 
+  test('cannot set page to more than the number of pages', () => {
+    configuration.pagination = 5;
+    let grid = new zGrid(configuration);
+
+    expect(() => {
+      grid.page = 3;
+    }).toThrow(RangeError);
+  });
+
   test('starts on page 1', () => {
+    configuration.pagination = 2;
     let grid = new zGrid(configuration);
     expect(grid.page).toBe(1);
   });

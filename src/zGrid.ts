@@ -95,9 +95,16 @@ type Configuration = {
    */
   searchbox?: boolean;
   /**
-   * Fires when the value of the filter is changed.
+   * Fires when the value of the filter is changed through the ui.
+   * Does not trigger if the filter is changed programmatically.
+   * @param value The value the filter is set to
    */
   onFilter?: (value: string) => void;
+  /**
+   * Fire when the page is changed through the ui.
+   * Does not trigger if the page is changed programmatically.
+   * @param page The current page
+   */
   onPageChange?: (page: number) => void;
   onSort?: (column: number, asending: boolean) => void;
   onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
@@ -396,6 +403,7 @@ export default class zGrid {
       throw new TypeError('Page must be a postive number');
     }
     this.currentPage = page;
+    this.ui_pages.page = page;
   };
   /**
    * Defines conditions to hide or display certain rows 
