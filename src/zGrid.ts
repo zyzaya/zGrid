@@ -316,6 +316,9 @@ export default class zGrid {
     if (config.onFilter !== undefined) {
       this.onFilter = config.onFilter
     }
+    if (config.onPageChange !== undefined) {
+      this.onPageChange = config.onPageChange
+    }
   }
 
   public getRow(index: number): Record<string, string>  {
