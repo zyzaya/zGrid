@@ -10,12 +10,14 @@ describe('Filter', () => {
   let markedEmail = [];
   let markedFirstNames = [];
   let markedLastNames = [];
+  let parent;
   faker.seed(96);
   beforeEach(() => {
     data = [];
     markedEmail = [];
     markedFirstNames = [];
     markedLastNames = [];
+    parent = document.createElement('div');
 
     for (let i = 0; i < 10; i++) {
       let entry = {
@@ -39,7 +41,7 @@ describe('Filter', () => {
     }
 
     configuration = {
-      parent: document.createElement('div'),
+      parent: parent,
       columns: ['First Name', 'Last Name', 'Email'],
       data: data,
     };
@@ -111,6 +113,17 @@ describe('Filter', () => {
     grid.setFilter(filter);
     grid.getData();
     expect(filter).not.toHaveBeenCalledWith(entry);
+  });
+
+  test('onFilter', () => {
+    let callback = jest.fn();
+    configuration.onFilter = callback;
+
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('zgrid_filter')[0];
+
+    ui.dispatchEvent(new Event('input'));
+    expect(callback).toHaveBeenCalled();
   });
 
   describe('Reconfigure', () => {

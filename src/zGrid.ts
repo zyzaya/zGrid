@@ -94,6 +94,9 @@ type Configuration = {
    * Default value is true.
    */
   searchbox?: boolean;
+  /**
+   * Fires when the value of the filter is changed.
+   */
   onFilter?: (value: string) => void;
   onPageChange?: (page: number) => void;
   onSort?: (column: number, asending: boolean) => void;
