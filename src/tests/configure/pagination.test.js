@@ -118,6 +118,22 @@ describe('Pagination', () => {
       });
       expect(grid.getData().length).toBe(10);
     });
+
+    test('reconfigure onPageChange', () => {
+      let callback = jest.fn();
+      configuration.pagination = 2;
+      let grid = new zGrid(configuration);
+      grid.reconfigure({ onPageChange: callback });
+      grid.render();
+      grid.page = 1;
+      let next = Array.from(
+        parent.getElementsByClassName('zgrid_page_button')
+      ).find((e) => {
+        return e.innerText.toLowerCase() === 'next';
+      });
+      next.click();
+      expect(callback).toHaveBeenCalledWith(2);
+    });
   });
 });
 
