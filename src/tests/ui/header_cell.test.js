@@ -21,7 +21,6 @@ describe('HeaderCell', () => {
   test('unsetting sort clears active buttons', () => {
     header.sort = 'ascending';
     header.sort = 'none';
-    console.log();
     expect(
       parent.getElementsByClassName('zgrid_sort_button_active').length
     ).toBe(0);

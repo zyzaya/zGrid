@@ -131,7 +131,6 @@ describe('Sort', () => {
       configuration.onSort = callback;
       let grid = new zGrid(configuration);
       grid.render();
-      console.log(parent.getElementsByClassName('zgrid_title').length);
       let header = Array.from(
         parent.getElementsByClassName('zgrid_title')
       ).find((e) => {
