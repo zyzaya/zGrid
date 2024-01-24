@@ -122,8 +122,21 @@ describe('Filter', () => {
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('zgrid_filter')[0];
 
-    ui.dispatchEvent(new Event('input'));
+    ui.dispatchEvent(new InputEvent('input', { bubbles: true }));
     expect(callback).toHaveBeenCalled();
+  });
+
+  test('onFilter callback is given newly set filter', () => {
+    let callback = jest.fn();
+    configuration.onFilter = callback;
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('zgrid_filter')[0];
+
+    ui.value = 'newfilter';
+    ui.dispatchEvent(
+      new InputEvent('input', { bubbles: true, data: 'newfilter' })
+    );
+    expect(callback).toHaveBeenCalledWith('newfilter');
   });
 
   describe('Reconfigure', () => {
