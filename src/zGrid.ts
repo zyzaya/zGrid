@@ -101,12 +101,18 @@ type Configuration = {
    */
   onFilter?: (value: string) => void;
   /**
-   * Fire when the page is changed through the ui.
+   * Fires when the page is changed through the ui.
    * Does not trigger if the page is changed programmatically.
    * @param page The current page
    */
   onPageChange?: (page: number) => void;
-  onSort?: (column: number, asending: boolean) => void;
+  /**
+   * Fire when the data is sorted through the ui.
+   * Does not trigger if the data is sorted programmatically.
+   * @param column The column the data is sorted by.
+   * @param ascending If the data is sorted in ascending order
+   */
+  onSort?: (column: number, ascending: boolean) => void;
   onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
 }
 
@@ -252,7 +258,7 @@ export default class zGrid {
     container.classList.add('zgrid_container')
     let table = document.createElement('table')
     table.classList.add('zgrid_table')
-    this. head = document.createElement('thead')
+    this.head = document.createElement('thead')
     // filter
     this.ui_filter = new Filter(container)
     this.ui_filter.oninput = (_, v) => {

@@ -7,6 +7,7 @@ import { faker } from '@faker-js/faker';
 describe('Sort', () => {
   let data = [];
   let configuration = {};
+  let parent;
   let compare = (a, b) => {
     let a_rev = a.split('').reverse().join('');
     let b_rev = b.split('').reverse().join('');
@@ -16,6 +17,7 @@ describe('Sort', () => {
   faker.seed(96);
   beforeEach(() => {
     data = [];
+    parent = document.createElement('div');
     for (let i = 0; i < 10; i++) {
       data.push({
         'First Name': faker.person.firstName(),
@@ -25,7 +27,7 @@ describe('Sort', () => {
     }
 
     configuration = {
-      parent: document.createElement('div'),
+      parent: parent,
       columns: ['First Name', 'Last Name', 'Email'],
       data: data,
     };
@@ -120,6 +122,39 @@ describe('Sort', () => {
     data.sort(compare);
     grid.getData().forEach((e, i) => {
       expect(e).toStrictEqual(data[i]);
+    });
+  });
+
+  describe('onSort', () => {
+    test('onSort triggers callback', () => {
+      let callback = jest.fn();
+      let grid = new zGrid(configuration);
+      grid.render();
+      console.log(parent.getElementsByClassName('zgrid_title').length);
+      let header = Array.from(
+        parent.getElementsByClassName('zgrid_title')
+      ).find((e) => {
+        return e.innerText === 'First Name';
+      });
+      header.click();
+
+      expect(callback).toHaveBeenCalled();
+    });
+
+    test('onSort passes column name and ascending to callback', () => {
+      let callback = jest.fn();
+      let grid = new zGrid(configuration);
+      let header = Array.from(
+        parent.getElementsByClassName('zgrid_title')
+      ).find((e) => {
+        return e.innerText === 'First Name';
+      });
+      header.click();
+      header.click();
+      header.click();
+
+      expect(callback).toHaveBeenNthCalledWith(1, 'First Name', true);
+      expect(callback).toHaveBeenNthCalledWith(2, 'First Name', false);
     });
   });
 });
