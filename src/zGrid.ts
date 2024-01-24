@@ -112,7 +112,7 @@ type Configuration = {
    * @param column The column the data is sorted by.
    * @param ascending If the data is sorted in ascending order
    */
-  onSort?: (column: number, ascending: boolean) => void;
+  onSort?: (column: string, ascending: boolean) => void;
   onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
 }
 
@@ -135,6 +135,7 @@ export default class zGrid {
 
   private onFilter: (value: string) => void;
   private onPageChange: (page: number) => void;
+  private onSort: (column: string, ascending: boolean) => void;
   /**
    * 
    * @param {Configuration} config 
@@ -155,6 +156,7 @@ export default class zGrid {
     this.showFilter = config.searchbox === undefined ? true : false;
     this.onFilter = config.onFilter;
     this.onPageChange = config.onPageChange;
+    this.onSort = config.onSort;
 
     this.configureUI()
   }
@@ -521,6 +523,7 @@ export default class zGrid {
         } else {
           let ascending = sort === "ascending"
           this.sort(config.name, ascending)
+          if (this.onSort !== undefined) this.onSort(config.name, ascending)
         }
         this.render()
       }

@@ -128,6 +128,7 @@ describe('Sort', () => {
   describe('onSort', () => {
     test('onSort triggers callback', () => {
       let callback = jest.fn();
+      configuration.onSort = callback;
       let grid = new zGrid(configuration);
       grid.render();
       console.log(parent.getElementsByClassName('zgrid_title').length);
@@ -143,7 +144,9 @@ describe('Sort', () => {
 
     test('onSort passes column name and ascending to callback', () => {
       let callback = jest.fn();
+      configuration.onSort = callback;
       let grid = new zGrid(configuration);
+      grid.render();
       let header = Array.from(
         parent.getElementsByClassName('zgrid_title')
       ).find((e) => {
