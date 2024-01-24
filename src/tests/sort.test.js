@@ -159,5 +159,21 @@ describe('Sort', () => {
       expect(callback).toHaveBeenNthCalledWith(1, 'First Name', true);
       expect(callback).toHaveBeenNthCalledWith(2, 'First Name', false);
     });
+
+    test('reconfigure onsort', () => {
+      let grid = new zGrid(configuration);
+      let callback = jest.fn();
+      grid.reconfigure({ onSort: callback });
+      grid.render();
+
+      let header = Array.from(
+        parent.getElementsByClassName('zgrid_title')
+      ).find((e) => {
+        return e.innerText === 'First Name';
+      });
+      header.click();
+
+      expect(callback).toHaveBeenCalledWith('First Name', true);
+    });
   });
 });
