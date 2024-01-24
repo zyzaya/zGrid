@@ -321,12 +321,9 @@ export default class zGrid {
       this.showFilter = config.searchbox
       this.renderFilter()
     }
-    if (config.onFilter !== undefined) {
-      this.onFilter = config.onFilter
-    }
-    if (config.onPageChange !== undefined) {
-      this.onPageChange = config.onPageChange
-    }
+    if (config.onFilter !== undefined) this.onFilter = config.onFilter
+    if (config.onPageChange !== undefined) this.onPageChange = config.onPageChange
+    if (config.onSort !== undefined) this.onSort = config.onSort;
   }
 
   public getRow(index: number): Record<string, string>  {
