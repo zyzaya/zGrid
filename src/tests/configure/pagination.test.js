@@ -157,14 +157,16 @@ describe('setPage', () => {
   test('changing page changes available data', () => {
     configuration.pagination = 3;
     let grid = new zGrid(configuration);
+    grid.render();
     grid.page = 2;
     expect(grid.page).toBe(2);
     expect(grid.getData()).toStrictEqual(data.slice(3, 6));
   });
 
-  test('last page is remainaining data', () => {
+  test('last page is remaining data', () => {
     configuration.pagination = 3;
     let grid = new zGrid(configuration);
+    grid.render();
     grid.page = 4;
     expect(grid.getData()).toStrictEqual([data[data.length - 1]]);
   });
@@ -172,6 +174,7 @@ describe('setPage', () => {
   test('negative page', () => {
     configuration.pagination = 4;
     let grid = new zGrid(configuration);
+    grid.render();
     expect(() => {
       grid.page = -1;
     }).toThrow(TypeError);
@@ -180,6 +183,7 @@ describe('setPage', () => {
   test('page that is not a number', () => {
     configuration.pagination = 4;
     let grid = new zGrid(configuration);
+    grid.render();
     expect(() => {
       grid.page = [];
     }).toThrow(TypeError);
@@ -188,6 +192,7 @@ describe('setPage', () => {
   test('pagination value determines number of records per page', () => {
     configuration.pagination = 2;
     let grid = new zGrid(configuration);
+    grid.render();
     expect(grid.getData().length).toBe(2);
   });
 });
