@@ -58,6 +58,7 @@ describe('Pagination', () => {
       configuration.onPageChange = callback;
       configuration.pagination = 2;
       let grid = new zGrid(configuration);
+      grid.render();
       grid.page = 1;
 
       let next = Array.from(
@@ -75,6 +76,7 @@ describe('Pagination', () => {
       configuration.onPageChange = callback;
       configuration.pagination = 2;
       let grid = new zGrid(configuration);
+      grid.render();
       grid.page = 2;
 
       let prev = Array.from(
@@ -92,6 +94,7 @@ describe('Pagination', () => {
       configuration.onPageChange = callback;
       configuration.pagination = 2;
       let grid = new zGrid(configuration);
+      grid.render();
       grid.page = 1;
 
       let three = Array.from(

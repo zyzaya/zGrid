@@ -128,6 +128,7 @@ export default class zGrid {
   private pages_info_container: HTMLDivElement;
 
   private onFilter: (value: string) => void;
+  private onPageChange: (page: number) => void;
   /**
    * 
    * @param {Configuration} config 
@@ -147,6 +148,7 @@ export default class zGrid {
     this.filter = this.configureFilter(config.filter);
     this.showFilter = config.searchbox === undefined ? true : false;
     this.onFilter = config.onFilter;
+    this.onPageChange = config.onPageChange;
 
     this.configureUI()
   }
@@ -280,6 +282,7 @@ export default class zGrid {
     this.ui_pages.page = 1
     this.ui_pages.onpagechange = (p) => {
       if (p === this.currentPage) return;
+      if (this.onPageChange !== undefined) this.onPageChange(p);
       this.currentPage = p;
       this.render();
     }
