@@ -303,6 +303,9 @@ export default class zGrid {
       this.showFilter = config.searchbox
       this.renderFilter()
     }
+    if (config.onFilter !== undefined) {
+      this.onFilter = config.onFilter
+    }
   }
 
   public getRow(index: number): Record<string, string>  {
