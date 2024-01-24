@@ -145,5 +145,18 @@ describe('Filter', () => {
       grid.reconfigure({ filter: 'example.test' });
       expect(grid.getData()).toStrictEqual(markedEmail);
     });
+
+    test('reconfigure onFilter', () => {
+      let grid = new zGrid(configuration);
+      let ui = parent.getElementsByClassName('zgrid_filter')[0];
+      let callback = jest.fn();
+
+      grid.reconfigure({ onFilter: callback });
+      ui.value = 'newfilter';
+      ui.dispatchEvent(
+        new InputEvent('input', { bubbles: true, data: 'newfilter' })
+      );
+      expect(callback).toHaveBeenCalledWith('newfilter');
+    });
   });
 });
