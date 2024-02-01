@@ -11,6 +11,11 @@ type SortOptions = {
   ascending: boolean
 }
 
+type ClassNames = {
+  filterContainer?: string;
+  filter?: string;
+}
+
 type ColumnConfiguration = {
   /**
    * The name of the column
@@ -114,6 +119,7 @@ type Configuration = {
    */
   onSort?: (column: string, ascending: boolean) => void;
   onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
+  className?: ClassNames
 }
 
 export default class zGrid {
@@ -136,6 +142,8 @@ export default class zGrid {
   private onFilter: (value: string) => void;
   private onPageChange: (page: number) => void;
   private onSort: (column: string, ascending: boolean) => void;
+
+  private className: ClassNames;
   /**
    * 
    * @param {Configuration} config 
@@ -159,6 +167,7 @@ export default class zGrid {
     this.onSort = config.onSort;
 
     this.configureUI()
+    this.configureClassName(config.className)
   }
 
   private configureParent(parent: HTMLElement): HTMLElement {
@@ -252,6 +261,14 @@ export default class zGrid {
       throw new TypeError('Filter must be a string or function');
     }
     return ret;
+  }
+
+  private configureClassName(className: ClassNames) {
+    this.className = className === undefined ? {} : className;
+    this.ui_filter.setClassNames({
+      filterContainer: this.className.filterContainer, 
+      filter: this.className.filter
+    })
   }
 
   private configureUI() {
