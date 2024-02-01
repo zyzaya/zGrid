@@ -1,10 +1,11 @@
 export default class Pages {
   onpagechange: (page: number) => void;
   private container: HTMLDivElement;
+  private buttons: HTMLButtonElement[];
+  
   private maxPages: number;
   private currentPage: number;
-  private buttons: HTMLButtonElement[];
-
+  
   constructor(parent: HTMLDivElement, pages = 1) {
     this.container = document.createElement('div')
     this.container.classList.add('zgrid_pages_container')
@@ -110,5 +111,19 @@ export default class Pages {
   public previousPage(): void {
     if (this.currentPage == 1) return
     this.page = this.currentPage - 1
+  }
+
+  public setClassNames(classNames: {
+    paginationContainer?: string,
+    paginationInfo?: string,
+    paginationButton?: string,
+    paginationPrevious?: string,
+    paginationCurrent?: string,
+    paginationNext?: string
+  }) {
+    this.container.className = '';
+    this.container.classList.add('zgrid_pages_container')
+    if (classNames.paginationContainer)
+      this.container.classList.add(classNames.paginationContainer)
   }
 }

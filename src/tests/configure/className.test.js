@@ -55,4 +55,13 @@ describe('ClassName', () => {
     let ui = parent.getElementsByClassName('filter_custom');
     expect(ui.length).toBe(1);
   });
+
+  test('paginationContainer', () => {
+    configuration.className = {
+      paginationContainer: 'paginationContainer_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationContainer_custom');
+    expect(ui.length).toBe(1);
+  });
 });

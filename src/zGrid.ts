@@ -14,6 +14,12 @@ type SortOptions = {
 type ClassNames = {
   filterContainer?: string;
   filter?: string;
+  paginationContainer?: string;
+  paginationInfo?: string;
+  paginationButton?: string;
+  paginationPrevious?: string;
+  paginationCurrent?: string;
+  paginationNext?: string;
 }
 
 type ColumnConfiguration = {
@@ -273,6 +279,9 @@ export default class zGrid {
     this.ui_filter.setClassNames({
       filterContainer: this.className.filterContainer, 
       filter: this.className.filter
+    })
+    this.ui_pages.setClassNames({
+      paginationContainer: this.className.paginationContainer,
     })
   }
 
