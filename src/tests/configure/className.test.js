@@ -36,4 +36,23 @@ describe('ClassName', () => {
       grid.render();
     }).not.toThrow(DOMException);
   });
+
+  test('filterContainer', () => {
+    configuration.className = {
+      filterContainer: 'filterContainer_custom',
+    };
+    let grid = new zGrid(configuration);
+    grid.render();
+    let ui = parent.getElementsByClassName('filterContainer_custom');
+    expect(ui.length).toBe(1);
+  });
+
+  test('filter', () => {
+    configuration.className = {
+      filter: 'filter_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('filter_custom');
+    expect(ui.length).toBe(1);
+  });
 });
