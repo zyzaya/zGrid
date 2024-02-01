@@ -1,12 +1,12 @@
 - callbacks
-  - on filter
-  - on page change
-  - on sort
+  - on filter ✓
+  - on page change ✓
+  - on sort ✓
   - on click
 - user defined styling
   - className
-    - filter_container
-    - filter
+    - filter_container ✓
+    - filter ✓
     - table
     - th
     - thead
