@@ -41,7 +41,11 @@ let grid = new zGrid({
     'Phone Number',
     'Email'],
   data: testData,
-  pagination: 7
+  pagination: 7,
+  className: {
+    filter: 'custom_filter',
+    filterContainer: 'custom filterContainer'
+  }
 });
 
 let current = 1;

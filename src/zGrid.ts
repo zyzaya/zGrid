@@ -265,6 +265,11 @@ export default class zGrid {
 
   private configureClassName(className: ClassNames) {
     this.className = className === undefined ? {} : className;
+    Object.values(className).forEach((e) => {
+      if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(e))
+        throw new Error(`Invalid css class name (${e})`)
+    });
+
     this.ui_filter.setClassNames({
       filterContainer: this.className.filterContainer, 
       filter: this.className.filter
