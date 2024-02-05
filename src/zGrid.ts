@@ -285,7 +285,8 @@ export default class zGrid {
       paginationInfo: this.className.paginationInfo,
       paginationButton: this.className.paginationButton,
       paginationPrevious: this.className.paginationPrevious,
-      paginationCurrent: this.className.paginationNext,
+      paginationCurrent: this.className.paginationCurrent,
+      paginationNext: this.className.paginationNext
     })
   }
 

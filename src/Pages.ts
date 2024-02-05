@@ -127,18 +127,22 @@ export default class Pages {
     this.container.classList.add('zgrid_pages_container')
     if (classNames.paginationContainer)
       this.container.classList.add(classNames.paginationContainer)
+    this.previous.className = '';
+    this.previous.classList.add('zgrid_page_button')
+    this.next.className = '';
+    this.next.classList.add('zgrid_page_button')
     if (classNames.paginationButton) {
       this.buttons.forEach((b) => {
         b.className = '';
         b.classList.add('zgrid_page_button')
         b.classList.add(classNames.paginationButton)
       })
-      this.previous.className = '';
-      this.previous.classList.add('zgrid_page_button')
       this.previous.classList.add(classNames.paginationButton)
-      this.next.className = '';
-      this.next.classList.add('zgrid_page_button')
       this.next.classList.add(classNames.paginationButton)
     }
+    if (classNames.paginationPrevious)
+      this.previous.classList.add(classNames.paginationPrevious)
+    if (classNames.paginationNext)
+      this.next.classList.add(classNames.paginationNext)
   }
 }
