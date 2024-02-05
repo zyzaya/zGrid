@@ -547,7 +547,7 @@ export default class zGrid {
     }
   };
 
-  public render() {               
+  private render() {               
     this.renderHeader()  
     this.renderData();
   };

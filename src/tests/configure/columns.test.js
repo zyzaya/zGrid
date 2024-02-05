@@ -125,7 +125,6 @@ describe('Columns', () => {
     test('changes ui', () => {
       configuration.columns = ['one', 'two', 'three'];
       let grid = new zGrid(configuration);
-      grid.render();
       let ui = parent.getElementsByClassName('zgrid_header');
       expect(ui.length).toBe(3);
       grid.reconfigure({

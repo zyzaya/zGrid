@@ -55,9 +55,6 @@ toggle.onclick = (e) => {
   grid.reconfigure({
     parent: document.getElementById(`container${current}`),
   })
-  grid.render()
 }
 
 console.log(testData)
-
-grid.render();
