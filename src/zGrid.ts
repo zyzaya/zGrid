@@ -174,6 +174,7 @@ export default class zGrid {
 
     this.configureUI()
     this.configureClassName(config.className)
+    this.render();
   }
 
   private configureParent(parent: HTMLElement): HTMLElement {
@@ -367,6 +368,7 @@ export default class zGrid {
     }
     if (config.filter !== undefined) {
       this.filter = this.configureFilter(config.filter)
+      this.renderData()
     }
     if (config.searchbox !== undefined) {
       this.showFilter = config.searchbox
@@ -427,7 +429,6 @@ export default class zGrid {
       } else if (typeof this.sortConfig === 'object') {
         let col_name = this.sortConfig.column;
         let col_config = this.columns.find((e) => e.name === col_name);
-        console.log(this.sortConfig)
         if (typeof col_config.sort === 'function') {
           let col_sort = col_config.sort;
           filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));

@@ -146,6 +146,17 @@ describe('Filter', () => {
       expect(grid.getData()).toStrictEqual(markedEmail);
     });
 
+    test('reconfigure filter updates ui', () => {
+      let grid = new zGrid(configuration);
+      grid.setFilter('DWAL');
+      let cells = Array.from(parent.getElementsByClassName('zgrid_cell'));
+      markedLastNames.forEach((e) => {
+        expect(
+          cells.find((c) => c.innerText === e['Email'])
+        ).not.toBeUndefined();
+      });
+    });
+
     test('reconfigure onFilter', () => {
       let grid = new zGrid(configuration);
       let ui = parent.getElementsByClassName('zgrid_filter')[0];
