@@ -7,6 +7,7 @@ export default class Pages {
 
   private maxPages: number;
   private currentPage: number;
+  private currentClassName: string;
   
   constructor(parent: HTMLDivElement, pages = 1) {
     this.container = document.createElement('div')
@@ -131,12 +132,13 @@ export default class Pages {
     this.previous.classList.add('zgrid_page_button')
     this.next.className = '';
     this.next.classList.add('zgrid_page_button')
-    if (classNames.paginationButton) {
-      this.buttons.forEach((b) => {
-        b.className = '';
-        b.classList.add('zgrid_page_button')
+    this.buttons.forEach((b) => {
+      b.className = '';
+      b.classList.add('zgrid_page_button')
+      if (classNames.paginationButton)
         b.classList.add(classNames.paginationButton)
-      })
+    })
+    if (classNames.paginationButton) {
       this.previous.classList.add(classNames.paginationButton)
       this.next.classList.add(classNames.paginationButton)
     }
@@ -144,5 +146,13 @@ export default class Pages {
       this.previous.classList.add(classNames.paginationPrevious)
     if (classNames.paginationNext)
       this.next.classList.add(classNames.paginationNext)
+    let current = this.buttons[this.currentPage]
+    current.className = '';
+    current.classList.add('zgrid_page_button');
+    current.classList.add('zgrid_current_page');
+    if (classNames.paginationButton)
+      current.classList.add(classNames.paginationButton)
+    if (classNames.paginationCurrent)
+      current.classList.add(classNames.paginationCurrent)
   }
 }
