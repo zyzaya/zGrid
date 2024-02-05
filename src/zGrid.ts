@@ -302,6 +302,7 @@ export default class zGrid {
     this.head = document.createElement('thead')
     // filter
     this.ui_filter = new Filter(container)
+    this.ui_filter.visible = this.showFilter
     this.ui_filter.oninput = (_, v) => {
       this.reconfigure({
         filter: v,
@@ -309,7 +310,7 @@ export default class zGrid {
       // callback
       if (this.onFilter != undefined) this.onFilter(v);
       // modify data & pageui
-      this.render();
+      this.renderData();
     }
     // header
     // this.createHeader(head);
@@ -320,6 +321,8 @@ export default class zGrid {
     // pages
     this.pages_info_container = document.createElement('div')
     this.pages_info_container.classList.add('zgrid_pages_info_container')
+    if (!this.pagination)
+      this.pages_info_container.classList.add('zgrid_hidden')
 
     this.pages_info = document.createElement('div')
     this.pages_info.classList.add('zgrid_pages_info')
@@ -331,7 +334,7 @@ export default class zGrid {
       if (p === this.currentPage) return;
       if (this.onPageChange !== undefined) this.onPageChange(p);
       this.currentPage = p;
-      this.render();
+      this.renderData();
     }
     container.appendChild(this.pages_info_container)
 
@@ -352,13 +355,15 @@ export default class zGrid {
     }
     if (config.pagination !== undefined) {
       this.pagination = this.configurePagination(config.pagination)
+      if (this.pagination) this.pages_info_container.classList.remove('zgrid_hidden')
+      else this.pages_info_container.classList.add('zgrid_hidden')
     }
     if (config.filter !== undefined) {
       this.filter = this.configureFilter(config.filter)
     }
     if (config.searchbox !== undefined) {
       this.showFilter = config.searchbox
-      this.renderFilter()
+      this.ui_filter.visible = this.showFilter;
     }
     if (config.onFilter !== undefined) this.onFilter = config.onFilter
     if (config.onPageChange !== undefined) this.onPageChange = config.onPageChange
@@ -430,6 +435,7 @@ export default class zGrid {
       this.ui_pages.totalPages = page_count === 0 ? 1 : page_count
       if (this.currentPage > this.ui_pages.totalPages) {
         this.currentPage = this.ui_pages.totalPages
+        this.ui_pages.page = this.currentPage;
       }
       let start = (this.currentPage - 1) * this.pagination;
       let end = start + this.pagination;
@@ -533,15 +539,9 @@ export default class zGrid {
   };
 
   public render() {               
-    this.renderFilter();
     this.renderHeader()  
     this.renderData();
-    this.renderPages()
   };
-
-  private renderFilter() {
-    this.ui_filter.visible = this.showFilter;
-  }
 
   private renderHeader() {
     this.head.replaceChildren();
@@ -561,7 +561,7 @@ export default class zGrid {
           this.sort(config.name, ascending)
           if (this.onSort !== undefined) this.onSort(config.name, ascending)
         }
-        this.render()
+        this.renderData()
       }
       if (prev !== undefined) {
         prev.onresize = (width, change) => {
@@ -599,14 +599,5 @@ export default class zGrid {
       });
       this.body.appendChild(row);
     });
-  }
-
-  private renderPages() {
-    if (this.pagination) {
-      this.ui_pages.page = this.currentPage
-      this.pages_info_container.classList.remove('zgrid_hidden')
-    } else {
-      this.pages_info_container.classList.add('zgrid_hidden')
-    } 
   }
 }

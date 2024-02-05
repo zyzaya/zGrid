@@ -60,6 +60,4 @@ toggle.onclick = (e) => {
 
 console.log(testData)
 
-// grid.sort((a, b) => { return 0 })
-// grid.sort('ID', false)
 grid.render();
