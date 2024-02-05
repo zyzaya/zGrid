@@ -289,7 +289,7 @@ export default class zGrid {
     })
     this.pages_info.className = '';
     this.pages_info.classList.add('zgrid_pages_info')
-    if (className.paginationInfo)
+    if (this.className.paginationInfo)
       this.pages_info.classList.add(className.paginationInfo)
   }
 

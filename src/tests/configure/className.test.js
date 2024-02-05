@@ -33,7 +33,6 @@ describe('ClassName', () => {
     };
     expect(() => {
       let grid = new zGrid(configuration);
-      grid.render();
     }).not.toThrow(DOMException);
   });
 
@@ -42,7 +41,6 @@ describe('ClassName', () => {
       filterContainer: 'filterContainer_custom',
     };
     let grid = new zGrid(configuration);
-    grid.render();
     let ui = parent.getElementsByClassName('filterContainer_custom');
     expect(ui.length).toBe(1);
   });

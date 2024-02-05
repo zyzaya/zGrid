@@ -130,7 +130,7 @@ describe('Sort', () => {
       let callback = jest.fn();
       configuration.onSort = callback;
       let grid = new zGrid(configuration);
-      grid.render();
+      // grid.render();
       let header = Array.from(
         parent.getElementsByClassName('zgrid_title')
       ).find((e) => {
