@@ -349,6 +349,13 @@ export default class zGrid {
     }
     if (config.columns !== undefined) {
       this.columns = this.configureColumns(config.columns)
+      // reset sort if sorting by a removed column
+      if (this.sortConfig && typeof this.sortConfig !== 'function') {
+        let sort = this.sortConfig.column
+        if (!this.columns.some((e) => e.name === sort))
+          this.sort();
+      }
+      this.render();
     }
     if (config.data !== undefined) {
       this.data = this.configureData(config.data)
@@ -420,6 +427,7 @@ export default class zGrid {
       } else if (typeof this.sortConfig === 'object') {
         let col_name = this.sortConfig.column;
         let col_config = this.columns.find((e) => e.name === col_name);
+        console.log(this.sortConfig)
         if (typeof col_config.sort === 'function') {
           let col_sort = col_config.sort;
           filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));

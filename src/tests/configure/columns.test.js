@@ -5,10 +5,13 @@ import zGrid from '../../zGrid';
 
 describe('Columns', () => {
   let configuration = {};
+  let parent;
 
   beforeEach(() => {
+    parent = document.createElement('div');
+
     configuration = {
-      parent: document.createElement('div'),
+      parent: parent,
       columns: ['one', { name: 'two' }],
       data: [],
     };
@@ -87,6 +90,49 @@ describe('Columns', () => {
       expect(() => {
         grid.sort('one');
       }).toThrow(Error);
+    });
+
+    test('removing column currently sorted by clears sort', () => {
+      let data = [
+        {
+          a: '1',
+          b: '2',
+          c: '3',
+        },
+        {
+          a: '2',
+          b: '1',
+          c: '2',
+        },
+        {
+          a: '3',
+          b: '3',
+          c: '1',
+        },
+      ];
+      configuration.data = data;
+      configuration.columns = ['a', 'b'];
+      let grid = new zGrid(configuration);
+      grid.sort('a');
+      grid.reconfigure({
+        columns: ['b', 'c'],
+      });
+      grid.getData().forEach((e, i) => {
+        expect(e).toStrictEqual(data[i]);
+      });
+    });
+
+    test('changes ui', () => {
+      configuration.columns = ['one', 'two', 'three'];
+      let grid = new zGrid(configuration);
+      grid.render();
+      let ui = parent.getElementsByClassName('zgrid_header');
+      expect(ui.length).toBe(3);
+      grid.reconfigure({
+        columns: ['one'],
+      });
+      ui = parent.getElementsByClassName('zgrid_header');
+      expect(ui.length).toBe(1);
     });
   });
 });
