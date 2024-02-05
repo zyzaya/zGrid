@@ -118,7 +118,6 @@ export default class Pages {
 
   public setClassNames(classNames: {
     paginationContainer?: string,
-    paginationInfo?: string,
     paginationButton?: string,
     paginationPrevious?: string,
     paginationCurrent?: string,

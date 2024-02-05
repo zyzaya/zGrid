@@ -282,12 +282,15 @@ export default class zGrid {
     })
     this.ui_pages.setClassNames({
       paginationContainer: this.className.paginationContainer,
-      paginationInfo: this.className.paginationInfo,
       paginationButton: this.className.paginationButton,
       paginationPrevious: this.className.paginationPrevious,
       paginationCurrent: this.className.paginationCurrent,
       paginationNext: this.className.paginationNext
     })
+    this.pages_info.className = '';
+    this.pages_info.classList.add('zgrid_pages_info')
+    if (className.paginationInfo)
+      this.pages_info.classList.add(className.paginationInfo)
   }
 
   private configureUI() {
