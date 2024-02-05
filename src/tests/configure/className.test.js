@@ -64,4 +64,49 @@ describe('ClassName', () => {
     let ui = parent.getElementsByClassName('paginationContainer_custom');
     expect(ui.length).toBe(1);
   });
+
+  test('paginationInfo', () => {
+    configuration.className = {
+      paginationInfo: 'paginationInfo_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationInfo_custom');
+    expect(ui.length).toBe(1);
+  });
+
+  test('paginationButton', () => {
+    configuration.className = {
+      paginationButton: 'paginationButton_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationButton_custom');
+    expect(ui.length).toBe(7);
+  });
+
+  test('paginationPrevious', () => {
+    configuration.className = {
+      paginationPrevious: 'paginationPrevious_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationPrevious_custom');
+    expect(ui.length).toBe(1);
+  });
+
+  test('paginationCurrent', () => {
+    configuration.className = {
+      paginationCurrent: 'paginationCurrent_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationCurrent_custom');
+    expect(ui.length).toBe(1);
+  });
+
+  test('paginationNext', () => {
+    configuration.className = {
+      paginationNext: 'paginationNext_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationNext_custom');
+    expect(ui.length).toBe(1);
+  });
 });
