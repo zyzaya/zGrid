@@ -365,6 +365,7 @@ export default class zGrid {
       this.pagination = this.configurePagination(config.pagination)
       if (this.pagination) this.pages_info_container.classList.remove('zgrid_hidden')
       else this.pages_info_container.classList.add('zgrid_hidden')
+      this.render();
     }
     if (config.filter !== undefined) {
       this.filter = this.configureFilter(config.filter)

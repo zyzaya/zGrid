@@ -116,6 +116,16 @@ describe('Pagination', () => {
       expect(grid.getData().length).toBe(10);
     });
 
+    test('reconfiguring pagination updates ui', () => {
+      configuration.pagination = false;
+      let grid = new zGrid(configuration);
+      grid.reconfigure({
+        pagination: 1,
+      });
+      let cells = parent.getElementsByClassName('zgrid_cell');
+      expect(cells.length).toBe(3);
+    });
+
     test('reconfigure onPageChange', () => {
       let callback = jest.fn();
       configuration.pagination = 2;
