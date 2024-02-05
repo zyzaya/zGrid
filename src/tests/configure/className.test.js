@@ -80,7 +80,7 @@ describe('ClassName', () => {
     };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('paginationButton_custom');
-    expect(ui.length).toBe(7);
+    expect(ui.length).toBe(9);
   });
 
   test('paginationPrevious', () => {

@@ -44,7 +44,7 @@ let grid = new zGrid({
   pagination: 7,
   className: {
     filter: 'custom_filter',
-    filterContainer: 'custom filterContainer'
+    filterContainer: 'custom_filterContainer'
   }
 });
 

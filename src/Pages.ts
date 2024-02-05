@@ -2,7 +2,9 @@ export default class Pages {
   onpagechange: (page: number) => void;
   private container: HTMLDivElement;
   private buttons: HTMLButtonElement[];
-  
+  private previous: HTMLButtonElement;
+  private next: HTMLButtonElement;
+
   private maxPages: number;
   private currentPage: number;
   
@@ -10,11 +12,11 @@ export default class Pages {
     this.container = document.createElement('div')
     this.container.classList.add('zgrid_pages_container')
 
-    let previous = document.createElement('button')
-    previous.classList.add('zgrid_page_button')
-    previous.innerText = 'Previous'
-    previous.onclick = () => this.previousPage();
-    this.container.appendChild(previous)
+    this.previous = document.createElement('button')
+    this.previous.classList.add('zgrid_page_button')
+    this.previous.innerText = 'Previous'
+    this.previous.onclick = () => this.previousPage();
+    this.container.appendChild(this.previous)
     
 
     this.buttons = [];
@@ -26,11 +28,11 @@ export default class Pages {
       this.container.appendChild(this.buttons[i]);
     }
 
-    let next = document.createElement('button')
-    next.classList.add('zgrid_page_button')
-    next.innerText = 'Next'
-    next.onclick = (e) => this.nextPage();
-    this.container.appendChild(next);
+    this.next = document.createElement('button')
+    this.next.classList.add('zgrid_page_button')
+    this.next.innerText = 'Next'
+    this.next.onclick = (e) => this.nextPage();
+    this.container.appendChild(this.next);
 
     parent.appendChild(this.container)
 
@@ -125,5 +127,18 @@ export default class Pages {
     this.container.classList.add('zgrid_pages_container')
     if (classNames.paginationContainer)
       this.container.classList.add(classNames.paginationContainer)
+    if (classNames.paginationButton) {
+      this.buttons.forEach((b) => {
+        b.className = '';
+        b.classList.add('zgrid_page_button')
+        b.classList.add(classNames.paginationButton)
+      })
+      this.previous.className = '';
+      this.previous.classList.add('zgrid_page_button')
+      this.previous.classList.add(classNames.paginationButton)
+      this.next.className = '';
+      this.next.classList.add('zgrid_page_button')
+      this.next.classList.add(classNames.paginationButton)
+    }
   }
 }
