@@ -365,7 +365,7 @@ export default class zGrid {
       this.pagination = this.configurePagination(config.pagination)
       if (this.pagination) this.pages_info_container.classList.remove('zgrid_hidden')
       else this.pages_info_container.classList.add('zgrid_hidden')
-      this.render();
+      this.renderData();
     }
     if (config.filter !== undefined) {
       this.filter = this.configureFilter(config.filter)
@@ -470,6 +470,7 @@ export default class zGrid {
     }
     this.currentPage = page;
     this.ui_pages.page = page;
+    this.renderData()
   };
   /**
    * Defines conditions to hide or display certain rows 

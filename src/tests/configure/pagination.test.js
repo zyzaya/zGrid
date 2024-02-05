@@ -147,8 +147,10 @@ describe('Pagination', () => {
 describe('setPage', () => {
   let data = [];
   let configuration = {};
+  let parent;
   beforeEach(() => {
     data = [];
+    parent = document.createElement('div');
     for (let i = 0; i < 10; i++) {
       data.push({
         'First Name': faker.person.firstName(),
@@ -158,7 +160,7 @@ describe('setPage', () => {
     }
 
     configuration = {
-      parent: document.createElement('div'),
+      parent: parent,
       columns: ['First Name', 'Last Name', 'Email'],
       data: data,
     };
@@ -214,5 +216,13 @@ describe('setPage', () => {
     configuration.pagination = 2;
     let grid = new zGrid(configuration);
     expect(grid.getData().length).toBe(2);
+  });
+
+  test('changing page updates ui', () => {
+    configuration.pagination = 3;
+    let grid = new zGrid(configuration);
+    let cells = parent.getElementsByClassName('zgrid_cell');
+    grid.page = 4;
+    expect(cells.length).toBe(3);
   });
 });
