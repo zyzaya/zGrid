@@ -5,9 +5,11 @@ import zGrid from '../../zGrid';
 
 describe('Data', () => {
   let configuration = {};
+  let parent;
   beforeEach(() => {
+    parent = document.createElement('div');
     configuration = {
-      parent: document.createElement('div'),
+      parent: parent,
       columns: ['first name', 'last name', 'email'],
       data: [],
     };
@@ -56,6 +58,27 @@ describe('Data', () => {
         data: data,
       });
       expect(grid.getData()).toStrictEqual(data);
+    });
+
+    test('reconfiguring data updates ui', () => {
+      let grid = new zGrid(configuration);
+      let data = [
+        {
+          'first name': 'first',
+          'last name': 'last',
+          email: 'email@email.ca',
+        },
+        {
+          'first name': 'Jane',
+          'last name': 'Smith',
+          email: 'janesmith@some.thing',
+        },
+      ];
+      grid.reconfigure({
+        data: data,
+      });
+      let cells = parent.getElementsByClassName('zgrid_cell');
+      expect(cells.length).toBe(6);
     });
   });
 });

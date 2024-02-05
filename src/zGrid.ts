@@ -360,6 +360,7 @@ export default class zGrid {
     }
     if (config.data !== undefined) {
       this.data = this.configureData(config.data)
+      this.renderData();
     }
     if (config.pagination !== undefined) {
       this.pagination = this.configurePagination(config.pagination)
