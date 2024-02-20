@@ -1,30 +1,8 @@
-type ClassName = 
-  "filterContainer" | 
-  "filter" | 
-  "paginationContainer" |
-  "paginationInfo" |
-  "paginationButton" |
-  "paginationPrevious" |
-  "paginationCurrent" |
-  "paginationNext"
-
 type Record = {
-  id: ClassName;
-  element: HTMLElement;
-  defaults?: Array<String>;
-  custom?: Array<string>;
+  id: string;
+  element?: HTMLElement;
+  names: Array<string>;
 }
-
-let validNames = [
-  "filterContainer",
-  "filter",
-  "paginationContainer",
-  "paginationInfo",
-  "paginationButton",
-  "paginationPrevious",
-  "paginationCurrent",
-  "paginationNext"
-]
 
 export default class CustomClassNames {
   private data: Array<Record>
@@ -32,35 +10,41 @@ export default class CustomClassNames {
     this.data = [];
   }
 
-  setElement(id: ClassName, element: HTMLElement) {
-    if (!validNames.includes(id))
-      throw new TypeError(`Invalid id ${id}. Must be one of ${validNames.join(', ')}`)
-    
+  updateClassList(id: string) {
+    let record = this.getRecord(id);
+    if (record.element === undefined) return
+    record.element.className = '';
+    record.names.forEach((n) => record.element.classList.add(n))
+  }
+
+  setElement(id: string, element: HTMLElement) {
+    let record = this.getRecord(id)
+    record.element = element;
+  }
+
+  getRecord(id: string): Record {
     let record = this.data.find((e) => e.id === id)
     if (record === undefined) {
       record = {
         id: id,
-        element: element,
+        names: [],
       }
       this.data.push(record)
-    } else {
-      record.element = element;
+    }
+    return record
+  }
+
+  addCustomName(id: string, name: string) {
+    let record = this.getRecord(id);
+    if (!record.names.includes(name)) {
+      record.names.push(name)
+      this.updateClassList(id);
     }
   }
 
-  addDefaultName(id: ClassName, name: string) {
-
-  }
-
-  removeDefaultName(id: ClassName, name: string) {
-
-  }
-
-  addCustomName(id: ClassName, name: string) {
-
-  }
-
-  removeCustomName(id: ClassName, name: string) {
-
+  removeCustomName(id: string, name: string) {
+    let record = this.getRecord(id);
+    record.names = record.names.filter((n) => n !== name)
+    this.updateClassList(id);
   }
 }
