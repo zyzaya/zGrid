@@ -1,41 +1,48 @@
+import CustomClassNames from "./CustomClassNames";
+
 export default class Pages {
   onpagechange: (page: number) => void;
-  private container: HTMLDivElement;
   private buttons: HTMLButtonElement[];
-  private previous: HTMLButtonElement;
-  private next: HTMLButtonElement;
+  // private previous: HTMLButtonElement;
+  // private next: HTMLButtonElement;
 
   private maxPages: number;
   private currentPage: number;
   private currentClassName: string;
   
   constructor(parent: HTMLDivElement, pages = 1) {
-    this.container = document.createElement('div')
-    this.container.classList.add('zgrid_pages_container')
+    let container = document.createElement('div')
+    CustomClassNames.setElement('paginationContainer', container)
+    CustomClassNames.addDefaultName('paginationContainer', 'zgrid_pages_container')
 
-    this.previous = document.createElement('button')
-    this.previous.classList.add('zgrid_page_button')
-    this.previous.innerText = 'Previous'
-    this.previous.onclick = () => this.previousPage();
-    this.container.appendChild(this.previous)
-    
+    let previous = document.createElement('button')
+    CustomClassNames.setElement('paginationPrevious', previous)
+    CustomClassNames.addDefaultName('paginationPrevious', 'zgrid_page_button')
+    previous.innerText = 'Previous'
+    previous.onclick = () => this.previousPage();
+    container.appendChild(previous)
+
+    CustomClassNames.addDefaultName('paginationCurrent', 'zgrid_page_button')
+    CustomClassNames.addDefaultName('paginationCurrent', 'zgrid_current_page')
 
     this.buttons = [];
 
     for (let i = 0; i < 7; i++) {
       this.buttons[i] = document.createElement('button')
-      this.buttons[i].classList.add('zgrid_page_button')
+      CustomClassNames.setElement(`paginationButtons${i}`, this.buttons[i])
+      CustomClassNames.addDefaultName(`paginationButtons${i}`, 'zgrid_page_button')
       this.buttons[i].innerText = `${i + 1}`
-      this.container.appendChild(this.buttons[i]);
+      container.appendChild(this.buttons[i]);
     }
 
-    this.next = document.createElement('button')
-    this.next.classList.add('zgrid_page_button')
-    this.next.innerText = 'Next'
-    this.next.onclick = (e) => this.nextPage();
-    this.container.appendChild(this.next);
+    let next = document.createElement('button')
+    CustomClassNames.setElement('paginationPrevious', next)
+    CustomClassNames.addDefaultName('paginationNext', 'zgrid_page_button')
+    next.innerText = 'Next'
+    next.onclick = (e) => this.nextPage();
+    container.appendChild(next);
 
-    parent.appendChild(this.container)
+    parent.appendChild(container)
 
     this.totalPages = pages;
     this.page = 1;
@@ -86,15 +93,18 @@ export default class Pages {
       this.buttons[i].innerText = `${newPage ? newPage : '...'}`
       if (newPage === undefined) {
         this.buttons[i].onclick = undefined;
-        this.buttons[i].classList.remove('zgrid_current_page')
+        CustomClassNames.setElement('paginationCurrent', undefined)
+        CustomClassNames.setElement(`paginationButtons${i}`, this.buttons[i])
       } else {
         this.buttons[i].onclick = (e) => {
           this.page = newPage;
         }
         if (newPage == p) {
-          this.buttons[i].classList.add('zgrid_current_page')
+          CustomClassNames.setElement(`paginationButtons${i}`, undefined)
+          CustomClassNames.setElement('paginationCurrent', this.buttons[i])
         } else {
-          this.buttons[i].classList.remove('zgrid_current_page')
+          CustomClassNames.setElement('paginationCurrent', undefined)
+          CustomClassNames.setElement(`paginationButtons${i}`, this.buttons[i])
         }
       }
     }
@@ -116,42 +126,42 @@ export default class Pages {
     this.page = this.currentPage - 1
   }
 
-  public setClassNames(classNames: {
-    paginationContainer?: string,
-    paginationButton?: string,
-    paginationPrevious?: string,
-    paginationCurrent?: string,
-    paginationNext?: string
-  }) {
-    this.container.className = '';
-    this.container.classList.add('zgrid_pages_container')
-    if (classNames.paginationContainer)
-      this.container.classList.add(classNames.paginationContainer)
-    this.previous.className = '';
-    this.previous.classList.add('zgrid_page_button')
-    this.next.className = '';
-    this.next.classList.add('zgrid_page_button')
-    this.buttons.forEach((b) => {
-      b.className = '';
-      b.classList.add('zgrid_page_button')
-      if (classNames.paginationButton)
-        b.classList.add(classNames.paginationButton)
-    })
-    if (classNames.paginationButton) {
-      this.previous.classList.add(classNames.paginationButton)
-      this.next.classList.add(classNames.paginationButton)
-    }
-    if (classNames.paginationPrevious)
-      this.previous.classList.add(classNames.paginationPrevious)
-    if (classNames.paginationNext)
-      this.next.classList.add(classNames.paginationNext)
-    let current = this.buttons[this.currentPage]
-    current.className = '';
-    current.classList.add('zgrid_page_button');
-    current.classList.add('zgrid_current_page');
-    if (classNames.paginationButton)
-      current.classList.add(classNames.paginationButton)
-    if (classNames.paginationCurrent)
-      current.classList.add(classNames.paginationCurrent)
-  }
+  // public setClassNames(classNames: {
+  //   paginationContainer?: string,
+  //   paginationButton?: string,
+  //   paginationPrevious?: string,
+  //   paginationCurrent?: string,
+  //   paginationNext?: string
+  // }) {
+  //   this.container.className = '';
+  //   this.container.classList.add('zgrid_pages_container')
+  //   if (classNames.paginationContainer)
+  //     this.container.classList.add(classNames.paginationContainer)
+  //   this.previous.className = '';
+  //   this.previous.classList.add('zgrid_page_button')
+  //   this.next.className = '';
+  //   this.next.classList.add('zgrid_page_button')
+  //   this.buttons.forEach((b) => {
+  //     b.className = '';
+  //     b.classList.add('zgrid_page_button')
+  //     if (classNames.paginationButton)
+  //       b.classList.add(classNames.paginationButton)
+  //   })
+  //   if (classNames.paginationButton) {
+  //     this.previous.classList.add(classNames.paginationButton)
+  //     this.next.classList.add(classNames.paginationButton)
+  //   }
+  //   if (classNames.paginationPrevious)
+  //     this.previous.classList.add(classNames.paginationPrevious)
+  //   if (classNames.paginationNext)
+  //     this.next.classList.add(classNames.paginationNext)
+  //   let current = this.buttons[this.currentPage]
+  //   current.className = '';
+  //   current.classList.add('zgrid_page_button');
+  //   current.classList.add('zgrid_current_page');
+  //   if (classNames.paginationButton)
+  //     current.classList.add(classNames.paginationButton)
+  //   if (classNames.paginationCurrent)
+  //     current.classList.add(classNames.paginationCurrent)
+  // }
 }

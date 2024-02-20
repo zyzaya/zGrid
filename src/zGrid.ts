@@ -273,27 +273,26 @@ export default class zGrid {
 
   private configureClassName(className: ClassNames) {
     this.className = className === undefined ? {} : className;
-    Object.values(this.className).forEach((e) => {
-      if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(e))
-        throw new Error(`Invalid css class name (${e})`)
-    });
+    for (const [key, value] of Object.entries(this.className)) {
+      if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(value))
+        throw new Error(`Invalid css class name (${value})`)
+      
+      CustomClassNames.clearCustomNames(key)
+      if (key === 'paginationButton') {
+        CustomClassNames.addCustomName('paginationNext', value)
+        CustomClassNames.addCustomName('paginationPrevious', value)
+        for (let i = 0; i < 7; i++){
+          CustomClassNames.addCustomName(`paginationButtons${i}`, value)
+        }
+      } else {
+        CustomClassNames.addCustomName(key, value)
+      }
+    };
 
-    CustomClassNames.clearCustomNames('filterContainer')
-    CustomClassNames.addCustomName('filterContainer', this.className.filterContainer)
-    CustomClassNames.clearCustomNames('filter')
-    CustomClassNames.addCustomName('filter', this.className.filter)
-
-    this.ui_pages.setClassNames({
-      paginationContainer: this.className.paginationContainer,
-      paginationButton: this.className.paginationButton,
-      paginationPrevious: this.className.paginationPrevious,
-      paginationCurrent: this.className.paginationCurrent,
-      paginationNext: this.className.paginationNext
-    })
-    this.pages_info.className = '';
-    this.pages_info.classList.add('zgrid_pages_info')
-    if (this.className.paginationInfo)
-      this.pages_info.classList.add(className.paginationInfo)
+    // this.pages_info.className = '';
+    // this.pages_info.classList.add('zgrid_pages_info')
+    // if (this.className.paginationInfo)
+    //   this.pages_info.classList.add(className.paginationInfo)
   }
 
   private configureUI() {
