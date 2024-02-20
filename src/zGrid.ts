@@ -278,10 +278,10 @@ export default class zGrid {
         throw new Error(`Invalid css class name (${e})`)
     });
 
-    // CustomClassNames.clearCustomNames('filterContainer')
-    // CustomClassNames.addCustomName('filterContainer', this.className.filterContainer)
-    // CustomClassNames.clearCustomNames('filter')
-    // CustomClassNames.addCustomName('filter', this.className.filter)
+    CustomClassNames.clearCustomNames('filterContainer')
+    CustomClassNames.addCustomName('filterContainer', this.className.filterContainer)
+    CustomClassNames.clearCustomNames('filter')
+    CustomClassNames.addCustomName('filter', this.className.filter)
 
     this.ui_pages.setClassNames({
       paginationContainer: this.className.paginationContainer,
