@@ -277,22 +277,20 @@ export default class zGrid {
       if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(value))
         throw new Error(`Invalid css class name (${value})`)
       
-      CustomClassNames.clearCustomNames(key)
-      if (key === 'paginationButton') {
-        CustomClassNames.addCustomName('paginationNext', value)
-        CustomClassNames.addCustomName('paginationPrevious', value)
-        for (let i = 0; i < 7; i++){
-          CustomClassNames.addCustomName(`paginationButtons${i}`, value)
-        }
-      } else {
+      
+      if (key !== 'paginationButton') {
+        CustomClassNames.clearCustomNames(key)
         CustomClassNames.addCustomName(key, value)
       }
     };
-
-    // this.pages_info.className = '';
-    // this.pages_info.classList.add('zgrid_pages_info')
-    // if (this.className.paginationInfo)
-    //   this.pages_info.classList.add(className.paginationInfo)
+    
+    CustomClassNames.addCustomName('paginationNext', this.className.paginationButton)
+    CustomClassNames.addCustomName('paginationPrevious', this.className.paginationButton)
+    CustomClassNames.addCustomName('paginationCurrent', this.className.paginationButton)
+    for (let i = 0; i < 7; i++){
+      CustomClassNames.clearCustomNames(`paginationButtons${i}`)
+      CustomClassNames.addCustomName(`paginationButtons${i}`, this.className.paginationButton)
+    }
   }
 
   private configureUI() {
@@ -327,7 +325,8 @@ export default class zGrid {
       this.pages_info_container.classList.add('zgrid_hidden')
 
     this.pages_info = document.createElement('div')
-    this.pages_info.classList.add('zgrid_pages_info')
+    CustomClassNames.setElement('paginationInfo', this.pages_info)
+    CustomClassNames.addDefaultName('paginationInfo', 'zgrid_pages_info')
     this.pages_info_container.appendChild(this.pages_info)
 
     this.ui_pages = new Pages(this.pages_info_container)

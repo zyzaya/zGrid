@@ -1,6 +1,7 @@
 /***
  * @jest-environment jsdom
  */
+import CustomClassNames from '../../CustomClassNames';
 import zGrid from '../../zGrid';
 import { faker } from '@faker-js/faker';
 
@@ -95,6 +96,7 @@ describe('ClassName', () => {
       paginationCurrent: 'paginationCurrent_custom',
     };
     let grid = new zGrid(configuration);
+    console.log(CustomClassNames.data);
     let ui = parent.getElementsByClassName('paginationCurrent_custom');
     expect(ui.length).toBe(1);
   });

@@ -6,7 +6,7 @@ type Record = {
 }
 
 export default class CustomClassNames {
-  private static data: Array<Record> = [];
+  public static data: Array<Record> = [];
 
   static clearRecords() {
     this.data = [];
