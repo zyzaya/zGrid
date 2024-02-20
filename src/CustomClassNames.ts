@@ -54,7 +54,9 @@ export default class CustomClassNames {
   }
 
   static clearDefaultNames(id: string) {
-
+    let record = this.getRecord(id);
+    record.default = [];
+    this.updateClassList(id);
   }
 
   static addCustomName(id: string, name: string) {
@@ -72,6 +74,8 @@ export default class CustomClassNames {
   }
 
   static clearCustomNames(id: string) {
-
+    let record = this.getRecord(id);
+    record.custom = [];
+    this.updateClassList(id);
   }
 }
