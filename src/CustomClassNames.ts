@@ -1,22 +1,29 @@
 type Record = {
   id: string;
   element?: HTMLElement;
-  names: Array<string>;
+  default: Array<string>;
+  custom: Array<string>
 }
 
 export default class CustomClassNames {
   private static data: Array<Record> = [];
 
+  static clearRecords() {
+    this.data = [];
+  }
+
   static updateClassList(id: string) {
     let record = this.getRecord(id);
     if (record.element === undefined) return
     record.element.className = '';
-    record.names.forEach((n) => record.element.classList.add(n))
+    record.default.forEach((n) => record.element.classList.add(n))
+    record.custom.forEach((n) => record.element.classList.add(n))
   }
 
   static setElement(id: string, element: HTMLElement) {
     let record = this.getRecord(id)
     record.element = element;
+    this.updateClassList(id)
   }
 
   static getRecord(id: string): Record {
@@ -24,24 +31,47 @@ export default class CustomClassNames {
     if (record === undefined) {
       record = {
         id: id,
-        names: [],
+        default: [],
+        custom: []
       }
       this.data.push(record)
     }
     return record
   }
 
+  static addDefaultName(id: string, name: string) {
+    let record = this.getRecord(id);
+    if (!record.default.includes(name)) {
+      record.default.push(name);
+      this.updateClassList(id);
+    }
+  }
+
+  static removeDefaultName(id: string, name: string) {
+    let record = this.getRecord(id);
+    record.default = record.default.filter((n) => n !== name)
+    this.updateClassList(id);
+  }
+
+  static clearDefaultNames(id: string) {
+
+  }
+
   static addCustomName(id: string, name: string) {
     let record = this.getRecord(id);
-    if (!record.names.includes(name)) {
-      record.names.push(name)
+    if (!record.custom.includes(name)) {
+      record.custom.push(name)
       this.updateClassList(id);
     }
   }
 
   static removeCustomName(id: string, name: string) {
     let record = this.getRecord(id);
-    record.names = record.names.filter((n) => n !== name)
+    record.custom = record.custom.filter((n) => n !== name)
     this.updateClassList(id);
+  }
+
+  static clearCustomNames(id: string) {
+
   }
 }
