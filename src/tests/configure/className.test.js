@@ -153,4 +153,13 @@ describe('ClassName', () => {
     let ui = parent.getElementsByClassName('tbody_custom');
     expect(ui.length).toBe(1);
   });
+
+  test('td', () => {
+    configuration.className = {
+      td: 'td_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('td_custom');
+    expect(ui.length).toBe(30);
+  });
 });

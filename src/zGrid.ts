@@ -597,6 +597,7 @@ export default class zGrid {
 
   private renderData() {
     this.body.replaceChildren()
+    CustomClassNames.clearElements('td')
     this.getData().forEach((d) => {
       let row = document.createElement('tr');
       row.classList.add('zgrid_row');
@@ -605,6 +606,8 @@ export default class zGrid {
         if (config.visible === false) return;
         
         let cell = document.createElement('td');
+        CustomClassNames.addElement('td', cell)
+        CustomClassNames.addDefaultName('td', 'zgrid_cell')
         cell.classList.add('zgrid_cell');
         cell.innerText = d[c.name];
         row.appendChild(cell);
