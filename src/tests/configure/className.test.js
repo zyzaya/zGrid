@@ -135,4 +135,13 @@ describe('ClassName', () => {
     let ui = parent.getElementsByClassName('th_custom');
     expect(ui.length).toBe(3);
   });
+
+  test('thead', () => {
+    configuration.className = {
+      thead: 'thead_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('thead_custom');
+    expect(ui.length).toBe(1);
+  });
 });
