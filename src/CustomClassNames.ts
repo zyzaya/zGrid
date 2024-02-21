@@ -1,6 +1,6 @@
 type Record = {
   id: string;
-  element?: HTMLElement;
+  elements: Array<HTMLElement>;
   default: Array<string>;
   custom: Array<string>
 }
@@ -14,15 +14,24 @@ export default class CustomClassNames {
 
   static updateClassList(id: string) {
     let record = this.getRecord(id);
-    if (record.element === undefined) return
-    record.element.className = '';
-    record.default.forEach((n) => record.element.classList.add(n))
-    record.custom.forEach((n) => record.element.classList.add(n))
+    record.elements.forEach((e) => {
+      e.className = '';
+      record.default.forEach((n) => e.classList.add(n))
+      record.custom.forEach((n) => e.classList.add(n))
+    })
+    
+    
   }
 
-  static setElement(id: string, element: HTMLElement) {
+  static addElement(id: string, element: HTMLElement) {
     let record = this.getRecord(id)
-    record.element = element;
+    record.elements.push(element)
+    this.updateClassList(id)
+  }
+
+  static removeElement(id: string, element: HTMLElement) {
+    let record = this.getRecord(id)
+    record.elements = record.elements.filter((e) => e !== element)
     this.updateClassList(id)
   }
 
@@ -31,6 +40,7 @@ export default class CustomClassNames {
     if (record === undefined) {
       record = {
         id: id,
+        elements: [],
         default: [],
         custom: []
       }

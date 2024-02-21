@@ -12,7 +12,7 @@ describe('Custom CSS', () => {
   test('adding undefined as name does nothing', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     CustomClassNames.addDefaultName('filter', undefined);
     expect(element.classList.contains('undefined')).toBe(false);
   });
@@ -21,14 +21,14 @@ describe('Custom CSS', () => {
     CustomClassNames.addDefaultName('filter', 'defaultName');
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     expect(element.classList.contains('defaultName')).toBe(true);
   });
 
   test('adding default name adds class to element', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     CustomClassNames.addDefaultName('filter', 'customName');
     expect(element.classList.contains('customName')).toBe(true);
   });
@@ -36,7 +36,7 @@ describe('Custom CSS', () => {
   test('removing default name removes class from element', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     CustomClassNames.addDefaultName('filter', 'customName');
     CustomClassNames.removeDefaultName('filter', 'customName');
     expect(element.classList.contains('customName')).toBe(false);
@@ -45,7 +45,7 @@ describe('Custom CSS', () => {
   test('clearDefaultNames', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     CustomClassNames.addDefaultName('filter', 'custom1');
     CustomClassNames.addDefaultName('filter', 'custom2');
     CustomClassNames.clearDefaultNames('filter');
@@ -56,7 +56,7 @@ describe('Custom CSS', () => {
   test('clearing default names doesnt clear custom', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     CustomClassNames.addCustomName('filter', 'custom1');
     CustomClassNames.clearDefaultNames('filter');
     expect(element.classList.contains('custom1')).toBe(true);
@@ -65,7 +65,7 @@ describe('Custom CSS', () => {
   test('adding custom name adds class to element', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     CustomClassNames.addCustomName('filter', 'customName');
     expect(element.classList.contains('customName')).toBe(true);
   });
@@ -73,7 +73,7 @@ describe('Custom CSS', () => {
   test('removing custom name removes class from element', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     CustomClassNames.addCustomName('filter', 'customName');
     CustomClassNames.removeCustomName('filter', 'customName');
     expect(element.classList.contains('customName')).toBe(false);
@@ -82,7 +82,7 @@ describe('Custom CSS', () => {
   test('clearing custom names', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     CustomClassNames.addCustomName('filter', 'custom1');
     CustomClassNames.addCustomName('filter', 'custom2');
     CustomClassNames.clearCustomNames('filter');
@@ -93,9 +93,20 @@ describe('Custom CSS', () => {
   test('clearing custom names doesnt clear default', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addElement('filter', element);
     CustomClassNames.addDefaultName('filter', 'custom1');
     CustomClassNames.clearCustomNames('filter');
     expect(element.classList.contains('custom1')).toBe(true);
+  });
+
+  test('remove element', () => {
+    let element = document.createElement('div');
+    document.body.appendChild(element);
+    CustomClassNames.addElement('filter', element);
+    CustomClassNames.addDefaultName('filter', 'custom1');
+    expect(element.classList.contains('custom1')).toBe(true);
+    CustomClassNames.removeElement('filter', element);
+    CustomClassNames.addDefaultName('filter', 'custom2');
+    expect(element.classList.contains('custom2')).toBe(false);
   });
 });
