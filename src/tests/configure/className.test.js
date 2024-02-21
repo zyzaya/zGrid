@@ -117,4 +117,13 @@ describe('ClassName', () => {
     let ui = parent.getElementsByClassName('table_custom');
     expect(ui.length).toBe(1);
   });
+
+  test('tr', () => {
+    configuration.className = {
+      tr: 'tr_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('tr_custom');
+    expect(ui.length).toBe(1);
+  });
 });

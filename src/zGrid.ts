@@ -552,6 +552,8 @@ export default class zGrid {
   private renderHeader() {
     this.head.replaceChildren();
     let headerRow = document.createElement('tr');
+    CustomClassNames.clearElements('tr')
+    CustomClassNames.addElement('tr', headerRow)
     let col_count = this.columns.filter((c) => c.visible).length
     let prev: HeaderCell = undefined;
     this.columns.forEach((config) => {
