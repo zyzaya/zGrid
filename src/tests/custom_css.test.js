@@ -9,6 +9,14 @@ describe('Custom CSS', () => {
     CustomClassNames.clearRecords();
   });
 
+  test('adding undefined as name does nothing', () => {
+    let element = document.createElement('div');
+    document.body.appendChild(element);
+    CustomClassNames.setElement('filter', element);
+    CustomClassNames.addDefaultName('filter', undefined);
+    expect(element.classList.contains('undefined')).toBe(false);
+  });
+
   test('adding custom names before setting element', () => {
     CustomClassNames.addDefaultName('filter', 'defaultName');
     let element = document.createElement('div');

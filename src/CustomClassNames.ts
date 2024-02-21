@@ -40,6 +40,7 @@ export default class CustomClassNames {
   }
 
   static addDefaultName(id: string, name: string) {
+    if (name === undefined) return;
     let record = this.getRecord(id);
     if (!record.default.includes(name)) {
       record.default.push(name);
@@ -48,6 +49,7 @@ export default class CustomClassNames {
   }
 
   static removeDefaultName(id: string, name: string) {
+    if (name === undefined) return;
     let record = this.getRecord(id);
     record.default = record.default.filter((n) => n !== name)
     this.updateClassList(id);
@@ -60,6 +62,7 @@ export default class CustomClassNames {
   }
 
   static addCustomName(id: string, name: string) {
+    if (name === undefined) return;
     let record = this.getRecord(id);
     if (!record.custom.includes(name)) {
       record.custom.push(name)
@@ -68,6 +71,7 @@ export default class CustomClassNames {
   }
 
   static removeCustomName(id: string, name: string) {
+    if (name === undefined) return;
     let record = this.getRecord(id);
     record.custom = record.custom.filter((n) => n !== name)
     this.updateClassList(id);
