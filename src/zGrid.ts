@@ -291,7 +291,8 @@ export default class zGrid {
     let container = document.createElement('div')
     container.classList.add('zgrid_container')
     let table = document.createElement('table')
-    table.classList.add('zgrid_table')
+    CustomClassNames.addElement('table', table)
+    CustomClassNames.addDefaultName('table', 'zgrid_table')
     this.head = document.createElement('thead')
     // filter
     this.ui_filter = new Filter(container)

@@ -108,4 +108,13 @@ describe('ClassName', () => {
     let ui = parent.getElementsByClassName('paginationNext_custom');
     expect(ui.length).toBe(1);
   });
+
+  test('table', () => {
+    configuration.className = {
+      table: 'table_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('table_custom');
+    expect(ui.length).toBe(1);
+  });
 });
