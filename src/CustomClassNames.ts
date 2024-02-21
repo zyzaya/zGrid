@@ -19,12 +19,11 @@ export default class CustomClassNames {
       record.default.forEach((n) => e.classList.add(n))
       record.custom.forEach((n) => e.classList.add(n))
     })
-    
-    
   }
 
   static addElement(id: string, element: HTMLElement) {
     let record = this.getRecord(id)
+    if (record.elements.includes(element)) return;
     record.elements.push(element)
     this.updateClassList(id)
   }

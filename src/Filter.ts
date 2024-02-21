@@ -7,11 +7,11 @@ export default class Filter {
 
   constructor(parent: HTMLDivElement) {
     this.container = document.createElement('div')
-    CustomClassNames.setElement('filterContainer', this.container)
+    CustomClassNames.addElement('filterContainer', this.container)
     CustomClassNames.addDefaultName('filterContainer', 'zgrid_filter_container')
 
     let input = document.createElement('input')
-    CustomClassNames.setElement('filter', input)
+    CustomClassNames.addElement('filter', input)
     CustomClassNames.addDefaultName('filter', 'zgrid_filter')
     input.type = 'text'
     input.placeholder = 'Type a keyword...'

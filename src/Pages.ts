@@ -9,11 +9,11 @@ export default class Pages {
   
   constructor(parent: HTMLDivElement, pages = 1) {
     let container = document.createElement('div')
-    CustomClassNames.setElement('paginationContainer', container)
+    CustomClassNames.addElement('paginationContainer', container)
     CustomClassNames.addDefaultName('paginationContainer', 'zgrid_pages_container')
 
     let previous = document.createElement('button')
-    CustomClassNames.setElement('paginationPrevious', previous)
+    CustomClassNames.addElement('paginationPrevious', previous)
     CustomClassNames.addDefaultName('paginationPrevious', 'zgrid_page_button')
     previous.innerText = 'Previous'
     previous.onclick = () => this.previousPage();
@@ -26,14 +26,15 @@ export default class Pages {
 
     for (let i = 0; i < 7; i++) {
       this.buttons[i] = document.createElement('button')
-      CustomClassNames.setElement(`paginationButtons${i}`, this.buttons[i])
-      CustomClassNames.addDefaultName(`paginationButtons${i}`, 'zgrid_page_button')
+      CustomClassNames.addElement(`paginationButton`, this.buttons[i])
+      
       this.buttons[i].innerText = `${i + 1}`
       container.appendChild(this.buttons[i]);
     }
+    CustomClassNames.addDefaultName(`paginationButton`, 'zgrid_page_button')
 
     let next = document.createElement('button')
-    CustomClassNames.setElement('paginationNext', next)
+    CustomClassNames.addElement('paginationNext', next)
     CustomClassNames.addDefaultName('paginationNext', 'zgrid_page_button')
     next.innerText = 'Next'
     next.onclick = (e) => this.nextPage();
@@ -90,17 +91,17 @@ export default class Pages {
       this.buttons[i].innerText = `${newPage ? newPage : '...'}`
       if (newPage === undefined) {
         this.buttons[i].onclick = undefined;
-        CustomClassNames.setElement('paginationCurrent', undefined)
-        CustomClassNames.setElement(`paginationButtons${i}`, this.buttons[i])
+        CustomClassNames.removeElement('paginationCurrent', this.buttons[i])
+        CustomClassNames.addElement(`paginationButton`, this.buttons[i])
       } else {
         this.buttons[i].onclick = (e) => {
           this.page = newPage;
         }
         if (newPage == p) {
-          CustomClassNames.setElement(`paginationButtons${i}`, undefined)
-          CustomClassNames.setElement('paginationCurrent', this.buttons[i])
+          CustomClassNames.removeElement(`paginationButtons`, this.buttons[i])
+          CustomClassNames.addElement('paginationCurrent', this.buttons[i])
         } else {
-          CustomClassNames.setElement(`paginationButtons${i}`, this.buttons[i])
+          CustomClassNames.addElement(`paginationButton`, this.buttons[i])
         }
       }
     }

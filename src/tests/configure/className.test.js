@@ -96,7 +96,6 @@ describe('ClassName', () => {
       paginationCurrent: 'paginationCurrent_custom',
     };
     let grid = new zGrid(configuration);
-    console.log(CustomClassNames.data);
     let ui = parent.getElementsByClassName('paginationCurrent_custom');
     expect(ui.length).toBe(1);
   });
