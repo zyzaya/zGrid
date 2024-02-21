@@ -119,12 +119,19 @@ type Configuration = {
    */
   onPageChange?: (page: number) => void;
   /**
-   * Fire when the data is sorted through the ui.
+   * Fires when the data is sorted through the ui.
    * Does not trigger if the data is sorted programmatically.
    * @param column The column the data is sorted by.
    * @param ascending If the data is sorted in ascending order
    */
   onSort?: (column: string, ascending: boolean) => void;
+  /**
+   * Fires when the user clicks on one of the cells of the table. 
+   * @param column The column that was clicked. Left most column is 0, than 1, etc. Only visible columns are counted.
+   * @param row The row that was clicked. Top column is 0, then 1 below that, etc. Only visible rows are counted.
+   * @param columnName The name, as defined in the configuration, of the column clicked.
+   * @param data The row, as key-value pairs. Key is the name of the column, value is the value of the record for that column. This includes hidden columns.
+   */
   onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
   className?: ClassNames
 }
@@ -149,6 +156,7 @@ export default class zGrid {
   private onFilter: (value: string) => void;
   private onPageChange: (page: number) => void;
   private onSort: (column: string, ascending: boolean) => void;
+  private onClick: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
 
   private className: ClassNames;
   /**
@@ -172,6 +180,7 @@ export default class zGrid {
     this.onFilter = config.onFilter;
     this.onPageChange = config.onPageChange;
     this.onSort = config.onSort;
+    this.onClick = config.onClick;
 
     this.configureUI()
     this.configureClassName(config.className)
@@ -375,6 +384,7 @@ export default class zGrid {
     if (config.onFilter !== undefined) this.onFilter = config.onFilter
     if (config.onPageChange !== undefined) this.onPageChange = config.onPageChange
     if (config.onSort !== undefined) this.onSort = config.onSort;
+    if (config.onClick !== undefined) this.onClick = config.onClick;
   }
 
   public getRow(index: number): Record<string, string>  {
@@ -598,16 +608,20 @@ export default class zGrid {
   private renderData() {
     this.body.replaceChildren()
     CustomClassNames.clearElements('td')
-    this.getData().forEach((d) => {
+    this.getData().forEach((d, r_i) => {
       let row = document.createElement('tr');
       row.classList.add('zgrid_row');
-      this.columns.forEach((c) => {
+      this.columns.forEach((c, c_i) => {
         let config = this.columns.find((e) => e.name === c.name)
         if (config.visible === false) return;
         
         let cell = document.createElement('td');
         CustomClassNames.addElement('td', cell)
         CustomClassNames.addDefaultName('td', 'zgrid_cell')
+        cell.onclick = () => {
+          if (!this.onClick) return
+          this.onClick(c_i, r_i, c.name, structuredClone(d))
+        }
         cell.classList.add('zgrid_cell');
         cell.innerText = d[c.name];
         row.appendChild(cell);

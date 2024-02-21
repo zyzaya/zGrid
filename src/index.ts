@@ -45,6 +45,10 @@ let grid = new zGrid({
   className: {
     filter: 'custom_filter',
     filterContainer: 'custom_filterContainer'
+  },
+  onClick: (col, row, name, data) => {
+    console.log(`${col}, ${row}, ${name}`)
+    console.log(data);
   }
 });
 
