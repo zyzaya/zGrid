@@ -109,4 +109,18 @@ describe('Custom CSS', () => {
     CustomClassNames.addDefaultName('filter', 'custom2');
     expect(element.classList.contains('custom2')).toBe(false);
   });
+
+  test('clear elements', () => {
+    for (let i = 0; i < 3; i++) {
+      let element = document.createElement('div');
+      document.body.appendChild(element);
+      CustomClassNames.addElement('filter', element);
+    }
+    CustomClassNames.addDefaultName('filter', 'custom1');
+    let ui = document.getElementsByClassName('custom1');
+    expect(ui.length).toBe(3);
+    CustomClassNames.clearElements('filter');
+    CustomClassNames.addDefaultName('filter', 'custom2');
+    expect(document.getElementsByClassName('custom2').length).toBe(0);
+  });
 });

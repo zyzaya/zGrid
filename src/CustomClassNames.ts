@@ -34,6 +34,11 @@ export default class CustomClassNames {
     this.updateClassList(id)
   }
 
+  static clearElements(id: string) {
+    let record = this.getRecord(id);
+    record.elements = [];
+  }
+
   static getRecord(id: string): Record {
     let record = this.data.find((e) => e.id === id)
     if (record === undefined) {
