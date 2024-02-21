@@ -1,3 +1,5 @@
+import CustomClassNames from "./CustomClassNames";
+
 type Sort = "ascending" | "descending" | "none";
 
 export default class HeaderCell {
@@ -15,7 +17,8 @@ export default class HeaderCell {
 
   constructor(parent: HTMLTableRowElement) {
     this.element = document.createElement('th');
-    this.element.classList.add('zgrid_header');
+    CustomClassNames.addElement('th', this.element)
+    CustomClassNames.addCustomName('th', 'zgrid_header')
 
     let container = document.createElement('div')
     container.classList.add('zgrid_header_content')

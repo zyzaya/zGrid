@@ -551,6 +551,8 @@ export default class zGrid {
 
   private renderHeader() {
     this.head.replaceChildren();
+    CustomClassNames.clearElements('th')
+    
     let headerRow = document.createElement('tr');
     CustomClassNames.clearElements('tr')
     CustomClassNames.addElement('tr', headerRow)
