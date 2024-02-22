@@ -1,7 +1,8 @@
-import zGrid from './zGrid';
+import zGrid from '../../src/zGrid';
 import { faker } from '@faker-js/faker';
 
 let container = document.getElementById('container1');
+if (!container) throw new Error('cannot find container1')
 
 faker.seed(96);
 
@@ -54,10 +55,13 @@ let grid = new zGrid({
 
 let current = 1;
 let toggle = document.getElementById('switch');
+if (!toggle) throw new Error('cannot find switch element')
 toggle.onclick = (e) => {
   current = current === 1 ? 2 : 1
+  let newContainer = document.getElementById(`container${current}`)
+  if (!newContainer) throw new Error(`cannot find container${current}`)
   grid.reconfigure({
-    parent: document.getElementById(`container${current}`),
+    parent: newContainer,
   })
 }
 
