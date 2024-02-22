@@ -2,6 +2,9 @@ import CustomClassNames from "./CustomClassNames";
 
 type Sort = "ascending" | "descending" | "none";
 
+/**
+ * @internal
+ */
 export default class HeaderCell {
   private element: HTMLTableCellElement;
   private title: HTMLDivElement;

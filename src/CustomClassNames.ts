@@ -5,6 +5,9 @@ type Record = {
   custom: Array<string>
 }
 
+/**
+ * @internal
+ */
 export default class CustomClassNames {
   public static data: Array<Record> = [];
 

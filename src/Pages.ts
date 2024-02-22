@@ -1,5 +1,8 @@
 import CustomClassNames from "./CustomClassNames";
 
+/**
+ * @internal
+ */
 export default class Pages {
   onpagechange: (page: number) => void;
   private buttons: HTMLButtonElement[];

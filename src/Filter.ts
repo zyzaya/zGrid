@@ -1,5 +1,8 @@
 import CustomClassNames from "./CustomClassNames";
 
+/**
+ * @internal
+ */
 export default class Filter {
   oninput: (event: InputEvent, value: string) => void;
 
