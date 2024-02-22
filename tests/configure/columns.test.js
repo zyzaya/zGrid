@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import zGrid from '../../zGrid';
+import zGrid from '../../src/zGrid';
 
 describe('Columns', () => {
   let configuration = {};

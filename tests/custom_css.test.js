@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import CustomClassNames from '../CustomClassNames';
+import CustomClassNames from '../src/CustomClassNames';
 
 describe('Custom CSS', () => {
   beforeEach(() => {

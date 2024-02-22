@@ -1,8 +1,8 @@
 /***
  * @jest-environment jsdom
  */
-import CustomClassNames from '../../CustomClassNames';
-import zGrid from '../../zGrid';
+import CustomClassNames from '../../src/CustomClassNames';
+import zGrid from '../../src/zGrid';
 import { faker } from '@faker-js/faker';
 
 describe('ClassName', () => {

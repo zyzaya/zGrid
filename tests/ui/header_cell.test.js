@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import HeaderCell from '../../HeaderCell';
+import HeaderCell from '../../src/HeaderCell';
 
 describe('HeaderCell', () => {
   let parent;

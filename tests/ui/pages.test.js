@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import Pages from '../../Pages';
+import Pages from '../../src/Pages';
 
 describe('Pages', () => {
   let parent;

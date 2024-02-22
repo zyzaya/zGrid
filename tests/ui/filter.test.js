@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import Filter from '../../Filter';
+import Filter from '../../src/Filter';
 
 describe('Filter', () => {
   let parent;

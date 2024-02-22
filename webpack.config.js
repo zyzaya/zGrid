@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.ts',
+  entry: './src/zGrid.ts',
   devtool: 'inline-source-map',
   module: {
     rules: [
@@ -17,7 +17,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'main.js',
+    filename: 'zGrid.js',
     path: path.resolve(__dirname, 'dist'),
   },
 };

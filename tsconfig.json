@@ -4,5 +4,9 @@
       "target": "ES5",
       "module": "ES2015",
       "moduleResolution":"node",
-  }
+      "outDir": "./dist/lib",
+      "declaration": true,
+      "declarationDir": "./dist/lib/declaration"
+  },
+  "files": ["./src/zGrid.ts"]
 }
