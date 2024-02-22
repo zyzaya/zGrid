@@ -1,9 +1,14 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/zGrid.ts',
-  devtool: 'inline-source-map',
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'zgrid_default.css',
+    }),
+  ],
   module: {
     rules: [
       {
@@ -11,10 +16,14 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.css'],
   },
   output: {
     filename: 'zGrid.js',
