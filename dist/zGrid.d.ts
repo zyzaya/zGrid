@@ -1,4 +1,3 @@
-import "./style/zgrid_default";
 type FilterCallback = (row: Record<string, string>) => boolean;
 type CompareEntries = (a: string, b: string) => number;
 type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number;

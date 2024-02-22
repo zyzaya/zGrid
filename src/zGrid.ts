@@ -2,7 +2,6 @@ import CustomClassNames from "./CustomClassNames";
 import Filter from "./Filter";
 import HeaderCell from "./HeaderCell";
 import Pages from "./Pages";
-import "./style/zgrid_default";
 
 type FilterCallback = (row: Record<string, string>) => boolean;
 type CompareEntries = (a: string, b: string) => number;

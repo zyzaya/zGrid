@@ -5,7 +5,7 @@ module.exports = [
   {
     name: 'build',
     mode: 'production',
-    entry: './src/zGrid.ts',
+    entry: './src/index.ts',
     plugins: [
       new MiniCssExtractPlugin({
         filename: 'zgrid_default.css',
