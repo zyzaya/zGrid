@@ -25,8 +25,14 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.css'],
   },
+  experiments: {
+    outputModule: true,
+  },
   output: {
     filename: 'zGrid.js',
+    library: {
+      type: 'module',
+    },
     path: path.resolve(__dirname, 'dist'),
   },
 };
