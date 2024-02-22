@@ -2,7 +2,8 @@
   "name": "zgrid",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/zGrid.js",
+  "types": "dist/zGrid.d.ts",
   "scripts": {
     "test": "jest"
   },
