@@ -1,5 +1,6 @@
 import zGrid from '../../src/zGrid';
 import { faker } from '@faker-js/faker';
+import './style';
 
 let container = document.getElementById('container1');
 if (!container) throw new Error('cannot find container1')
