@@ -136,7 +136,7 @@ type Configuration = {
   className?: ClassNames
 }
 
-export default class zGrid {
+class zGrid {
   private currentPage = 1;
   private columns: Array<ColumnConfiguration>;
   private data: Array<Record<string, string>>;
@@ -630,3 +630,5 @@ export default class zGrid {
     });
   }
 }
+
+export { zGrid }

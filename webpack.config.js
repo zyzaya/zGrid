@@ -32,6 +32,7 @@ module.exports = [
     },
     output: {
       filename: 'zGrid.js',
+      module: true,
       library: {
         type: 'module',
       },

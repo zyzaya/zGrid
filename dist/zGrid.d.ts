@@ -122,7 +122,7 @@ type Configuration = {
     onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
     className?: ClassNames;
 };
-export default class zGrid {
+declare class zGrid {
     private currentPage;
     private columns;
     private data;
@@ -226,4 +226,4 @@ export default class zGrid {
     private renderHeader;
     private renderData;
 }
-export {};
+export { zGrid };
