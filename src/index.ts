@@ -1,2 +1,2 @@
 import "./style/zgrid_default.css";
-export * from './zGrid';
+export { default as zGrid } from './zGrid';
