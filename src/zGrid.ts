@@ -244,10 +244,14 @@ class zGrid {
       let row: Record<string, string> = {};
       if (Array.isArray(e)) {
         this.columns.forEach((c, i) => {
+          // let value = !e[i] || e[i] === undefined ? '' : e[i];
           row[c.name] = e[i];
         });
       } else if (typeof e === 'object') {
-        row = { ...e };
+        this.columns.forEach((c) => {
+          let value = !e[c.name] || e[c.name] === undefined ? '' : e[c.name]
+          row[c.name] = value;
+        })
       } else {
         throw new TypeError('Data elements must be string or object');
       }
