@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-import zGrid from '../src/zGrid';
-import { faker, fakerTR } from '@faker-js/faker';
+import { zGrid } from '../src/zGrid';
+import { faker } from '@faker-js/faker';
 
 describe('Displayed Data', () => {
   let data = [];
