@@ -61,8 +61,9 @@ type Configuration = {
      * column as defined in the column configuration. The value is a string that is
      * displayed in the cell
      *
-     * Extra values or values with a key that doesn't match a column are ignored. If
-     * additional columns are added later these values can still be displayed
+     * Extra values or values with a key that doesn't match a column are ignored.
+     * If additional columns are added later these values can still be displayed,
+     * but only if they have a key.
      *
      * Values that are not explicitly defined are set to an empty string.
      */
