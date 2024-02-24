@@ -25,9 +25,15 @@ type ClassNames = {
 
 type ColumnConfiguration = {
   /**
-   * The name of the column
+   * The identifier of the column. Used to indicate
+   * the column when configuring the grid.
    */
-  name: string;
+  id: string;
+  /**
+   * The displayed name of the column
+   * Default is the same as id.
+   */
+  // name?: string;
   /**
    * When set to a boolean it defines if the grid can (or cannot)
    * be sorted by that column
@@ -216,16 +222,18 @@ class zGrid {
       let col: ColumnConfiguration;
       if (typeof e === 'string') {
         col = {
-          name: e,
+          id: e,
+          // name: e,
           sort: true,
           visible: true
         }
       } else if (typeof e === 'object') {
-        if (e.name === undefined) {
-          throw new TypeError('Column requires a name');
+        if (e.id === undefined) {
+          throw new TypeError('Column requires an id');
         }
         col = {
-          name: e.name,
+          id: e.id,
+          // name: e.name === undefined ? e.id : e.name,
           sort: e.sort === undefined ? true : e.sort,
           visible: e.visible === undefined ? true : e.visible,
         }
@@ -246,7 +254,7 @@ class zGrid {
       if (Array.isArray(e)) {
         this.columns.forEach((c, i) => {
           let value = !e[i] || e[i] === undefined ? '' : e[i];
-          row[c.name] = value;
+          row[c.id] = value;
         });
       } else if (typeof e === 'object') {
         for (const [k, v] of Object.entries(e)) {
@@ -363,7 +371,7 @@ class zGrid {
       // reset sort if sorting by a removed column
       if (this.sortConfig && typeof this.sortConfig !== 'function') {
         let sort = this.sortConfig.column
-        if (!this.columns.some((e) => e.name === sort))
+        if (!this.columns.some((e) => e.id === sort))
           this.sort();
       }
       this.render();
@@ -421,14 +429,14 @@ class zGrid {
         let filter = this.filter
         filtered = this.data.filter((r) => {
           return this.columns.some((c) =>
-            r[c.name].toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+            r[c.id].toLocaleLowerCase().includes(filter.toLocaleLowerCase())
           );
         });
       } else if (typeof this.filter === 'function') {
         let filter = this.filter
         filtered = this.data.filter((r) => {
           let entry: Record<string, string> = {};
-          this.columns.forEach((c) => (entry[c.name] = r[c.name]));
+          this.columns.forEach((c) => (entry[c.id] = r[c.id]));
           return filter(entry);
         });
       }
@@ -441,7 +449,7 @@ class zGrid {
         filtered.sort(this.sortConfig);
       } else if (typeof this.sortConfig === 'object') {
         let col_name = this.sortConfig.column;
-        let col_config = this.columns.find((e) => e.name === col_name);
+        let col_config = this.columns.find((e) => e.id === col_name);
         if (typeof col_config.sort === 'function') {
           let col_sort = col_config.sort;
           filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));
@@ -547,7 +555,7 @@ class zGrid {
     } else if (typeof column === 'function') {
       this.sortConfig = column;
     } else {
-      let col = this.columns.find((e) => e.name === column);
+      let col = this.columns.find((e) => e.id === column);
       if (col === undefined) {
         throw new RangeError(`No column named '${column}'`);
       } else if (ascending && typeof ascending !== 'boolean') {
@@ -585,8 +593,8 @@ class zGrid {
           this.sort(false)
         } else {
           let ascending = sort === "ascending"
-          this.sort(config.name, ascending)
-          if (this.onSort !== undefined) this.onSort(config.name, ascending)
+          this.sort(config.id, ascending)
+          if (this.onSort !== undefined) this.onSort(config.id, ascending)
         }
         this.renderData()
       }
@@ -597,7 +605,7 @@ class zGrid {
       }
       prev = title
       
-      if (typeof this.sortConfig === "object" && this.sortConfig.column === config.name) {
+      if (typeof this.sortConfig === "object" && this.sortConfig.column === config.id) {
         title.sort = this.sortConfig.ascending ? "ascending" : "descending"
       }
       
@@ -605,7 +613,7 @@ class zGrid {
         if (config.sort === false) title.enableSort(false);
       }
 
-      title.innerText = config.name;
+      title.innerText = config.id;
     });
     this.head.appendChild(headerRow);
   }
@@ -617,7 +625,7 @@ class zGrid {
       let row = document.createElement('tr');
       row.classList.add('zgrid_row');
       this.columns.forEach((c, c_i) => {
-        let config = this.columns.find((e) => e.name === c.name)
+        let config = this.columns.find((e) => e.id === c.id)
         if (config.visible === false) return;
         
         let cell = document.createElement('td');
@@ -625,10 +633,10 @@ class zGrid {
         CustomClassNames.addDefaultName('td', 'zgrid_cell')
         cell.onclick = () => {
           if (!this.onClick) return
-          this.onClick(c_i, r_i, c.name, structuredClone(d))
+          this.onClick(c_i, r_i, c.id, structuredClone(d))
         }
         cell.classList.add('zgrid_cell');
-        cell.innerText = d[c.name];
+        cell.innerText = d[c.id];
         row.appendChild(cell);
       });
       this.body.appendChild(row);
