@@ -78,7 +78,7 @@ describe('Sort', () => {
   test('can set how a single column is sorted', () => {
     let columns = [
       {
-        name: 'First Name',
+        id: 'First Name',
         sort: compare,
       },
       'Last Name',
@@ -96,7 +96,7 @@ describe('Sort', () => {
   test('can sort descending when sorting a column by function', () => {
     let columns = [
       {
-        name: 'First Name',
+        id: 'First Name',
         sort: compare,
       },
       'Last Name',
