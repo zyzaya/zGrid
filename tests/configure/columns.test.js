@@ -145,5 +145,22 @@ describe('Columns', () => {
       ui = parent.getElementsByClassName('zgrid_header');
       expect(ui.length).toBe(1);
     });
+
+    test('changing column name', () => {
+      let grid = new zGrid(configuration);
+      let ui = Array.from(parent.getElementsByClassName('zgrid_title'));
+      expect(ui.filter((e) => e.innerText === 'second').length).toBe(0);
+      grid.reconfigure({
+        columns: [
+          'one',
+          {
+            id: 'two',
+            name: 'second',
+          },
+        ],
+      });
+      ui = Array.from(parent.getElementsByClassName('zgrid_title'));
+      expect(ui.filter((e) => e.innerText === 'second').length).toBe(1);
+    });
   });
 });
