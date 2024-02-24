@@ -12,7 +12,7 @@ describe('Columns', () => {
 
     configuration = {
       parent: parent,
-      columns: ['one', { name: 'two' }],
+      columns: ['one', { id: 'two' }],
       data: [],
     };
   });
@@ -68,7 +68,7 @@ describe('Columns', () => {
   describe('Reconfigure', () => {
     test('reconfiguring columns', () => {
       let grid = new zGrid(configuration);
-      let newColumns = ['two', { name: 'three' }];
+      let newColumns = ['two', { id: 'three' }];
       expect(() => {
         grid.reconfigure({
           columns: newColumns,
