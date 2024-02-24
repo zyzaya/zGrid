@@ -82,7 +82,7 @@ describe('Data', () => {
     });
   });
 
-  test.only('null values for data, when configured using an object, doesnt cause error', () => {
+  test('null values for data, when configured using an object, doesnt cause error', () => {
     configuration.data = [
       {
         'first name': null,
@@ -95,6 +95,16 @@ describe('Data', () => {
     //   [null, null, null],
     //   [null, null, null],
     // ];
+    let grid = new zGrid(configuration);
+    grid.sort('first name');
+    expect(() => grid.getData()).not.toThrow(Error);
+  });
+
+  test('null values for data, when configure using an array, doesnt cause error', () => {
+    configuration.data = [
+      [null, null, null],
+      [null, null, null],
+    ];
     let grid = new zGrid(configuration);
     grid.sort('first name');
     expect(() => grid.getData()).not.toThrow(Error);
