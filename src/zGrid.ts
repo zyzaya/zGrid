@@ -244,8 +244,8 @@ class zGrid {
       let row: Record<string, string> = {};
       if (Array.isArray(e)) {
         this.columns.forEach((c, i) => {
-          // let value = !e[i] || e[i] === undefined ? '' : e[i];
-          row[c.name] = e[i];
+          let value = !e[i] || e[i] === undefined ? '' : e[i];
+          row[c.name] = value;
         });
       } else if (typeof e === 'object') {
         this.columns.forEach((c) => {
