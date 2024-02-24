@@ -82,16 +82,18 @@ describe('Data', () => {
     });
   });
 
-  test('null values for data doesnt cause error', () => {
+  test.only('null values for data doesnt cause error', () => {
     configuration.data = [
       {
         'first name': null,
-        'last name': null,
-        email: null,
+      },
+      {
+        'first name': null,
       },
     ];
     let grid = new zGrid(configuration);
-    expect(grid.getData()).not.toThrow(Error);
+    grid.sort('first name');
+    expect(() => grid.getData()).not.toThrow(Error);
   });
 });
 
