@@ -91,10 +91,6 @@ describe('Data', () => {
         'first name': null,
       },
     ];
-    // configuration.data = [
-    //   [null, null, null],
-    //   [null, null, null],
-    // ];
     let grid = new zGrid(configuration);
     grid.sort('first name');
     expect(() => grid.getData()).not.toThrow(Error);
