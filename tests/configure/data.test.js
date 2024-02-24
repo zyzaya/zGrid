@@ -81,6 +81,18 @@ describe('Data', () => {
       expect(cells.length).toBe(6);
     });
   });
+
+  test('null values for data doesnt cause error', () => {
+    configuration.data = [
+      {
+        'first name': null,
+        'last name': null,
+        email: null,
+      },
+    ];
+    let grid = new zGrid(configuration);
+    expect(grid.getData()).not.toThrow(Error);
+  });
 });
 
 describe('getRow', () => {
