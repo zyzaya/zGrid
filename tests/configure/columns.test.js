@@ -65,7 +65,7 @@ describe('Columns', () => {
     }).not.toThrow(Error);
   });
 
-  test.only('name sets visual name', () => {
+  test('name sets visual name', () => {
     configuration.columns = [
       {
         id: 'first_name',
@@ -74,7 +74,7 @@ describe('Columns', () => {
     ];
     let grid = new zGrid(configuration);
     let ui = Array.from(parent.getElementsByClassName('zgrid_title'));
-    expect(ui.filter((e) => e.classList.contains('First Name')).length).toBe(1);
+    expect(ui.filter((e) => e.innerText === 'First Name').length).toBe(1);
   });
 
   describe('Reconfigure', () => {

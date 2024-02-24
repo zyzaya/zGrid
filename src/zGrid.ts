@@ -33,7 +33,7 @@ type ColumnConfiguration = {
    * The displayed name of the column
    * Default is the same as id.
    */
-  // name?: string;
+  name?: string;
   /**
    * When set to a boolean it defines if the grid can (or cannot)
    * be sorted by that column
@@ -223,7 +223,7 @@ class zGrid {
       if (typeof e === 'string') {
         col = {
           id: e,
-          // name: e,
+          name: e,
           sort: true,
           visible: true
         }
@@ -233,7 +233,7 @@ class zGrid {
         }
         col = {
           id: e.id,
-          // name: e.name === undefined ? e.id : e.name,
+          name: e.name === undefined ? e.id : e.name,
           sort: e.sort === undefined ? true : e.sort,
           visible: e.visible === undefined ? true : e.visible,
         }
@@ -612,8 +612,7 @@ class zGrid {
       if (config !== undefined) {
         if (config.sort === false) title.enableSort(false);
       }
-
-      title.innerText = config.id;
+      title.innerText = config.name;
     });
     this.head.appendChild(headerRow);
   }
