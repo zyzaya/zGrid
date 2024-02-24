@@ -74,8 +74,9 @@ type Configuration = {
    * column as defined in the column configuration. The value is a string that is
    * displayed in the cell
    * 
-   * Extra values or values with a key that doesn't match a column are ignored. If
-   * additional columns are added later these values can still be displayed
+   * Extra values or values with a key that doesn't match a column are ignored. 
+   * If additional columns are added later these values can still be displayed,
+   * but only if they have a key.
    * 
    * Values that are not explicitly defined are set to an empty string.
    */
@@ -248,10 +249,10 @@ class zGrid {
           row[c.name] = value;
         });
       } else if (typeof e === 'object') {
-        this.columns.forEach((c) => {
-          let value = !e[c.name] || e[c.name] === undefined ? '' : e[c.name]
-          row[c.name] = value;
-        })
+        for (const [k, v] of Object.entries(e)) {
+          let value = !v || v === undefined ? '' : v;
+          row[k] = value;
+        }
       } else {
         throw new TypeError('Data elements must be string or object');
       }
