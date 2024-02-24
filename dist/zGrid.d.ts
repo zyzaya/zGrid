@@ -13,9 +13,15 @@ type ClassNames = {
 };
 type ColumnConfiguration = {
     /**
-     * The name of the column
+     * The identifier of the column. Used to indicate
+     * the column when configuring the grid.
      */
-    name: string;
+    id: string;
+    /**
+     * The displayed name of the column
+     * Default is the same as id.
+     */
+    name?: string;
     /**
      * When set to a boolean it defines if the grid can (or cannot)
      * be sorted by that column
