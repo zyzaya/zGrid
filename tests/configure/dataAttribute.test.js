@@ -113,4 +113,16 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('paginationCurrent_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test('paginationNext', () => {
+    configuration.dataAttribute = {
+      paginationNext: ['attribute', 'value'],
+    };
+    configuration.className = {
+      paginationNext: 'paginationNext_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationNext_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });
