@@ -25,4 +25,13 @@ describe('DataAttributes', () => {
       data: data,
     };
   });
+
+  test('an invalid data attribute throws an error', () => {
+    configuration.dataAttribute = {
+      filterContainer: ['invalid value', 'value'],
+    };
+    expect(() => {
+      let grid = new zGrid(configuration);
+    }).toThrow(Error);
+  });
 });

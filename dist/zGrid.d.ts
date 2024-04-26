@@ -1,15 +1,15 @@
 type FilterCallback = (row: Record<string, string>) => boolean;
 type CompareEntries = (a: string, b: string) => number;
 type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number;
-type ClassNames = {
-    filterContainer?: string;
-    filter?: string;
-    paginationContainer?: string;
-    paginationInfo?: string;
-    paginationButton?: string;
-    paginationPrevious?: string;
-    paginationCurrent?: string;
-    paginationNext?: string;
+type ElementNames = {
+    filterContainer?: string | [string, string];
+    filter?: string | [string, string];
+    paginationContainer?: string | [string, string];
+    paginationInfo?: string | [string, string];
+    paginationButton?: string | [string, string];
+    paginationPrevious?: string | [string, string];
+    paginationCurrent?: string | [string, string];
+    paginationNext?: string | [string, string];
 };
 type ColumnConfiguration = {
     /**
@@ -127,7 +127,8 @@ type Configuration = {
      * @param data The row, as key-value pairs. Key is the name of the column, value is the value of the record for that column. This includes hidden columns.
      */
     onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
-    className?: ClassNames;
+    className?: ElementNames;
+    dataAttribute?: ElementNames;
 };
 declare class zGrid {
     private currentPage;
@@ -149,6 +150,7 @@ declare class zGrid {
     private onSort;
     private onClick;
     private className;
+    private dataAttribute;
     /**
      *
      * @param {Configuration} config
@@ -167,6 +169,7 @@ declare class zGrid {
     private configurePagination;
     private configureFilter;
     private configureClassName;
+    private configureDataAttributes;
     private configureUI;
     reconfigure(config: Partial<Configuration>): void;
     getRow(index: number): Record<string, string>;
