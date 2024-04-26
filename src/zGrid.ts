@@ -343,6 +343,7 @@ class zGrid {
     CustomDataAttributes.addElement('table', table)
     this.head = document.createElement('thead')
     CustomClassNames.addElement('thead', this.head)
+    CustomDataAttributes.addElement('thead', this.head)
     // filter
     this.ui_filter = new Filter(container)
     this.ui_filter.visible = this.showFilter

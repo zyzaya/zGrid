@@ -173,4 +173,16 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('th_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test('thead', () => {
+    configuration.dataAttribute = {
+      thead: ['attribute', 'value'],
+    };
+    configuration.className = {
+      thead: 'thead_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('thead_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });
