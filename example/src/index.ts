@@ -50,6 +50,10 @@ let grid = new zGrid({
     filter: 'custom_filter',
     filterContainer: 'custom_filterContainer'
   },
+  dataAttribute: {
+    tr: ['attribute', 'value'],
+    td: ['cell', 'value']
+  },
   onClick: (col, row, name, data) => {
     console.log(`${col}, ${row}, ${name}`)
     console.log(data);

@@ -10,6 +10,12 @@ type ElementNames = {
     paginationPrevious?: string | [string, string];
     paginationCurrent?: string | [string, string];
     paginationNext?: string | [string, string];
+    table?: string | [string, string];
+    tr?: string | [string, string];
+    th?: string | [string, string];
+    thead?: string | [string, string];
+    tbody?: string | [string, string];
+    td?: string | [string, string];
 };
 type ColumnConfiguration = {
     /**
