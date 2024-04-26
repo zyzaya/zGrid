@@ -607,6 +607,8 @@ class zGrid {
     let headerRow = document.createElement('tr');
     CustomClassNames.clearElements('tr')
     CustomClassNames.addElement('tr', headerRow)
+    CustomDataAttributes.clearElements('tr')
+    CustomDataAttributes.addElement('tr', headerRow)
     let col_count = this.columns.filter((c) => c.visible).length
     let prev: HeaderCell = undefined;
     this.columns.forEach((config) => {
