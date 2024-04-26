@@ -1,54 +1,54 @@
 /**
  * @jest-environment jsdom
  */
-import CustomClassNames from '../src/CustomClassNames';
+import CustomHTML from '../src/CustomHTML';
 
 describe('Custom CSS', () => {
   beforeEach(() => {
     document.body.replaceChildren();
-    CustomClassNames.clearRecords();
+    CustomHTML.clearRecords();
   });
 
   test('adding undefined as name does nothing', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addDefaultName('filter', undefined);
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addDefaultName('filter', undefined);
     expect(element.classList.contains('undefined')).toBe(false);
   });
 
   test('adding custom names before setting element', () => {
-    CustomClassNames.addDefaultName('filter', 'defaultName');
+    CustomHTML.addDefaultName('filter', 'defaultName');
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
+    CustomHTML.addElement('filter', element);
     expect(element.classList.contains('defaultName')).toBe(true);
   });
 
   test('adding default name adds class to element', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addDefaultName('filter', 'customName');
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addDefaultName('filter', 'customName');
     expect(element.classList.contains('customName')).toBe(true);
   });
 
   test('removing default name removes class from element', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addDefaultName('filter', 'customName');
-    CustomClassNames.removeDefaultName('filter', 'customName');
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addDefaultName('filter', 'customName');
+    CustomHTML.removeDefaultName('filter', 'customName');
     expect(element.classList.contains('customName')).toBe(false);
   });
 
   test('clearDefaultNames', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addDefaultName('filter', 'custom1');
-    CustomClassNames.addDefaultName('filter', 'custom2');
-    CustomClassNames.clearDefaultNames('filter');
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addDefaultName('filter', 'custom1');
+    CustomHTML.addDefaultName('filter', 'custom2');
+    CustomHTML.clearDefaultNames('filter');
     expect(element.classList.contains('custom1')).toBe(false);
     expect(element.classList.contains('custom2')).toBe(false);
   });
@@ -56,36 +56,36 @@ describe('Custom CSS', () => {
   test('clearing default names doesnt clear custom', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addCustomName('filter', 'custom1');
-    CustomClassNames.clearDefaultNames('filter');
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addCustomName('filter', 'custom1');
+    CustomHTML.clearDefaultNames('filter');
     expect(element.classList.contains('custom1')).toBe(true);
   });
 
   test('adding custom name adds class to element', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addCustomName('filter', 'customName');
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addCustomName('filter', 'customName');
     expect(element.classList.contains('customName')).toBe(true);
   });
 
   test('removing custom name removes class from element', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addCustomName('filter', 'customName');
-    CustomClassNames.removeCustomName('filter', 'customName');
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addCustomName('filter', 'customName');
+    CustomHTML.removeCustomName('filter', 'customName');
     expect(element.classList.contains('customName')).toBe(false);
   });
 
   test('clearing custom names', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addCustomName('filter', 'custom1');
-    CustomClassNames.addCustomName('filter', 'custom2');
-    CustomClassNames.clearCustomNames('filter');
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addCustomName('filter', 'custom1');
+    CustomHTML.addCustomName('filter', 'custom2');
+    CustomHTML.clearCustomNames('filter');
     expect(element.classList.contains('custom1')).toBe(false);
     expect(element.classList.contains('custom2')).toBe(false);
   });
@@ -93,20 +93,20 @@ describe('Custom CSS', () => {
   test('clearing custom names doesnt clear default', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addDefaultName('filter', 'custom1');
-    CustomClassNames.clearCustomNames('filter');
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addDefaultName('filter', 'custom1');
+    CustomHTML.clearCustomNames('filter');
     expect(element.classList.contains('custom1')).toBe(true);
   });
 
   test('remove element', () => {
     let element = document.createElement('div');
     document.body.appendChild(element);
-    CustomClassNames.addElement('filter', element);
-    CustomClassNames.addDefaultName('filter', 'custom1');
+    CustomHTML.addElement('filter', element);
+    CustomHTML.addDefaultName('filter', 'custom1');
     expect(element.classList.contains('custom1')).toBe(true);
-    CustomClassNames.removeElement('filter', element);
-    CustomClassNames.addDefaultName('filter', 'custom2');
+    CustomHTML.removeElement('filter', element);
+    CustomHTML.addDefaultName('filter', 'custom2');
     expect(element.classList.contains('custom2')).toBe(false);
   });
 
@@ -114,13 +114,13 @@ describe('Custom CSS', () => {
     for (let i = 0; i < 3; i++) {
       let element = document.createElement('div');
       document.body.appendChild(element);
-      CustomClassNames.addElement('filter', element);
+      CustomHTML.addElement('filter', element);
     }
-    CustomClassNames.addDefaultName('filter', 'custom1');
+    CustomHTML.addDefaultName('filter', 'custom1');
     let ui = document.getElementsByClassName('custom1');
     expect(ui.length).toBe(3);
-    CustomClassNames.clearElements('filter');
-    CustomClassNames.addDefaultName('filter', 'custom2');
+    CustomHTML.clearElements('filter');
+    CustomHTML.addDefaultName('filter', 'custom2');
     expect(document.getElementsByClassName('custom2').length).toBe(0);
   });
 });

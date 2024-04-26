@@ -8,7 +8,7 @@ type Record = {
 /**
  * @internal
  */
-export default class CustomClassNames {
+export default class CustomHTML {
   public static data: Array<Record> = [];
 
   static clearRecords() {

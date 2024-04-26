@@ -1,7 +1,6 @@
 /***
  * @jest-environment jsdom
  */
-import CustomClassNames from '../../src/CustomClassNames';
 import { zGrid } from '../../src/zGrid';
 import { faker } from '@faker-js/faker';
 
