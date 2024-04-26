@@ -159,7 +159,10 @@ describe('DataAttributes', () => {
     };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('tr_custom');
-    expect(ui[0].dataset.attribute).toBe('value');
+    expect(ui.length).toBe(11);
+    for (let i = 0; i < ui.length; i++) {
+      expect(ui[i].dataset.attribute).toBe('value');
+    }
   });
 
   test('th', () => {
