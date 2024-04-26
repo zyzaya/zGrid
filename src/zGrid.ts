@@ -335,6 +335,7 @@ class zGrid {
   private configureUI() {
     this.body = document.createElement('tbody');
     CustomClassNames.addElement('tbody', this.body)
+    CustomDataAttributes.addElement('tbody', this.body)
     let container = document.createElement('div')
     container.classList.add('zgrid_container')
     let table = document.createElement('table')

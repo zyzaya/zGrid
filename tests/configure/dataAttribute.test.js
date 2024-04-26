@@ -185,4 +185,16 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('thead_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test('tbody', () => {
+    configuration.dataAttribute = {
+      tbody: ['attribute', 'value'],
+    };
+    configuration.className = {
+      tbody: 'tbody_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('tbody_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });
