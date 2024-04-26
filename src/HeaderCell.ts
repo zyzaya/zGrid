@@ -1,4 +1,5 @@
 import CustomClassNames from "./CustomClassNames";
+import CustomDataAttributes from "./CustomDataAttributes";
 
 type Sort = "ascending" | "descending" | "none";
 
@@ -22,6 +23,7 @@ export default class HeaderCell {
     this.element = document.createElement('th');
     CustomClassNames.addElement('th', this.element)
     CustomClassNames.addCustomName('th', 'zgrid_header')
+    CustomDataAttributes.addElement('th', this.element)
 
     let container = document.createElement('div')
     container.classList.add('zgrid_header_content')
