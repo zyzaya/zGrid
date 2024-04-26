@@ -1,4 +1,4 @@
-import CustomClassNames from "./CustomHTML";
+import CustomClassNames from "./CustomClassNames";
 
 type Sort = "ascending" | "descending" | "none";
 

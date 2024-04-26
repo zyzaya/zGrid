@@ -15,26 +15,19 @@ export default class CustomHTML {
     this.data = [];
   }
 
-  static updateClassList(id: string) {
-    let record = this.getRecord(id);
-    record.elements.forEach((e) => {
-      e.className = '';
-      record.default.forEach((n) => e.classList.add(n))
-      record.custom.forEach((n) => e.classList.add(n))
-    })
-  }
+  static updateHTML(id: string) {}
 
   static addElement(id: string, element: HTMLElement) {
     let record = this.getRecord(id)
     if (record.elements.includes(element)) return;
     record.elements.push(element)
-    this.updateClassList(id)
+    this.updateHTML(id)
   }
 
   static removeElement(id: string, element: HTMLElement) {
     let record = this.getRecord(id)
     record.elements = record.elements.filter((e) => e !== element)
-    this.updateClassList(id)
+    this.updateHTML(id)
   }
 
   static clearElements(id: string) {
@@ -61,7 +54,7 @@ export default class CustomHTML {
     let record = this.getRecord(id);
     if (!record.default.includes(name)) {
       record.default.push(name);
-      this.updateClassList(id);
+      this.updateHTML(id);
     }
   }
 
@@ -69,13 +62,13 @@ export default class CustomHTML {
     if (name === undefined) return;
     let record = this.getRecord(id);
     record.default = record.default.filter((n) => n !== name)
-    this.updateClassList(id);
+    this.updateHTML(id);
   }
 
   static clearDefaultNames(id: string) {
     let record = this.getRecord(id);
     record.default = [];
-    this.updateClassList(id);
+    this.updateHTML(id);
   }
 
   static addCustomName(id: string, name: string) {
@@ -83,7 +76,7 @@ export default class CustomHTML {
     let record = this.getRecord(id);
     if (!record.custom.includes(name)) {
       record.custom.push(name)
-      this.updateClassList(id);
+      this.updateHTML(id);
     }
   }
 
@@ -91,12 +84,12 @@ export default class CustomHTML {
     if (name === undefined) return;
     let record = this.getRecord(id);
     record.custom = record.custom.filter((n) => n !== name)
-    this.updateClassList(id);
+    this.updateHTML(id);
   }
 
   static clearCustomNames(id: string) {
     let record = this.getRecord(id);
     record.custom = [];
-    this.updateClassList(id);
+    this.updateHTML(id);
   }
 }

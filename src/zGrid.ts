@@ -1,4 +1,4 @@
-import CustomClassNames from "./CustomHTML";
+import CustomClassNames from "./CustomClassNames";
 import Filter from "./Filter";
 import HeaderCell from "./HeaderCell";
 import Pages from "./Pages";
