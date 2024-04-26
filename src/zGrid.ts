@@ -620,12 +620,17 @@ class zGrid {
     CustomDataAttributes.addElement('tr', headerRow)
     let col_count = this.columns.filter((c) => c.visible).length
     let prev: HeaderCell = undefined;
+    let titles: Array<HeaderCell> = [];
     this.columns.forEach((config) => {
       if (config.visible === false) return;
 
       let title = new HeaderCell(headerRow);
+      titles.push(title)
       title.width = this.head.clientWidth / col_count
       title.onsort = (sort) => {
+        titles.forEach((t) => {
+          if (t !== title) t.sort ='none'
+        })
         if (sort === "none") {
           this.sort(false)
         } else {
