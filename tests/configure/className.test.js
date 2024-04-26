@@ -125,7 +125,7 @@ describe('ClassName', () => {
     };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('tr_custom');
-    expect(ui.length).toBe(1);
+    expect(ui.length).toBe(11);
   });
 
   test('th', () => {

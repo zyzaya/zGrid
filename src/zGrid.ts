@@ -660,7 +660,8 @@ class zGrid {
     CustomDataAttributes.clearElements('td')
     this.getData().forEach((d, r_i) => {
       let row = document.createElement('tr');
-      row.classList.add('zgrid_row');
+      CustomClassNames.addElement('tr', row)
+      CustomClassNames.addDefaultName('tr', 'zgrid_row')
       this.columns.forEach((c, c_i) => {
         let config = this.columns.find((e) => e.id === c.id)
         if (config.visible === false) return;
