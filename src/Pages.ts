@@ -1,4 +1,5 @@
 import CustomClassNames from "./CustomClassNames";
+import CustomDataAttributes from "./CustomDataAttributes";
 
 /**
  * @internal
@@ -18,6 +19,7 @@ export default class Pages {
     let previous = document.createElement('button')
     CustomClassNames.addElement('paginationPrevious', previous)
     CustomClassNames.addDefaultName('paginationPrevious', 'zgrid_page_button')
+    CustomDataAttributes.addElement('paginationPrevious', previous)
     previous.innerText = 'Previous'
     previous.onclick = () => this.previousPage();
     container.appendChild(previous)
@@ -30,7 +32,8 @@ export default class Pages {
     for (let i = 0; i < 7; i++) {
       this.buttons[i] = document.createElement('button')
       CustomClassNames.addElement(`paginationButton`, this.buttons[i])
-      
+      CustomDataAttributes.addElement('paginationButton', this.buttons[i])
+
       this.buttons[i].innerText = `${i + 1}`
       container.appendChild(this.buttons[i]);
     }
@@ -39,6 +42,7 @@ export default class Pages {
     let next = document.createElement('button')
     CustomClassNames.addElement('paginationNext', next)
     CustomClassNames.addDefaultName('paginationNext', 'zgrid_page_button')
+    CustomDataAttributes.addElement('paginationNext', next)
     next.innerText = 'Next'
     next.onclick = (e) => this.nextPage();
     container.appendChild(next);
@@ -96,15 +100,20 @@ export default class Pages {
         this.buttons[i].onclick = undefined;
         CustomClassNames.removeElement('paginationCurrent', this.buttons[i])
         CustomClassNames.addElement(`paginationButton`, this.buttons[i])
+        CustomDataAttributes.removeElement('paginationCurrent', this.buttons[i])
+        CustomDataAttributes.addElement('paginationCurrent', this.buttons[i])
       } else {
         this.buttons[i].onclick = (e) => {
           this.page = newPage;
         }
         if (newPage == p) {
-          CustomClassNames.removeElement(`paginationButtons`, this.buttons[i])
+          CustomClassNames.removeElement(`paginationButton`, this.buttons[i])
           CustomClassNames.addElement('paginationCurrent', this.buttons[i])
+          CustomDataAttributes.removeElement(`paginationButton`, this.buttons[i])
+          CustomDataAttributes.addElement('paginationCurrent', this.buttons[i])
         } else {
           CustomClassNames.addElement(`paginationButton`, this.buttons[i])
+          CustomDataAttributes.addElement(`paginationButton`, this.buttons[i])
         }
       }
     }

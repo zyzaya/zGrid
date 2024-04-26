@@ -325,6 +325,11 @@ class zGrid {
       CustomDataAttributes.clearCustomNames(key)
       CustomDataAttributes.addCustomName(key, value)
     };
+
+    let pB = this.dataAttribute.paginationButton;
+    CustomDataAttributes.addCustomName('paginationNext', pB)
+    CustomDataAttributes.addCustomName('paginationPrevious', pB)
+    CustomDataAttributes.addCustomName('paginationCurrent', pB)
   }
 
   private configureUI() {

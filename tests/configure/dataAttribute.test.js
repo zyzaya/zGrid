@@ -12,6 +12,7 @@ describe('DataAttributes', () => {
   let parent;
   faker.seed(96);
   beforeEach(() => {
+    CustomDataAttributes.data = [];
     data = [];
     parent = document.createElement('div');
     for (let i = 0; i < 10; i++) {
@@ -72,5 +73,20 @@ describe('DataAttributes', () => {
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('paginationInfo_custom');
     expect(ui[0].dataset.attribute).toBe('value');
+  });
+
+  test('paginationButton', () => {
+    configuration.dataAttribute = {
+      paginationButton: ['attribute', 'value'],
+    };
+    configuration.className = {
+      paginationButton: 'paginationButton_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationButton_custom');
+    expect(ui.length).toBe(9);
+    for (let i = 0; i < ui.length; i++) {
+      expect(ui[i].dataset.attribute).toBe('value');
+    }
   });
 });

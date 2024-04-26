@@ -1,6 +1,7 @@
 /***
  * @jest-environment jsdom
  */
+import CustomClassNames from '../../src/CustomClassNames';
 import { zGrid } from '../../src/zGrid';
 import { faker } from '@faker-js/faker';
 
@@ -10,6 +11,7 @@ describe('ClassName', () => {
   let parent;
   faker.seed(96);
   beforeEach(() => {
+    CustomClassNames.data = [];
     data = [];
     parent = document.createElement('div');
     for (let i = 0; i < 10; i++) {
