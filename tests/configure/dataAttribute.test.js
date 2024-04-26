@@ -49,4 +49,16 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('filterContainer_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test('filter', () => {
+    configuration.dataAttribute = {
+      filter: ['attribute', 'value'],
+    };
+    configuration.className = {
+      filter: 'filter_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('filter_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });

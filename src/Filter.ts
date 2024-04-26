@@ -18,6 +18,7 @@ export default class Filter {
     let input = document.createElement('input')
     CustomClassNames.addElement('filter', input)
     CustomClassNames.addDefaultName('filter', 'zgrid_filter')
+    CustomDataAttributes.addElement('filter', input)
     input.type = 'text'
     input.placeholder = 'Type a keyword...'
     input.oninput = (e: InputEvent) => {
