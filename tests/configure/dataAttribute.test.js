@@ -46,7 +46,6 @@ describe('DataAttributes', () => {
       filterContainer: 'filterContainer_custom',
     };
     let grid = new zGrid(configuration);
-    console.log(CustomDataAttributes.data);
     let ui = parent.getElementsByClassName('filterContainer_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });

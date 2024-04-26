@@ -1,4 +1,5 @@
 import CustomClassNames from "./CustomClassNames";
+import CustomDataAttributes from "./CustomDataAttributes";
 
 /**
  * @internal
@@ -12,6 +13,7 @@ export default class Filter {
     this.container = document.createElement('div')
     CustomClassNames.addElement('filterContainer', this.container)
     CustomClassNames.addDefaultName('filterContainer', 'zgrid_filter_container')
+    CustomDataAttributes.addElement('filterContainer', this.container)
 
     let input = document.createElement('input')
     CustomClassNames.addElement('filter', input)

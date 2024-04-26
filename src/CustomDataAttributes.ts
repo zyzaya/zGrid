@@ -13,9 +13,17 @@ export default class CustomDataAttributes extends CustomHTML {
   static updateHTML(id: string): void {
     let record = this.getRecord(id);
     record.elements.forEach((e) => {
-      e.className = '';
-      record.default.forEach((n) => e.classList.add(n))
-      record.custom.forEach((n) => e.classList.add(n))
+      for (const data in e.dataset) delete e.dataset[data]
+      record.default.forEach((n) => {
+        let d = Array.isArray(n) ? n[0] : n;
+        let v = Array.isArray(n) ? n[1] : "";
+        e.dataset[d] = v;
+      })
+      record.custom.forEach((n) => {
+        let d = Array.isArray(n) ? n[0] : n;
+        let v = Array.isArray(n) ? n[1] : "";
+        e.dataset[d] = v;
+      })
     })
   }
 }
