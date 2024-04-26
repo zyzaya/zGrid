@@ -89,4 +89,16 @@ describe('DataAttributes', () => {
       expect(ui[i].dataset.attribute).toBe('value');
     }
   });
+
+  test('paginationPrevious', () => {
+    configuration.dataAttribute = {
+      paginationPrevious: ['attribute', 'value'],
+    };
+    configuration.className = {
+      paginationPrevious: 'paginationPrevious_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationPrevious_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });
