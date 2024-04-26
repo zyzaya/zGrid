@@ -101,4 +101,16 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('paginationPrevious_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test('paginationCurrent', () => {
+    configuration.dataAttribute = {
+      paginationCurrent: ['attribute', 'value'],
+    };
+    configuration.className = {
+      paginationCurrent: 'paginationCurrent_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationCurrent_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });
