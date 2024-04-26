@@ -668,10 +668,13 @@ class zGrid {
       CustomClassNames.addElement('tr', row)
       CustomClassNames.addDefaultName('tr', 'zgrid_row')
       CustomDataAttributes.addElement('tr', row)
-      this.columns.forEach((c, c_i) => {
+      
+      let visible_columns = this.columns.filter((c) => {
         let config = this.columns.find((e) => e.id === c.id)
-        if (config.visible === false) return;
-        
+        return config.visible
+      })
+
+      visible_columns.forEach((c, c_i) => {
         let cell = document.createElement('td');
         CustomClassNames.addElement('td', cell)
         CustomClassNames.addDefaultName('td', 'zgrid_cell')
