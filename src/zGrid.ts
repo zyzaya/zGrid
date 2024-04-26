@@ -319,7 +319,6 @@ class zGrid {
     this.dataAttribute = dataAttribute === undefined ? {} : dataAttribute;
     for (const [key, value] of Object.entries(this.dataAttribute)) {
       let v = Array.isArray(value) ? value[0] : value;
-      console.log(v)
       if (!/^\S+$/.test(v))
         throw new Error(`Invalid data attribute (${v})`)
       

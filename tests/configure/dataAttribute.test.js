@@ -1,6 +1,8 @@
 /***
  * @jest-environment jsdom
  */
+import CustomClassNames from '../../src/CustomClassNames';
+import CustomDataAttributes from '../../src/CustomDataAttributes';
 import { zGrid } from '../../src/zGrid';
 import { faker } from '@faker-js/faker';
 
@@ -8,6 +10,7 @@ describe('DataAttributes', () => {
   let configuration = {};
   let data = [];
   let parent;
+  faker.seed(96);
   beforeEach(() => {
     data = [];
     parent = document.createElement('div');
@@ -33,5 +36,18 @@ describe('DataAttributes', () => {
     expect(() => {
       let grid = new zGrid(configuration);
     }).toThrow(Error);
+  });
+
+  test('filterContainer', () => {
+    configuration.dataAttribute = {
+      filterContainer: ['attribute', 'value'],
+    };
+    configuration.className = {
+      filterContainer: 'filterContainer_custom',
+    };
+    let grid = new zGrid(configuration);
+    console.log(CustomDataAttributes.data);
+    let ui = parent.getElementsByClassName('filterContainer_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
   });
 });
