@@ -61,4 +61,16 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('filter_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test('paginationInfo', () => {
+    configuration.dataAttribute = {
+      paginationInfo: ['attribute', 'value'],
+    };
+    configuration.className = {
+      paginationInfo: 'paginationInfo_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationInfo_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });

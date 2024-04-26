@@ -364,6 +364,7 @@ class zGrid {
     this.pages_info = document.createElement('div')
     CustomClassNames.addElement('paginationInfo', this.pages_info)
     CustomClassNames.addDefaultName('paginationInfo', 'zgrid_pages_info')
+    CustomDataAttributes.addElement('paginationInfo', this.pages_info)
     this.pages_info_container.appendChild(this.pages_info)
 
     this.ui_pages = new Pages(this.pages_info_container)
