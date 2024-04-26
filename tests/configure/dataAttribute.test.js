@@ -63,6 +63,18 @@ describe('DataAttributes', () => {
     expect(ui[0].dataset.attribute).toBe('value');
   });
 
+  test('paginationContainer', () => {
+    configuration.dataAttribute = {
+      paginationContainer: ['attribute', 'value'],
+    };
+    configuration.className = {
+      paginationContainer: 'paginationContainer_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('paginationContainer_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
+
   test('paginationInfo', () => {
     configuration.dataAttribute = {
       paginationInfo: ['attribute', 'value'],

@@ -15,6 +15,7 @@ export default class Pages {
     let container = document.createElement('div')
     CustomClassNames.addElement('paginationContainer', container)
     CustomClassNames.addDefaultName('paginationContainer', 'zgrid_pages_container')
+    CustomDataAttributes.addElement('paginationContainer', container)
 
     let previous = document.createElement('button')
     CustomClassNames.addElement('paginationPrevious', previous)
