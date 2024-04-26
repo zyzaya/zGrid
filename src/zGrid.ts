@@ -1,4 +1,5 @@
 import CustomClassNames from "./CustomClassNames";
+import CustomDataAttributes from "./CustomDataAttributes";
 import Filter from "./Filter";
 import HeaderCell from "./HeaderCell";
 import Pages from "./Pages";
@@ -12,15 +13,15 @@ type SortOptions = {
   ascending: boolean
 }
 
-type ClassNames = {
-  filterContainer?: string;
-  filter?: string;
-  paginationContainer?: string;
-  paginationInfo?: string;
-  paginationButton?: string;
-  paginationPrevious?: string;
-  paginationCurrent?: string;
-  paginationNext?: string;
+type ElementNames = {
+  filterContainer?: string | [string, string];
+  filter?: string | [string, string];
+  paginationContainer?: string | [string, string];
+  paginationInfo?: string | [string, string];
+  paginationButton?: string | [string, string];
+  paginationPrevious?: string | [string, string];
+  paginationCurrent?: string | [string, string];
+  paginationNext?: string | [string, string];
 }
 
 type ColumnConfiguration = {
@@ -140,7 +141,8 @@ type Configuration = {
    * @param data The row, as key-value pairs. Key is the name of the column, value is the value of the record for that column. This includes hidden columns.
    */
   onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
-  className?: ClassNames
+  className?: ElementNames,
+  dataAttribute?: ElementNames,
 }
 
 class zGrid {
@@ -165,7 +167,8 @@ class zGrid {
   private onSort: (column: string, ascending: boolean) => void;
   private onClick: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
 
-  private className: ClassNames;
+  private className: ElementNames;
+  private dataAttribute: ElementNames;
   /**
    * 
    * @param {Configuration} config 
@@ -191,6 +194,7 @@ class zGrid {
 
     this.configureUI()
     this.configureClassName(config.className)
+    this.configureDataAttributes(config.dataAttribute)
     this.render();
   }
 
@@ -293,19 +297,34 @@ class zGrid {
     return ret;
   }
 
-  private configureClassName(className: ClassNames) {
+  private configureClassName(className: ElementNames) {
     this.className = className === undefined ? {} : className;
     for (const [key, value] of Object.entries(this.className)) {
-      if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(value))
+      let v = Array.isArray(value) ? value[0] : value;
+      if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(v))
         throw new Error(`Invalid css class name (${value})`)
       
       CustomClassNames.clearCustomNames(key)
-      CustomClassNames.addCustomName(key, value)
+      CustomClassNames.addCustomName(key, v)
     };
     
-    CustomClassNames.addCustomName('paginationNext', this.className.paginationButton)
-    CustomClassNames.addCustomName('paginationPrevious', this.className.paginationButton)
-    CustomClassNames.addCustomName('paginationCurrent', this.className.paginationButton)
+    let pB = this.className.paginationButton;
+    pB = Array.isArray(pB) ? pB[0] : pB;
+    CustomClassNames.addCustomName('paginationNext', pB)
+    CustomClassNames.addCustomName('paginationPrevious', pB)
+    CustomClassNames.addCustomName('paginationCurrent', pB)
+  }
+
+  private configureDataAttributes(dataAttribute: ElementNames) {
+    this.dataAttribute = dataAttribute === undefined ? {} : dataAttribute;
+    for (const [key, value] of Object.entries(this.className)) {
+      let v = Array.isArray(value) ? value[0] : value;
+      if (!/^\S+$/.test(v))
+        throw new Error(`Invalid data attribute (${v})`)
+      
+      CustomDataAttributes.clearCustomNames(key)
+      CustomDataAttributes.addCustomName(key, value)
+    };
   }
 
   private configureUI() {

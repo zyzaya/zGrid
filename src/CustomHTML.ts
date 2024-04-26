@@ -1,8 +1,8 @@
 type Record = {
   id: string;
   elements: Array<HTMLElement>;
-  default: Array<string>;
-  custom: Array<string>
+  default: Array<any>;
+  custom: Array<any>
 }
 
 /**
@@ -49,7 +49,7 @@ export default class CustomHTML {
     return record
   }
 
-  static addDefaultName(id: string, name: string) {
+  static addDefaultName(id: string, name: any) {
     if (name === undefined) return;
     let record = this.getRecord(id);
     if (!record.default.includes(name)) {
@@ -58,7 +58,7 @@ export default class CustomHTML {
     }
   }
 
-  static removeDefaultName(id: string, name: string) {
+  static removeDefaultName(id: string, name: any) {
     if (name === undefined) return;
     let record = this.getRecord(id);
     record.default = record.default.filter((n) => n !== name)
@@ -71,7 +71,7 @@ export default class CustomHTML {
     this.updateHTML(id);
   }
 
-  static addCustomName(id: string, name: string) {
+  static addCustomName(id: string, name: any) {
     if (name === undefined) return;
     let record = this.getRecord(id);
     if (!record.custom.includes(name)) {
@@ -80,7 +80,7 @@ export default class CustomHTML {
     }
   }
 
-  static removeCustomName(id: string, name: string) {
+  static removeCustomName(id: string, name: any) {
     if (name === undefined) return;
     let record = this.getRecord(id);
     record.custom = record.custom.filter((n) => n !== name)
