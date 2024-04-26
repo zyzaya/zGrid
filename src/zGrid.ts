@@ -340,6 +340,7 @@ class zGrid {
     let table = document.createElement('table')
     CustomClassNames.addElement('table', table)
     CustomClassNames.addDefaultName('table', 'zgrid_table')
+    CustomDataAttributes.addElement('table', table)
     this.head = document.createElement('thead')
     CustomClassNames.addElement('thead', this.head)
     // filter

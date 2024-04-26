@@ -125,4 +125,16 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('paginationNext_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test('table', () => {
+    configuration.dataAttribute = {
+      table: ['attribute', 'value'],
+    };
+    configuration.className = {
+      table: 'table_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('table_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });
