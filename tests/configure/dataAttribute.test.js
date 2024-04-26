@@ -197,4 +197,16 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('tbody_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test('td', () => {
+    configuration.dataAttribute = {
+      td: ['attribute', 'value'],
+    };
+    configuration.className = {
+      td: 'td_custom',
+    };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('td_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });

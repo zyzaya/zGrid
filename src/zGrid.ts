@@ -651,6 +651,7 @@ class zGrid {
   private renderData() {
     this.body.replaceChildren()
     CustomClassNames.clearElements('td')
+    CustomDataAttributes.clearElements('td')
     this.getData().forEach((d, r_i) => {
       let row = document.createElement('tr');
       row.classList.add('zgrid_row');
@@ -661,6 +662,7 @@ class zGrid {
         let cell = document.createElement('td');
         CustomClassNames.addElement('td', cell)
         CustomClassNames.addDefaultName('td', 'zgrid_cell')
+        CustomDataAttributes.addElement('td', cell)
         cell.onclick = () => {
           if (!this.onClick) return
           this.onClick(c_i, r_i, c.id, structuredClone(d))
