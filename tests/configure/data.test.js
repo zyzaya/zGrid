@@ -105,6 +105,32 @@ describe('Data', () => {
     grid.sort('first name');
     expect(() => grid.getData()).not.toThrow(Error);
   });
+
+  test('empty values for data, when configured using an object, doesnt cause an error', () => {
+    configuration.data = [
+      {
+        'last name': 'first',
+        email: 'first',
+      },
+      {
+        'last name': 'second',
+        email: 'second',
+      },
+    ];
+    let grid = new zGrid(configuration);
+    grid.sort('first name');
+    expect(() => grid.getData()).not.toThrow(Error);
+  });
+
+  test('empty values for data, when configured using an array, doesnt cause an error', () => {
+    configuration.data = [
+      ['first', 'first'],
+      ['second', 'second'],
+    ];
+    let grid = new zGrid(configuration);
+    grid.sort('email');
+    expect(() => grid.getData()).not.toThrow(Error);
+  });
 });
 
 describe('getRow', () => {

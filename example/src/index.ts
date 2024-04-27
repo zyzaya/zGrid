@@ -10,7 +10,7 @@ faker.seed(96);
 
 type testRecord = {
   'ID': string;
-  'First Name': string;
+  'First Name'?: string;
   'last_name': string;
   'Phone Number': string;
   'Email': string;
@@ -21,7 +21,7 @@ let testData: testRecord[] = [];
 for (let i = 0; i < 100; i++) {
   let record = {
     'ID': faker.string.numeric(),
-    'First Name': faker.person.firstName(),
+    // 'First Name': faker.person.firstName(),
     'last_name': faker.person.lastName(),
     'Phone Number': faker.phone.number(),
     'Email': faker.internet.email(),
