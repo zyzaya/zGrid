@@ -269,7 +269,7 @@ class zGrid {
       } else if (typeof e === 'object') {
         for (const [k, v] of Object.entries(e)) {
           let value = !v || v === undefined ? '' : v;
-          row[k] = value;
+          row[k] = value.toString();
         }
       } else {
         throw new TypeError('Data elements must be string or object');
