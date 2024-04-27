@@ -267,10 +267,18 @@ class zGrid {
           row[c.id] = value.toString();
         });
       } else if (typeof e === 'object') {
+        // existing columns
         this.columns.forEach((c, i) => {
           let value = !e[c.id] || e[c.id] === undefined ? '' : e[c.id];
           row[c.id] = value.toString();
         })
+        // extra entries
+        for (const [k, v] of Object.entries(e)) {
+          if (this.columns.find((c) => c.id === k) === undefined) {
+            let value = !v || v === undefined ? '' : v;
+            row[k] = value.toString();
+          }
+        }
       } else {
         throw new TypeError('Data elements must be string or object');
       }
