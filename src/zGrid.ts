@@ -264,13 +264,13 @@ class zGrid {
       if (Array.isArray(e)) {
         this.columns.forEach((c, i) => {
           let value = !e[i] || e[i] === undefined ? '' : e[i];
-          row[c.id] = value;
+          row[c.id] = value.toString();
         });
       } else if (typeof e === 'object') {
-        for (const [k, v] of Object.entries(e)) {
-          let value = !v || v === undefined ? '' : v;
-          row[k] = value.toString();
-        }
+        this.columns.forEach((c, i) => {
+          let value = !e[c.id] || e[c.id] === undefined ? '' : e[c.id];
+          row[c.id] = value.toString();
+        })
       } else {
         throw new TypeError('Data elements must be string or object');
       }
