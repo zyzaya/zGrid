@@ -7,6 +7,9 @@ type Record = {
   custom: Array<any>
 }
 
+/**
+ * @internal
+ */
 export default class CustomDataAttributes extends CustomHTML {
   public static data: Array<Record> = [];
 
