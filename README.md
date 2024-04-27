@@ -6,6 +6,8 @@
 - *feature* - used when developing a new feature or enhancement. Named as feature#-name. # is only added if applicable
 - *issue* - used when fixing an existing issue. Named as issue#-summary
 
+- *tag* - git tag vX.X.X
+
 # test
 ```npm run test```
 
