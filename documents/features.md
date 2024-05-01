@@ -1,5 +1,6 @@
 # TODO Features
   1. make into functional npm module
+  5. add ability to configure an element to have multiple attributes
 # Completed Features
   2. ~~add ability to separate column identifier and displayed column name~~
   4. ~~add ability to set html data attribues~~
