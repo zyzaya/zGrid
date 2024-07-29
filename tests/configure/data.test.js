@@ -132,18 +132,33 @@ describe('Data', () => {
     expect(() => grid.getData()).not.toThrow(Error);
   });
 
-  test.only('0 (as an interger) values are properly set to 0 (string)', () => {
+  test('0 (as an integer) values are properly set to 0 (string) when configured using an array', () => {
     configuration.data = [
-      [0, 0],
-      [0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
     ];
     let grid = new zGrid(configuration);
-    let data = grid.getData();
     grid.getData().forEach((r) =>
       Object.values(r).forEach((v) => {
         expect(v).toBe('0');
       })
     );
+  });
+
+  test('0 (as an integer) values are properly set to 0 (string) when configuring using an object', () => {
+    configuration.data = [
+      {
+        'first name': 0,
+        'last name': 0,
+        email: 0,
+      },
+    ];
+    let grid = new zGrid(configuration);
+    grid.getData().forEach((r) => {
+      Object.values(r).forEach((v) => {
+        expect(v).toBe('0');
+      });
+    });
   });
 });
 

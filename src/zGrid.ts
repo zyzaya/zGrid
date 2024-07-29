@@ -263,19 +263,19 @@ class zGrid {
       let row: Record<string, string> = {};
       if (Array.isArray(e)) {
         this.columns.forEach((c, i) => {
-          let value = !e[i] || e[i] === undefined ? '' : e[i];
+          let value = e[i] === null || e[i] === undefined ? '' : e[i];
           row[c.id] = value.toString();
         });
       } else if (typeof e === 'object') {
         // existing columns
         this.columns.forEach((c, i) => {
-          let value = !e[c.id] || e[c.id] === undefined ? '' : e[c.id];
+          let value = e[c.id] === null || e[c.id] === undefined ? '' : e[c.id];
           row[c.id] = value.toString();
         })
         // extra entries
         for (const [k, v] of Object.entries(e)) {
           if (this.columns.find((c) => c.id === k) === undefined) {
-            let value = !v || v === undefined ? '' : v;
+            let value = v === null || v === undefined ? '' : v;
             row[k] = value.toString();
           }
         }
