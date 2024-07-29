@@ -131,6 +131,20 @@ describe('Data', () => {
     grid.sort('email');
     expect(() => grid.getData()).not.toThrow(Error);
   });
+
+  test.only('0 (as an interger) values are properly set to 0 (string)', () => {
+    configuration.data = [
+      [0, 0],
+      [0, 0],
+    ];
+    let grid = new zGrid(configuration);
+    let data = grid.getData();
+    grid.getData().forEach((r) =>
+      Object.values(r).forEach((v) => {
+        expect(v).toBe('0');
+      })
+    );
+  });
 });
 
 describe('getRow', () => {

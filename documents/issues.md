@@ -1,6 +1,7 @@
 # TODO Issues
   9. initializing with a parent of size 0 (for example a newly created, isolated div), then reconfiguring the parent will cause resizing to break. renderHeader is not called, meaning the widths of the headers are set to 0px until attempting to resize
-  10. 
+  10. setting a column value to 0 (as an integer), causing the column to be set instead to an empty string.
+  11. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
   2. ~~configure with empty data. reconfigure - filling in data. sort. causes error.~~ The cause was different, described in issue#3
