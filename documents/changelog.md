@@ -12,3 +12,7 @@ v1.0.0 complete
 - fix issue#6. column parameter value (indicating the column that was clicked) of onclick callback was including hidden columns.
 - fix issue#5. Data entries could be set to a function - breaking the onclick callback. An error is now thrown if attempting to set a data entry to a function.
 - fix issue#3. When setting data entries using an object format, undefined data was not stored properly, causing an error when sorting. Additionally entires for columns not yet defines were not tracked.
+
+# v1.1.1 - July 29, 2024
+
+- fix issue#10. Setting the value of a cell to 0 would prevent it from being displayed.
