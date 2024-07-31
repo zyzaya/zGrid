@@ -78,7 +78,7 @@ describe('Columns', () => {
   });
 
   test('has an id column if not explicitly set', () => {
-    configuration.data = [{ one: 1 }];
+    configuration.data = [{ id: 1, one: 1 }];
     let grid = new zGrid(configuration);
     expect(grid.getData()[0].id).not.toBe(undefined);
   });
@@ -112,7 +112,7 @@ describe('Columns', () => {
     });
 
     test('changes available columns', () => {
-      configuration.data = [{ one: 'a', two: 'b', three: 'c' }];
+      configuration.data = [{ id: 1, one: 'a', two: 'b', three: 'c' }];
       configuration.columns = ['one', 'two'];
       let grid = new zGrid(configuration);
       let data = grid.getData();
@@ -130,16 +130,19 @@ describe('Columns', () => {
     test('removing column currently sorted by clears sort', () => {
       let data = [
         {
+          id: '1',
           a: '1',
           b: '2',
           c: '3',
         },
         {
+          id: '2',
           a: '2',
           b: '1',
           c: '2',
         },
         {
+          id: '3',
           a: '3',
           b: '3',
           c: '1',
