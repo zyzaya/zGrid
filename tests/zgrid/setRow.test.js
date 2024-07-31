@@ -51,5 +51,17 @@ describe('setRow', () => {
     expect(() => grid.setRow('1', 15)).toThrow(TypeError);
   });
 
+  test('a row keeps its original id if it is not modified', () => {
+    let modified = {
+      'First Name': 'first',
+      'Last Name': 'last',
+      Email: 'mail',
+    };
+    let grid = new zGrid(configuration);
+    grid.setRow('1', modified);
+    modified.id = '1';
+    expect(grid.getRow('1')).toStrictEqual(modified);
+  });
+
   test('cannot change a rows id to an already used id', () => {});
 });

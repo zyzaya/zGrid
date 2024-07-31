@@ -498,6 +498,7 @@ class zGrid {
     } else {
       throw new TypeError('data must be an object or array')
     }
+    if (row.id === '') row.id = id
   }
   public setCell(row: string, column: string, value: string) {
 
