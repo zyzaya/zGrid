@@ -63,5 +63,14 @@ describe('setRow', () => {
     expect(grid.getRow('1')).toStrictEqual(modified);
   });
 
-  test('cannot change a rows id to an already used id', () => {});
+  test('cannot change a rows id to an already used id', () => {
+    let modified = {
+      id: '2',
+      'First Name': 'first',
+      'Last Name': 'last',
+      Email: 'mail',
+    };
+    let grid = new zGrid(configuration);
+    expect(() => grid.setRow('1', modified)).toThrow(Error);
+  });
 });

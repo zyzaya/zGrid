@@ -499,6 +499,10 @@ class zGrid {
       throw new TypeError('data must be an object or array')
     }
     if (row.id === '') row.id = id
+    let ids = this.data.map((r) => r.id)
+    if (new Set(ids).size !== ids.length) {
+      throw new Error('ids must be unique')
+    }
   }
   public setCell(row: string, column: string, value: string) {
 
