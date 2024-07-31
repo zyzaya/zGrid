@@ -478,7 +478,10 @@ class zGrid {
     // what should this do if no row can be found? error
     let row = this.data.find((e) => e.id === id)
     if (Array.isArray(data)) {
-
+      this.columns.forEach((c, i) => {
+        let value = data[i] === null || data[i] === undefined ? '' : data[i];
+        row[c.id] = value.toString();
+      })
     } else if (typeof data === 'object') {
       // existing columns
       this.columns.forEach((c, i) => {
