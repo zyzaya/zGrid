@@ -31,8 +31,13 @@ describe('Data', () => {
 
   test('is valid', () => {
     configuration.data = [
-      { 'First Name': 'John', 'Last Name': 'Smith', Email: 'fake@email.ca' },
-      ['Jane', 'Doe', 'jane.doe@fake.com'],
+      {
+        id: '1',
+        'First Name': 'John',
+        'Last Name': 'Smith',
+        Email: 'fake@email.ca',
+      },
+      ['2', 'Jane', 'Doe', 'jane.doe@fake.com'],
     ];
     expect(() => {
       new zGrid(configuration);
@@ -44,11 +49,13 @@ describe('Data', () => {
       let grid = new zGrid(configuration);
       let data = [
         {
+          id: '1',
           'first name': 'first',
           'last name': 'last',
           email: 'email@email.ca',
         },
         {
+          id: '2',
           'first name': 'Jane',
           'last name': 'Smith',
           email: 'janesmith@some.thing',
@@ -64,11 +71,13 @@ describe('Data', () => {
       let grid = new zGrid(configuration);
       let data = [
         {
+          id: '1',
           'first name': 'first',
           'last name': 'last',
           email: 'email@email.ca',
         },
         {
+          id: '2',
           'first name': 'Jane',
           'last name': 'Smith',
           email: 'janesmith@some.thing',
@@ -85,9 +94,11 @@ describe('Data', () => {
   test('null values for data, when configured using an object, doesnt cause error', () => {
     configuration.data = [
       {
+        id: '1',
         'first name': null,
       },
       {
+        id: '2',
         'first name': null,
       },
     ];
@@ -98,8 +109,8 @@ describe('Data', () => {
 
   test('null values for data, when configure using an array, doesnt cause error', () => {
     configuration.data = [
-      [null, null, null],
-      [null, null, null],
+      ['1', null, null, null],
+      ['2', null, null, null],
     ];
     let grid = new zGrid(configuration);
     grid.sort('first name');
@@ -109,10 +120,12 @@ describe('Data', () => {
   test('empty values for data, when configured using an object, doesnt cause an error', () => {
     configuration.data = [
       {
+        id: '1',
         'last name': 'first',
         email: 'first',
       },
       {
+        id: '2',
         'last name': 'second',
         email: 'second',
       },
@@ -124,8 +137,8 @@ describe('Data', () => {
 
   test('empty values for data, when configured using an array, doesnt cause an error', () => {
     configuration.data = [
-      ['first', 'first'],
-      ['second', 'second'],
+      ['1', 'first', 'first'],
+      ['2', 'second', 'second'],
     ];
     let grid = new zGrid(configuration);
     grid.sort('email');
@@ -134,20 +147,21 @@ describe('Data', () => {
 
   test('0 (as an integer) values are properly set to 0 (string) when configured using an array', () => {
     configuration.data = [
-      [0, 0, 0],
-      [0, 0, 0],
+      [1, 0, 0, 0],
+      [2, 0, 0, 0],
     ];
     let grid = new zGrid(configuration);
-    grid.getData().forEach((r) =>
-      Object.values(r).forEach((v) => {
-        expect(v).toBe('0');
-      })
-    );
+    grid.getData().forEach((r) => {
+      for (const [k, v] of Object.entries(r)) {
+        if (k !== 'id') expect(v).toBe('0');
+      }
+    });
   });
 
   test('0 (as an integer) values are properly set to 0 (string) when configuring using an object', () => {
     configuration.data = [
       {
+        id: '1',
         'first name': 0,
         'last name': 0,
         email: 0,
@@ -155,9 +169,9 @@ describe('Data', () => {
     ];
     let grid = new zGrid(configuration);
     grid.getData().forEach((r) => {
-      Object.values(r).forEach((v) => {
-        expect(v).toBe('0');
-      });
+      for (const [k, v] of Object.entries(r)) {
+        if (k !== 'id') expect(v).toBe('0');
+      }
     });
   });
 
@@ -222,8 +236,13 @@ describe('getRow', () => {
       parent: document.createElement('div'),
       columns: ['First Name', 'Last Name', 'Email'],
       data: [
-        { 'First Name': 'John', 'Last Name': 'Smith', Email: 'fake@email.ca' },
-        ['Jane', 'Doe', 'jane.doe@fake.com'],
+        {
+          id: '1',
+          'First Name': 'John',
+          'Last Name': 'Smith',
+          Email: 'fake@email.ca',
+        },
+        ['2', 'Jane', 'Doe', 'jane.doe@fake.com'],
       ],
     };
   });
@@ -243,9 +262,10 @@ describe('getRow', () => {
   });
 
   test('returns correct info when grid is configured as array', () => {
-    configuration.data = [['Jane', 'Doe', 'jane.doe@fake.com']];
+    configuration.data = [['2', 'Jane', 'Doe', 'jane.doe@fake.com']];
     let grid = new zGrid(configuration);
     expect(grid.getRow(0)).toStrictEqual({
+      id: '2',
       'First Name': 'Jane',
       'Last Name': 'Doe',
       Email: 'jane.doe@fake.com',
@@ -254,7 +274,12 @@ describe('getRow', () => {
 
   test('returns correct info when grid is configured as object', () => {
     configuration.data = [
-      { 'First Name': 'John', 'Last Name': 'Smith', Email: 'fake@email.ca' },
+      {
+        id: '1',
+        'First Name': 'John',
+        'Last Name': 'Smith',
+        Email: 'fake@email.ca',
+      },
     ];
     let grid = new zGrid(configuration);
     expect(grid.getRow(0)).toStrictEqual(configuration.data[0]);
@@ -269,11 +294,12 @@ describe('getData', () => {
       columns: ['First Name', 'Last Name', 'Email'],
       data: [
         {
+          id: '1',
           'First Name': 'John',
           'Last Name': 'Smith',
           Email: 'fake@email.ca',
         },
-        ['Jane', 'Doe', 'jane.doe@fake.com'],
+        ['2', 'Jane', 'Doe', 'jane.doe@fake.com'],
       ],
     };
   });
@@ -289,11 +315,13 @@ describe('getData', () => {
   test('returns data', () => {
     let expected = [
       {
+        id: '1',
         'First Name': 'John',
         'Last Name': 'Smith',
         Email: 'fake@email.ca',
       },
       {
+        id: '2',
         'First Name': 'Jane',
         'Last Name': 'Doe',
         Email: 'jane.doe@fake.com',
