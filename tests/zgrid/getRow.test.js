@@ -21,24 +21,15 @@ describe('getRow', () => {
     };
   });
 
-  test('index less than zero', () => {
+  test('returns undefined when no row has id', () => {
     let grid = new zGrid(configuration);
-    expect(() => {
-      grid.getRow(-1);
-    }).toThrow(RangeError);
-  });
-
-  test('index greater than or equal to number of rows', () => {
-    let grid = new zGrid(configuration);
-    expect(() => {
-      grid.getRow(2);
-    }).toThrow(RangeError);
+    expect(grid.getRow('99')).toBe(undefined);
   });
 
   test('returns correct info when grid is configured as array', () => {
     configuration.data = [['2', 'Jane', 'Doe', 'jane.doe@fake.com']];
     let grid = new zGrid(configuration);
-    expect(grid.getRow(0)).toStrictEqual({
+    expect(grid.getRow('2')).toStrictEqual({
       id: '2',
       'First Name': 'Jane',
       'Last Name': 'Doe',
@@ -56,6 +47,6 @@ describe('getRow', () => {
       },
     ];
     let grid = new zGrid(configuration);
-    expect(grid.getRow(0)).toStrictEqual(configuration.data[0]);
+    expect(grid.getRow('1')).toStrictEqual(configuration.data[0]);
   });
 });

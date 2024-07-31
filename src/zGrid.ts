@@ -465,18 +465,14 @@ class zGrid {
     if (config.onSort !== undefined) this.onSort = config.onSort;
     if (config.onClick !== undefined) this.onClick = config.onClick;
   }
-
-  public getRow(index: number): Record<string, string>  {
-    if (index < 0) {
-      throw new RangeError('index cannot be less than zero');
-    } else if (index >= this.data.length) {
-      throw new RangeError(
-        'index cannot be greater than or equal to the number of rows'
-      );
-    }
-    return {
-      ...this.data[index],
-    };
+/**
+ * Gets the data of a specific row
+ * @param id The value of the id column
+ * @returns An object representing the found row, or undefined if no row is found
+ */
+  public getRow(id: string): Record<string, string>  {
+    let row = this.data.find((e) => e.id === id)
+    return row === undefined ? row : {...row}
   };
   /**
    * Gets the currently displayed data, after filtering
