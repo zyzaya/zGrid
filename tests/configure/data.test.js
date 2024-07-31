@@ -160,6 +160,25 @@ describe('Data', () => {
       });
     });
   });
+
+  test('throw error when no id is defined using object configuration', () => {
+    let grid = new zGrid(configuration);
+    let data = [
+      {
+        'first name': 'first',
+        'last name': 'last',
+        email: 'mail',
+      },
+    ];
+
+    expect(() => grid.reconfigure({ data: data })).toThrow(Error);
+  });
+
+  test('throws error when no id is defined using array configuration', () => {
+    let grid = new zGrid(configuration);
+    let data = [[]];
+    expect(() => grid.reconfigure({ data: data })).toThrow(Error);
+  });
 });
 
 describe('getRow', () => {

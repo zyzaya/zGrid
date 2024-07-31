@@ -292,6 +292,9 @@ class zGrid {
       } else {
         throw new TypeError('Data elements must be string or object');
       }
+      if (row.id === '') {
+        throw new Error('All rows must define an id')
+      }
       return row;
     });
     return ret;
