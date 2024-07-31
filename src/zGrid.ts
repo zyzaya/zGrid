@@ -429,6 +429,9 @@ class zGrid {
   }
 
   public reconfigure(config: Partial<Configuration>) {
+    let shouldRender = false;
+    let shouldRenderData = false;
+
     if (config.parent !== undefined) {
       let old_parent = this.parent
       this.parent = this.configureParent(config.parent)
@@ -442,21 +445,21 @@ class zGrid {
         if (!this.columns.some((e) => e.id === sort))
           this.sort();
       }
-      this.render();
+      shouldRender = true;
     }
     if (config.data !== undefined) {
       this.data = this.configureData(config.data)
-      this.renderData();
+      shouldRenderData = true;
     }
     if (config.pagination !== undefined) {
       this.pagination = this.configurePagination(config.pagination)
       if (this.pagination) this.pages_info_container.classList.remove('zgrid_hidden')
       else this.pages_info_container.classList.add('zgrid_hidden')
-      this.renderData();
+      shouldRenderData = true;
     }
     if (config.filter !== undefined) {
       this.filter = this.configureFilter(config.filter)
-      this.renderData()
+      shouldRenderData = true;
     }
     if (config.searchbox !== undefined) {
       this.showFilter = config.searchbox
@@ -466,6 +469,9 @@ class zGrid {
     if (config.onPageChange !== undefined) this.onPageChange = config.onPageChange
     if (config.onSort !== undefined) this.onSort = config.onSort;
     if (config.onClick !== undefined) this.onClick = config.onClick;
+
+    if (shouldRender) this.render();
+    else if (shouldRenderData) this.renderData();
   }
 /**
  * Gets the data of a specific row
