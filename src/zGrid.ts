@@ -477,6 +477,7 @@ class zGrid {
   public setRow(id: string, data: Record<string, string> | Array<string>) {
     // what should this do if no row can be found? error
     let row = this.data.find((e) => e.id === id)
+    if (row === undefined) throw new RangeError(`No row found with id: ${id}`)
     if (Array.isArray(data)) {
       this.columns.forEach((c, i) => {
         let value = data[i] === null || data[i] === undefined ? '' : data[i];
@@ -503,6 +504,7 @@ class zGrid {
     if (new Set(ids).size !== ids.length) {
       throw new Error('ids must be unique')
     }
+    this.renderData();
   }
   public setCell(row: string, column: string, value: string) {
 

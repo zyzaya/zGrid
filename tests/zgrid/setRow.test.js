@@ -46,9 +46,14 @@ describe('setRow', () => {
     expect(grid.getRow('1')).toStrictEqual(modified);
   });
 
-  test('throws element if data is not array or object', () => {
+  test('throws error if data is not array or object', () => {
     let grid = new zGrid(configuration);
     expect(() => grid.setRow('1', 15)).toThrow(TypeError);
+  });
+
+  test('throws error if row does not exist', () => {
+    let grid = new zGrid(configuration);
+    expect(() => grid.setRow('10', ['1', 'f', 'l', 'e'])).toThrow(RangeError);
   });
 
   test('a row keeps its original id if it is not modified', () => {
