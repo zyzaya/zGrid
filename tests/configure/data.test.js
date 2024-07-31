@@ -174,11 +174,11 @@ describe('Data', () => {
     expect(() => grid.reconfigure({ data: data })).toThrow(Error);
   });
 
-  // test.only('id column is always first column', () => {
-  //   configuration.data = [['1', 'first', 'last', 'mail']];
-  //   let grid = new zGrid(configuration);
-  //   expect(grid.getData()[0].id).toBe('1');
-  // });
+  test('id column is always first column', () => {
+    configuration.data = [['1', 'first', 'last', 'mail']];
+    let grid = new zGrid(configuration);
+    expect(grid.getData()[0].id).toBe('1');
+  });
 
   test('throws error when no id is defined using array configuration', () => {
     let grid = new zGrid(configuration);

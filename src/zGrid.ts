@@ -252,8 +252,11 @@ class zGrid {
       }
       return col;
     });
-    if (!hasIdColumn) {
-      ret.push({
+    if (hasIdColumn) {
+      let index = ret.findIndex((c) => c.id === 'id')
+      ret.unshift(ret.splice(index, 1)[0])
+    } else {
+      ret.unshift({
         id: 'id',
         name: 'id',
         sort: true,
