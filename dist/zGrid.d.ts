@@ -171,6 +171,7 @@ declare class zGrid {
     constructor(config: Configuration);
     private configureParent;
     private configureColumns;
+    private initializeRow;
     private configureData;
     private configurePagination;
     private configureFilter;
@@ -178,7 +179,26 @@ declare class zGrid {
     private configureDataAttributes;
     private configureUI;
     reconfigure(config: Partial<Configuration>): void;
-    getRow(index: number): Record<string, string>;
+    /**
+     * Gets the data of a specific row
+     * @param id The value of the id column
+     * @returns An object representing the found row, or undefined if no row is found
+     */
+    getRow(id: string): Record<string, string>;
+    /**
+     * Modifies the data in a single row
+     * @param id The id of row to change
+     * @param data The data to set the row to in the same format as configuration
+     * with the exception that if no id is defined it will keep its original id
+     */
+    setRow(id: string, data: Record<string, string> | Array<string>): void;
+    /**
+     * Changes the value of a specific cell
+     * @param id The value of the id column
+     * @param column The column of the cell to change
+     * @param value The value to chagne the cell to
+     */
+    setCell(id: string, column: string, value: string): void;
     /**
      * Gets the currently displayed data, after filtering
      * sorting, and pagination are applied.

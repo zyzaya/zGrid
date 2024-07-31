@@ -23,3 +23,4 @@
 ```npx webpack --config-name='example'```
 
   - builds example site in './example/dist'
+  - uses dist files, so build zgrid first
