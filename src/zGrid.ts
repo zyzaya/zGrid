@@ -475,7 +475,6 @@ class zGrid {
     return row === undefined ? row : {...row}
   }
   public setRow(id: string, data: Record<string, string> | Array<string>) {
-    // what should this do if no row can be found? error
     let row = this.data.find((e) => e.id === id)
     if (row === undefined) throw new RangeError(`No row found with id: ${id}`)
     if (Array.isArray(data)) {
@@ -506,8 +505,7 @@ class zGrid {
     }
     this.renderData();
   }
-  public setCell(row: string, column: string, value: string) {
-
+  public setCell(row: string, column: string, value: string) { 
   }
   /**
    * Gets the currently displayed data, after filtering
