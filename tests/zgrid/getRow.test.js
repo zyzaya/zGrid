@@ -49,4 +49,11 @@ describe('getRow', () => {
     let grid = new zGrid(configuration);
     expect(grid.getRow('1')).toStrictEqual(configuration.data[0]);
   });
+
+  test('modified retrieved data doesnt modify actual data', () => {
+    let grid = new zGrid(configuration);
+    let row = grid.getRow('1');
+    row.email = 'modified';
+    expect(grid.getRow('1')).toStrictEqual(configuration.data[0]);
+  });
 });
