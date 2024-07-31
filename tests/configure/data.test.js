@@ -174,9 +174,43 @@ describe('Data', () => {
     expect(() => grid.reconfigure({ data: data })).toThrow(Error);
   });
 
+  // test.only('id column is always first column', () => {
+  //   configuration.data = [['1', 'first', 'last', 'mail']];
+  //   let grid = new zGrid(configuration);
+  //   expect(grid.getData()[0].id).toBe('1');
+  // });
+
   test('throws error when no id is defined using array configuration', () => {
     let grid = new zGrid(configuration);
     let data = [[]];
+    expect(() => grid.reconfigure({ data: data })).toThrow(Error);
+  });
+
+  test('throws error when duplicate ids using object configuration', () => {
+    let grid = new zGrid(configuration);
+    let data = [
+      {
+        id: '1',
+        'first name': 'fire',
+        'last name': 'last',
+        email: 'mail',
+      },
+      {
+        id: '1',
+        'first name': 'second',
+        'last name': 'last2',
+        email: 'mail',
+      },
+    ];
+    expect(() => grid.reconfigure({ data: data })).toThrow(Error);
+  });
+
+  test.only('throws error when duplicate ids using array configuration', () => {
+    let grid = new zGrid(configuration);
+    let data = [
+      ['1', 'fire', 'last', 'mail'],
+      ['1', 'second', 'last2', 'mail2'],
+    ];
     expect(() => grid.reconfigure({ data: data })).toThrow(Error);
   });
 });

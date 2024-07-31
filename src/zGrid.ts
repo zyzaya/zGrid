@@ -268,6 +268,7 @@ class zGrid {
     if (!Array.isArray(data)) {
       throw new TypeError('Data must be an array');
     }
+    let ids: String[] = [];
 
     ret = data.map((e) => {
       let row: Record<string, string> = {};
@@ -294,9 +295,16 @@ class zGrid {
       }
       if (row.id === '') {
         throw new Error('All rows must define an id')
+      } else {
+        ids.push(row.id)
       }
       return row;
     });
+    // unique ids
+    if (new Set(ids).size !== ids.length) {
+      throw new Error('ids must be unique')
+    }
+
     return ret;
   }
 
