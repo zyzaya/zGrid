@@ -473,7 +473,30 @@ class zGrid {
   public getRow(id: string): Record<string, string>  {
     let row = this.data.find((e) => e.id === id)
     return row === undefined ? row : {...row}
-  };
+  }
+  public setRow(id: string, data: Record<string, string> | Array<string>) {
+    // what should this do if no row can be found? error
+    let row = this.data.find((e) => e.id === id)
+    if (Array.isArray(data)) {
+
+    } else if (typeof data === 'object') {
+      // existing columns
+      this.columns.forEach((c, i) => {
+        let value = data[c.id] === null || data[c.id] === undefined ? '' : data[c.id]
+        row[c.id] = value.toString();
+      })
+      // extra entries
+      for (const [k, v] of Object.entries(data)) {
+        if (this.columns.find((c) => c.id === k) === undefined) {
+          let value = v === null || v === undefined ? '' : v;
+          row[k] = value.toString();
+        }
+      }
+    }
+  }
+  public setCell(row: string, column: string, value: string) {
+
+  }
   /**
    * Gets the currently displayed data, after filtering
    * sorting, and pagination are applied.
