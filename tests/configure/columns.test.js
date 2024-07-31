@@ -77,10 +77,27 @@ describe('Columns', () => {
     expect(ui.filter((e) => e.innerText === 'First Name').length).toBe(1);
   });
 
-  test.only('has an id column if not explicitly set', () => {
+  test('has an id column if not explicitly set', () => {
     configuration.data = [{ one: 1 }];
     let grid = new zGrid(configuration);
     expect(grid.getData()[0].id).not.toBe(undefined);
+  });
+
+  test('can configure id column', () => {
+    configuration.columns = [
+      {
+        id: 'id',
+        name: 'id',
+        visible: true,
+      },
+      {
+        id: 'first_name',
+        name: 'First Name',
+      },
+    ];
+    let grid = new zGrid(configuration);
+    let ui = Array.from(parent.getElementsByClassName('zgrid_title'));
+    expect(ui.filter((e) => e.innerText === 'id').length).toBe(1);
   });
 
   describe('Reconfigure', () => {
