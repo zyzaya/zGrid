@@ -205,7 +205,7 @@ describe('Data', () => {
     expect(() => grid.reconfigure({ data: data })).toThrow(Error);
   });
 
-  test.only('throws error when duplicate ids using array configuration', () => {
+  test('throws error when duplicate ids using array configuration', () => {
     let grid = new zGrid(configuration);
     let data = [
       ['1', 'fire', 'last', 'mail'],
