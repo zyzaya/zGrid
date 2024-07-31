@@ -150,6 +150,7 @@ declare class zGrid {
     private ui_filter;
     private ui_pages;
     private ui_header_row;
+    private header_cells;
     private pages_info;
     private pages_info_container;
     private onFilter;

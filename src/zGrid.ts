@@ -166,9 +166,10 @@ class zGrid {
   private ui_filter: Filter;
   private ui_pages: Pages;
   private ui_header_row: HTMLTableRowElement;
+  private header_cells: Array<HeaderCell>;
   private pages_info: HTMLDivElement;
   private pages_info_container: HTMLDivElement;
-
+  
   private onFilter: (value: string) => void;
   private onPageChange: (page: number) => void;
   private onSort: (column: string, ascending: boolean) => void;
@@ -194,6 +195,9 @@ class zGrid {
     this.pagination = this.configurePagination(config.pagination);
     this.filter = this.configureFilter(config.filter);
     this.showFilter = config.searchbox === undefined ? true : false;
+    
+    this.header_cells = [];
+    
     this.onFilter = config.onFilter;
     this.onPageChange = config.onPageChange;
     this.onSort = config.onSort;
@@ -686,45 +690,52 @@ class zGrid {
   };
 
   private renderHeader() {
-    this.ui_header_row.replaceChildren();
     CustomClassNames.clearElements('th')
     CustomDataAttributes.clearElements('th')
     let col_count = this.columns.filter((c) => c.visible).length
     let prev: HeaderCell = undefined;
-    let titles: Array<HeaderCell> = [];
+    // remove unused header cells
+    if (col_count < this.header_cells.length) {
+      let removed = this.header_cells.splice(col_count - 1);
+      removed.forEach((c) => c.remove())
+    }
+    let max_existing = this.header_cells.length
+    let existing_index = 0;
     this.columns.forEach((config) => {
       if (config.visible === false) return;
-
-      let title = new HeaderCell(this.ui_header_row);
-      titles.push(title)
+      let title: HeaderCell;
+      // use existing header cells
+      if (existing_index < max_existing) {
+        title = this.header_cells[existing_index]
+        existing_index += 1;
+      } else {
+        title = new HeaderCell(this.ui_header_row)
+        this.header_cells.push(title)
+      }
       title.width = this.head.clientWidth / col_count
       title.onsort = (sort) => {
-        titles.forEach((t) => {
-          if (t !== title) t.sort ='none'
+        // reset all other header cells
+        this.header_cells.forEach((t) => {
+          if (t !== title) t.sort = 'none'
         })
-        if (sort === "none") {
-          this.sort(false)
-        } else {
+        // set sort
+        if (sort === "none") this.sort(false)
+        else {
           let ascending = sort === "ascending"
           this.sort(config.id, ascending)
           if (this.onSort !== undefined) this.onSort(config.id, ascending)
         }
         this.renderData()
       }
+      // resize modification
       if (prev !== undefined) {
-        prev.onresize = (width, change) => {
-          title.width = title.width - change;
-        }
+        prev.onresize = (width, change) => title.width = title.width - change;
       }
       prev = title
-      
       if (typeof this.sortConfig === "object" && this.sortConfig.column === config.id) {
         title.sort = this.sortConfig.ascending ? "ascending" : "descending"
       }
-      
-      if (config !== undefined) {
-        if (config.sort === false) title.enableSort(false);
-      }
+      if (config.sort === false) title.enableSort(false);
       title.innerText = config.name;
     });
   }

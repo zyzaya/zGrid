@@ -143,6 +143,10 @@ export default class HeaderCell {
     return parseFloat(this.element.style.width)
   }
 
+  remove() {
+    this.element.remove()
+  }
+
   enableSort(enable: boolean) {
     if (enable) this.buttonContainer.classList.remove("zgrid_hidden")
     else this.buttonContainer.classList.add("zgrid_hidden")
