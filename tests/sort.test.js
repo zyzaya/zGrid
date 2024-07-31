@@ -20,6 +20,7 @@ describe('Sort', () => {
     parent = document.createElement('div');
     for (let i = 0; i < 10; i++) {
       data.push({
+        id: i.toString(),
         'First Name': faker.person.firstName(),
         'Last Name': faker.person.lastName(),
         Email: faker.internet.email(),
