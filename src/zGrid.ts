@@ -474,6 +474,12 @@ class zGrid {
     let row = this.data.find((e) => e.id === id)
     return row === undefined ? row : {...row}
   }
+  /**
+   * Modifies the data in a single row
+   * @param id The id of row to change
+   * @param data The data to set the row to in the same format as configuration
+   * with the exception that if no id is defined it will keep its original id
+   */
   public setRow(id: string, data: Record<string, string> | Array<string>) {
     let row = this.data.find((e) => e.id === id)
     if (row === undefined) throw new RangeError(`No row found with id: ${id}`)
