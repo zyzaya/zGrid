@@ -228,6 +228,7 @@ class zGrid {
       throw new Error('Columns length must be at least 1');
     }
     let ret: Array<ColumnConfiguration> = [];
+    let hasIdColumn = false;
     ret = columns.map((e) => {
       let col: ColumnConfiguration;
       if (typeof e === 'string') {
@@ -241,6 +242,7 @@ class zGrid {
         if (e.id === undefined) {
           throw new TypeError('Column requires an id');
         }
+        if (e.id === 'id') hasIdColumn = true
         col = {
           id: e.id,
           name: e.name === undefined ? e.id : e.name,
@@ -250,6 +252,14 @@ class zGrid {
       }
       return col;
     });
+    if (!hasIdColumn) {
+      ret.push({
+        id: 'id',
+        name: 'id',
+        sort: true,
+        visible: false
+      })
+    }
     return ret;
   }
 

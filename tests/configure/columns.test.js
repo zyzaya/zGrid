@@ -77,6 +77,12 @@ describe('Columns', () => {
     expect(ui.filter((e) => e.innerText === 'First Name').length).toBe(1);
   });
 
+  test.only('has an id column if not explicitly set', () => {
+    configuration.data = [{ one: 1 }];
+    let grid = new zGrid(configuration);
+    expect(grid.getData()[0].id).not.toBe(undefined);
+  });
+
   describe('Reconfigure', () => {
     test('reconfiguring columns', () => {
       let grid = new zGrid(configuration);
