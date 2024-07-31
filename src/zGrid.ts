@@ -505,6 +505,12 @@ class zGrid {
     }
     this.renderData();
   }
+  /**
+   * Changes the value of a specific cell
+   * @param id The value of the id column
+   * @param column The column of the cell to change
+   * @param value The value to chagne the cell to
+   */
   public setCell(id: string, column: string, value: string) { 
     let row = this.data.find((e) => e.id === id);
     if (row === undefined) throw new RangeError(`No row found with id: ${id}`);
