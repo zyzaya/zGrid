@@ -266,6 +266,36 @@ class zGrid {
     return ret;
   }
 
+  private initializeRow(data: Record<string, string> | Array<string>): Record<string, string> {
+    let row: Record<string, string> = {}
+    if (Array.isArray(data)) {
+      this.columns.forEach((c, i) => {
+        this.columns.forEach((c, i) => {
+          let value = data[i] === null || data[i] === undefined ? '' : data[i];
+          row[c.id] = value.toString();
+        });
+      })
+    } else if (typeof data === 'object') {
+      // existing columns
+      this.columns.forEach((c, i) => {
+        let value = data[c.id] === null || data[c.id] === undefined ? '' : data[c.id];
+        row[c.id] = value.toString();
+      })
+      // extra entries
+      for (const [k, v] of Object.entries(data)) {
+        if (this.columns.find((c) => c.id === k) === undefined) {
+          let value = v === null || v === undefined ? '' : v;
+          row[k] = value.toString();
+        }
+      }
+    } else {
+      throw new TypeError('data must be string or object')
+    }
+    if (row.id === '') throw new Error('rows must define an id')
+
+    return row;
+  }
+
   private configureData(data: Array<Record<string, string> | Array<string>>): Array<Record<string, string>> {
     let ret: Array<Record<string, string>>
     if (!Array.isArray(data)) {
@@ -481,34 +511,14 @@ class zGrid {
    * with the exception that if no id is defined it will keep its original id
    */
   public setRow(id: string, data: Record<string, string> | Array<string>) {
-    let row = this.data.find((e) => e.id === id)
-    if (row === undefined) throw new RangeError(`No row found with id: ${id}`)
-    if (Array.isArray(data)) {
-      this.columns.forEach((c, i) => {
-        let value = data[i] === null || data[i] === undefined ? '' : data[i];
-        row[c.id] = value.toString();
-      })
-    } else if (typeof data === 'object') {
-      // existing columns
-      this.columns.forEach((c, i) => {
-        let value = data[c.id] === null || data[c.id] === undefined ? '' : data[c.id]
-        row[c.id] = value.toString();
-      })
-      // extra entries
-      for (const [k, v] of Object.entries(data)) {
-        if (this.columns.find((c) => c.id === k) === undefined) {
-          let value = v === null || v === undefined ? '' : v;
-          row[k] = value.toString();
-        }
-      }
-    } else {
-      throw new TypeError('data must be an object or array')
-    }
-    if (row.id === '') row.id = id
-    let ids = this.data.map((r) => r.id)
-    if (new Set(ids).size !== ids.length) {
-      throw new Error('ids must be unique')
-    }
+    let index = this.data.findIndex((e) => e.id === id)
+    if (index === -1) throw new RangeError(`No row found with id: ${id}`)
+    if (!Array.isArray(data) && typeof data === 'object' && data.id === undefined)
+        data.id = this.data[index].id
+    let row = this.initializeRow(data);
+    let ids = this.data.map((r, i) => i === index ? undefined : r.id)
+    if (ids.includes(row.id)) throw new Error('ids must be unique')
+    this.data[index] = this.initializeRow(data);
     this.renderData();
   }
   /**
