@@ -21,6 +21,7 @@ describe('Filter', () => {
 
     for (let i = 0; i < 10; i++) {
       let entry = {
+        id: i.toString(),
         'First Name': faker.person.firstName(),
         'Last Name': faker.person.lastName(),
         Email: faker.internet.email(),
@@ -88,6 +89,7 @@ describe('Filter', () => {
 
   test('filter ignores unused column data', () => {
     let entry = {
+      id: 'identifier',
       'First Name': faker.person.firstName(),
       'Last Name': faker.person.lastName(),
       Email: faker.internet.email(),
@@ -101,6 +103,7 @@ describe('Filter', () => {
 
   test('filter function does not provide unused column data', () => {
     let entry = {
+      id: 'identifier',
       'First Name': faker.person.firstName(),
       'Last Name': faker.person.lastName(),
       Email: faker.internet.email(),
