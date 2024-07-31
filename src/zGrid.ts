@@ -298,45 +298,17 @@ class zGrid {
 
   private configureData(data: Array<Record<string, string> | Array<string>>): Array<Record<string, string>> {
     let ret: Array<Record<string, string>>
-    if (!Array.isArray(data)) {
+    if (!Array.isArray(data))
       throw new TypeError('Data must be an array');
-    }
     let ids: String[] = [];
-
     ret = data.map((e) => {
-      let row: Record<string, string> = {};
-      if (Array.isArray(e)) {
-        this.columns.forEach((c, i) => {
-          let value = e[i] === null || e[i] === undefined ? '' : e[i];
-          row[c.id] = value.toString();
-        });
-      } else if (typeof e === 'object') {
-        // existing columns
-        this.columns.forEach((c, i) => {
-          let value = e[c.id] === null || e[c.id] === undefined ? '' : e[c.id];
-          row[c.id] = value.toString();
-        })
-        // extra entries
-        for (const [k, v] of Object.entries(e)) {
-          if (this.columns.find((c) => c.id === k) === undefined) {
-            let value = v === null || v === undefined ? '' : v;
-            row[k] = value.toString();
-          }
-        }
-      } else {
-        throw new TypeError('Data elements must be string or object');
-      }
-      if (row.id === '') {
-        throw new Error('All rows must define an id')
-      } else {
-        ids.push(row.id)
-      }
+      let row = this.initializeRow(e);
+      ids.push(row.id)
       return row;
     });
     // unique ids
-    if (new Set(ids).size !== ids.length) {
+    if (new Set(ids).size !== ids.length)
       throw new Error('ids must be unique')
-    }
 
     return ret;
   }
