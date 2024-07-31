@@ -505,7 +505,19 @@ class zGrid {
     }
     this.renderData();
   }
-  public setCell(row: string, column: string, value: string) { 
+  public setCell(id: string, column: string, value: string) { 
+    let row = this.data.find((e) => e.id === id);
+    if (row === undefined) throw new RangeError(`No row found with id: ${id}`);
+    if (this.columns.find((c) => c.id === column) === undefined)
+      throw new RangeError(`No column found with id: ${column}`)
+    if (column === 'id') {
+      if (value === undefined || value === null || value === '')
+        throw new TypeError('id must be a non null, non empty string')
+      let ids = this.data.map((r) => r.id);
+      if (ids.includes(value))
+        throw new Error('ids must be unique');
+    }
+    row[column] = value;
   }
   /**
    * Gets the currently displayed data, after filtering
