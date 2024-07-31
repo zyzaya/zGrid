@@ -46,5 +46,10 @@ describe('setRow', () => {
     expect(grid.getRow('1')).toStrictEqual(modified);
   });
 
+  test('throws element if data is not array or object', () => {
+    let grid = new zGrid(configuration);
+    expect(() => grid.setRow('1', 15)).toThrow(TypeError);
+  });
+
   test('cannot change a rows id to an already used id', () => {});
 });

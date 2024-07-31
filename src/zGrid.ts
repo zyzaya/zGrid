@@ -495,6 +495,8 @@ class zGrid {
           row[k] = value.toString();
         }
       }
+    } else {
+      throw new TypeError('data must be an object or array')
     }
   }
   public setCell(row: string, column: string, value: string) {
