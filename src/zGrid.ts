@@ -165,6 +165,7 @@ class zGrid {
   private head: HTMLTableSectionElement;
   private ui_filter: Filter;
   private ui_pages: Pages;
+  private ui_header_row: HTMLTableRowElement;
   private pages_info: HTMLDivElement;
   private pages_info_container: HTMLDivElement;
 
@@ -398,7 +399,10 @@ class zGrid {
       this.renderData();
     }
     // header
-    // this.createHeader(head);
+    this.ui_header_row = document.createElement('tr');
+    CustomClassNames.addElement('tr', this.ui_header_row)
+    CustomDataAttributes.addElement('tr', this.ui_header_row)
+    this.head.appendChild(this.ui_header_row)
     table.appendChild(this.head);
     // data
     table.appendChild(this.body)
@@ -682,22 +686,16 @@ class zGrid {
   };
 
   private renderHeader() {
-    this.head.replaceChildren();
+    this.ui_header_row.replaceChildren();
     CustomClassNames.clearElements('th')
     CustomDataAttributes.clearElements('th')
-
-    let headerRow = document.createElement('tr');
-    CustomClassNames.clearElements('tr')
-    CustomClassNames.addElement('tr', headerRow)
-    CustomDataAttributes.clearElements('tr')
-    CustomDataAttributes.addElement('tr', headerRow)
     let col_count = this.columns.filter((c) => c.visible).length
     let prev: HeaderCell = undefined;
     let titles: Array<HeaderCell> = [];
     this.columns.forEach((config) => {
       if (config.visible === false) return;
 
-      let title = new HeaderCell(headerRow);
+      let title = new HeaderCell(this.ui_header_row);
       titles.push(title)
       title.width = this.head.clientWidth / col_count
       title.onsort = (sort) => {
@@ -729,7 +727,6 @@ class zGrid {
       }
       title.innerText = config.name;
     });
-    this.head.appendChild(headerRow);
   }
 
   private renderData() {
