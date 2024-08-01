@@ -1,6 +1,5 @@
 # TODO Features
   1. make into functional npm module
-  5. add ability to configure an element to have multiple attributes
   7. add a way to get the unmodified dataset.
   10. 
 # Completed Features
@@ -13,3 +12,4 @@
   - add some form of unique identifier to rows, and allow for the modification of a single row at a time
   9. ~~improve speed of reconfigure~~
   6. ~~implement an easier way to modify the data, currently the only way to change the values of a single row is to use reconfigure and change the entire dataset~~
+  5. add ability to configure an element to have multiple attributes
