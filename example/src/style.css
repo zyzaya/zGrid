@@ -1,18 +1,13 @@
 .display {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: min-content 1fr;
   column-gap: 8px;
   max-width: 1200px;
   margin: auto;
   height: 90vh;
 }
 
-#example {
-  grid-area: 1 / 1 / 2 / 3;
-}
-
-#container1, #example, #container2 {
+#container1, #container2 {
   border: 1px solid black;
   width: 100%;
   padding: 3px;
