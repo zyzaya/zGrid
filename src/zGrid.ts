@@ -514,7 +514,15 @@ class zGrid {
     this.data.push(row);
     this.renderData();
   }
-  // public removeRow(id: string): Record<string, string> {}
+  public removeRow(id: string): Record<string, string> | undefined {
+    let row = this.getRow(id);
+    if (row !== undefined) 
+    {
+      this.data = this.data.filter((r) => r.id !== id)
+      this.renderData()
+    }
+    return row;
+  }
   /**
    * Changes the value of a specific cell
    * @param id The value of the id column
