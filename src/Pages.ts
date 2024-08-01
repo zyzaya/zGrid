@@ -50,8 +50,8 @@ export default class Pages {
 
     parent.appendChild(container)
 
+    this.currentPage = 1;
     this.totalPages = pages;
-    this.page = 1;
   }
 
   set totalPages(pages: number) {
@@ -67,6 +67,7 @@ export default class Pages {
       }
     }
     this.maxPages = pages;
+    this.page = this.currentPage;
   }
 
   get totalPages(): number {
