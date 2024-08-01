@@ -698,6 +698,7 @@ class zGrid {
     if (col_count < this.header_cells.length) {
       let removed = this.header_cells.splice(col_count - 1);
       removed.forEach((c) => c.remove())
+      // remove from custom data attributes/css 
     }
     let max_existing = this.header_cells.length
     let existing_index = 0;
@@ -741,25 +742,56 @@ class zGrid {
   }
 
   private renderData() {
-    this.body.replaceChildren()
-    CustomClassNames.clearElements('td')
-    CustomDataAttributes.clearElements('td')
-    this.getData().forEach((d, r_i) => {
-      let row = document.createElement('tr');
-      CustomClassNames.addElement('tr', row)
-      CustomClassNames.addDefaultName('tr', 'zgrid_row')
-      CustomDataAttributes.addElement('tr', row)
-      
-      let visible_columns = this.columns.filter((c) => {
-        let config = this.columns.find((e) => e.id === c.id)
-        return config.visible
-      })
+    let data = this.getData();
+    let visible_columns = this.columns.filter((c) => {
+      let config = this.columns.find((e) => e.id === c.id)
+      return config.visible
+    })
+    
+    let existing_rows = Array.from(this.body.querySelectorAll('tr'))
+    let existing_rows_count = existing_rows.length
+    let existing_rows_index = 0;
+    // remove unused row elements
+    if (data.length < existing_rows_count) {
+      let removed = existing_rows.splice(data.length);
+      removed.forEach((r) => r.remove())
+      // remove from custom data attributes/css 
+    }
+    data.forEach((d, r_i) => {
+      let row: HTMLTableRowElement;
+      let existing_cells: HTMLTableCellElement[];
+      let existing_cols_count = 0;
+      let existing_cols_index = 0;
+      if (existing_rows_index < existing_rows_count) {
+        row = existing_rows[existing_rows_index]
+        existing_rows_index += 1;
+        existing_cells = Array.from(row.querySelectorAll('td'))
+        existing_cols_count = existing_cells.length
+        // remove unused cell elements
+        if (visible_columns.length < existing_cells.length) {
+          let removed = existing_cells.splice(visible_columns.length)
+          removed.forEach((c) => c.remove())
+          // remove from custom data attributes/css
+        }
+      } else {
+        row = document.createElement('tr')
+        CustomClassNames.addElement('tr', row)
+        CustomClassNames.addDefaultName('tr', 'zgrid_row')
+        CustomDataAttributes.addElement('tr', row)
+      }
 
       visible_columns.forEach((c, c_i) => {
-        let cell = document.createElement('td');
-        CustomClassNames.addElement('td', cell)
-        CustomClassNames.addDefaultName('td', 'zgrid_cell')
-        CustomDataAttributes.addElement('td', cell)
+        let cell: HTMLTableCellElement;
+        if (existing_cols_index < existing_cols_count) {
+          cell = existing_cells[existing_cols_index]
+          existing_cols_index += 1;
+        } else {
+          cell = document.createElement('td');
+          CustomClassNames.addElement('td', cell)
+          CustomClassNames.addDefaultName('td', 'zgrid_cell')
+          CustomDataAttributes.addElement('td', cell)
+        }
+        
         cell.onclick = () => {
           if (!this.onClick) return
           this.onClick(c_i, r_i, c.id, structuredClone(d))
