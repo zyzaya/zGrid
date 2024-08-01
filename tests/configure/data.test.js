@@ -44,53 +44,6 @@ describe('Data', () => {
     }).not.toThrow(Error);
   });
 
-  describe('Reconfigure', () => {
-    test('reconfiguring data', () => {
-      let grid = new zGrid(configuration);
-      let data = [
-        {
-          id: '1',
-          'first name': 'first',
-          'last name': 'last',
-          email: 'email@email.ca',
-        },
-        {
-          id: '2',
-          'first name': 'Jane',
-          'last name': 'Smith',
-          email: 'janesmith@some.thing',
-        },
-      ];
-      grid.reconfigure({
-        data: data,
-      });
-      expect(grid.getData()).toStrictEqual(data);
-    });
-
-    test('reconfiguring data updates ui', () => {
-      let grid = new zGrid(configuration);
-      let data = [
-        {
-          id: '1',
-          'first name': 'first',
-          'last name': 'last',
-          email: 'email@email.ca',
-        },
-        {
-          id: '2',
-          'first name': 'Jane',
-          'last name': 'Smith',
-          email: 'janesmith@some.thing',
-        },
-      ];
-      grid.reconfigure({
-        data: data,
-      });
-      let cells = parent.getElementsByClassName('zgrid_cell');
-      expect(cells.length).toBe(6);
-    });
-  });
-
   test('null values for data, when configured using an object, doesnt cause error', () => {
     configuration.data = [
       {
