@@ -1,7 +1,8 @@
 # TODO Issues
   9. initializing with a parent of size 0 (for example a newly created, isolated div), then reconfiguring the parent will cause resizing to break. renderHeader is not called, meaning the widths of the headers are set to 0px until attempting to resize
   11. pagination buttons highlight when selected styling isn't removed when unselected
-  12. 
+  12. on initial load, pagination buttons are not displayed correctly - [1, 2, 3, 4, etc] instead of [1, 2, 3, ..., 15]
+  13. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
   2. ~~configure with empty data. reconfigure - filling in data. sort. causes error.~~ The cause was different, described in issue#3
