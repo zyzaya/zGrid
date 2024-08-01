@@ -144,6 +144,8 @@ export default class HeaderCell {
   }
 
   remove() {
+    CustomClassNames.removeElement('th', this.element)
+    CustomDataAttributes.removeElement('th', this.element)
     this.element.remove()
   }
 

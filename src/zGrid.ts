@@ -690,15 +690,12 @@ class zGrid {
   };
 
   private renderHeader() {
-    CustomClassNames.clearElements('th')
-    CustomDataAttributes.clearElements('th')
     let col_count = this.columns.filter((c) => c.visible).length
     let prev: HeaderCell = undefined;
     // remove unused header cells
     if (col_count < this.header_cells.length) {
       let removed = this.header_cells.splice(col_count - 1);
       removed.forEach((c) => c.remove())
-      // remove from custom data attributes/css 
     }
     let max_existing = this.header_cells.length
     let existing_index = 0;
