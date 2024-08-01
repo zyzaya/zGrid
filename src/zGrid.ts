@@ -777,8 +777,11 @@ class zGrid {
         // remove unused cell elements
         if (visible_columns.length < existing_cells.length) {
           let removed = existing_cells.splice(visible_columns.length)
-          removed.forEach((c) => c.remove())
-          // remove from custom data attributes/css
+          removed.forEach((c) => {
+            CustomClassNames.removeElement('td', c)
+            CustomDataAttributes.removeElement('td', c)
+            c.remove()
+          })
         }
       } else {
         row = document.createElement('tr')
