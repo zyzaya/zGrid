@@ -182,6 +182,11 @@ declare class zGrid {
     private configureUI;
     reconfigure(config: Partial<Configuration>): void;
     /**
+     * Adds a row with the specified data
+     * @param data The data to of the row, in the same format as configuration
+     */
+    addRow(data: Record<string, string> | Array<string>): void;
+    /**
      * Gets the data of a specific row
      * @param id The value of the id column
      * @returns An object representing the found row, or undefined if no row is found
@@ -194,6 +199,14 @@ declare class zGrid {
      * with the exception that if no id is defined it will keep its original id
      */
     setRow(id: string, data: Record<string, string> | Array<string>): void;
+    /**
+     * Removes a row
+     * @param id  The value of the id column
+     * @returns The data of the row as key/value pairs where the
+     * keys are column ids, and the values are what is in the column.
+     * If no row is found returns undefined.
+     */
+    removeRow(id: string): Record<string, string> | undefined;
     /**
      * Changes the value of a specific cell
      * @param id The value of the id column
