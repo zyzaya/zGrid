@@ -481,11 +481,22 @@ class zGrid {
     if (shouldRender) this.render();
     else if (shouldRenderData) this.renderData();
   }
-/**
- * Gets the data of a specific row
- * @param id The value of the id column
- * @returns An object representing the found row, or undefined if no row is found
- */
+  /**
+   * Adds a row with the specified data
+   * @param data The data to of the row, in the same format as configuration
+   */
+  public addRow(data: Record<string, string> | Array<string>) {
+    let row = this.initializeRow(data);
+    let ids = this.data.map((r) => r.id)
+    if (ids.includes(row.id)) throw new Error('ids must be unique');
+    this.data.push(row);
+    this.renderData();
+  }
+  /**
+   * Gets the data of a specific row
+   * @param id The value of the id column
+   * @returns An object representing the found row, or undefined if no row is found
+   */
   public getRow(id: string): Record<string, string>  {
     let row = this.data.find((e) => e.id === id)
     return row === undefined ? row : {...row}
@@ -507,13 +518,13 @@ class zGrid {
     this.data[index] = this.initializeRow(data);
     this.renderData();
   }
-  public addRow(data: Record<string, string> | Array<string>) {
-    let row = this.initializeRow(data);
-    let ids = this.data.map((r) => r.id)
-    if (ids.includes(row.id)) throw new Error('ids must be unique');
-    this.data.push(row);
-    this.renderData();
-  }
+  /**
+   * Removes a row
+   * @param id  The value of the id column
+   * @returns The data of the row as key/value pairs where the 
+   * keys are column ids, and the values are what is in the column.
+   * If no row is found returns undefined.
+   */
   public removeRow(id: string): Record<string, string> | undefined {
     let row = this.getRow(id);
     if (row !== undefined) 
