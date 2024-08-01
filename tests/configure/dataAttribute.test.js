@@ -33,7 +33,7 @@ describe('DataAttributes', () => {
 
   test('an invalid data attribute throws an error', () => {
     configuration.dataAttribute = {
-      filterContainer: ['invalid value', 'value'],
+      filterContainer: { invalid: 'invalid value' },
     };
     expect(() => {
       let grid = new zGrid(configuration);
@@ -42,7 +42,7 @@ describe('DataAttributes', () => {
 
   test('filterContainer', () => {
     configuration.dataAttribute = {
-      filterContainer: ['attribute', 'value'],
+      filterContainer: { attribute: 'value' },
     };
     configuration.className = {
       filterContainer: 'filterContainer_custom',
@@ -54,11 +54,9 @@ describe('DataAttributes', () => {
 
   test('filter', () => {
     configuration.dataAttribute = {
-      filter: ['attribute', 'value'],
+      filter: { attribute: 'value' },
     };
-    configuration.className = {
-      filter: 'filter_custom',
-    };
+    configuration.className = { filter: 'filter_custom' };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('filter_custom');
     expect(ui[0].dataset.attribute).toBe('value');
@@ -66,7 +64,7 @@ describe('DataAttributes', () => {
 
   test('paginationContainer', () => {
     configuration.dataAttribute = {
-      paginationContainer: ['attribute', 'value'],
+      paginationContainer: { attribute: 'value' },
     };
     configuration.className = {
       paginationContainer: 'paginationContainer_custom',
@@ -78,7 +76,7 @@ describe('DataAttributes', () => {
 
   test('paginationInfo', () => {
     configuration.dataAttribute = {
-      paginationInfo: ['attribute', 'value'],
+      paginationInfo: { attribute: 'value' },
     };
     configuration.className = {
       paginationInfo: 'paginationInfo_custom',
@@ -90,7 +88,7 @@ describe('DataAttributes', () => {
 
   test('paginationButton', () => {
     configuration.dataAttribute = {
-      paginationButton: ['attribute', 'value'],
+      paginationButton: { attribute: 'value' },
     };
     configuration.className = {
       paginationButton: 'paginationButton_custom',
@@ -105,7 +103,7 @@ describe('DataAttributes', () => {
 
   test('paginationPrevious', () => {
     configuration.dataAttribute = {
-      paginationPrevious: ['attribute', 'value'],
+      paginationPrevious: { attribute: 'value' },
     };
     configuration.className = {
       paginationPrevious: 'paginationPrevious_custom',
@@ -117,7 +115,7 @@ describe('DataAttributes', () => {
 
   test('paginationCurrent', () => {
     configuration.dataAttribute = {
-      paginationCurrent: ['attribute', 'value'],
+      paginationCurrent: { attribute: 'value' },
     };
     configuration.className = {
       paginationCurrent: 'paginationCurrent_custom',
@@ -129,7 +127,7 @@ describe('DataAttributes', () => {
 
   test('paginationNext', () => {
     configuration.dataAttribute = {
-      paginationNext: ['attribute', 'value'],
+      paginationNext: { attribute: 'value' },
     };
     configuration.className = {
       paginationNext: 'paginationNext_custom',
@@ -141,11 +139,9 @@ describe('DataAttributes', () => {
 
   test('table', () => {
     configuration.dataAttribute = {
-      table: ['attribute', 'value'],
+      table: { attribute: 'value' },
     };
-    configuration.className = {
-      table: 'table_custom',
-    };
+    configuration.className = { table: 'table_custom' };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('table_custom');
     expect(ui[0].dataset.attribute).toBe('value');
@@ -153,11 +149,9 @@ describe('DataAttributes', () => {
 
   test('tr', () => {
     configuration.dataAttribute = {
-      tr: ['attribute', 'value'],
+      tr: { attribute: 'value' },
     };
-    configuration.className = {
-      tr: 'tr_custom',
-    };
+    configuration.className = { tr: 'tr_custom' };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('tr_custom');
     expect(ui.length).toBe(11);
@@ -168,11 +162,9 @@ describe('DataAttributes', () => {
 
   test('th', () => {
     configuration.dataAttribute = {
-      th: ['attribute', 'value'],
+      th: { attribute: 'value' },
     };
-    configuration.className = {
-      th: 'th_custom',
-    };
+    configuration.className = { th: 'th_custom' };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('th_custom');
     expect(ui[0].dataset.attribute).toBe('value');
@@ -180,11 +172,9 @@ describe('DataAttributes', () => {
 
   test('thead', () => {
     configuration.dataAttribute = {
-      thead: ['attribute', 'value'],
+      thead: { attribute: 'value' },
     };
-    configuration.className = {
-      thead: 'thead_custom',
-    };
+    configuration.className = { thead: 'thead_custom' };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('thead_custom');
     expect(ui[0].dataset.attribute).toBe('value');
@@ -192,11 +182,9 @@ describe('DataAttributes', () => {
 
   test('tbody', () => {
     configuration.dataAttribute = {
-      tbody: ['attribute', 'value'],
+      tbody: { attribute: 'value' },
     };
-    configuration.className = {
-      tbody: 'tbody_custom',
-    };
+    configuration.className = { tbody: 'tbody_custom' };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('tbody_custom');
     expect(ui[0].dataset.attribute).toBe('value');
@@ -204,11 +192,9 @@ describe('DataAttributes', () => {
 
   test('td', () => {
     configuration.dataAttribute = {
-      td: ['attribute', 'value'],
+      td: { attribute: 'value' },
     };
-    configuration.className = {
-      td: 'td_custom',
-    };
+    configuration.className = { td: 'td_custom' };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('td_custom');
     expect(ui[0].dataset.attribute).toBe('value');
