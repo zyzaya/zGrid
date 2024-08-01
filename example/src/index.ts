@@ -71,8 +71,8 @@ let grid = new zGrid({
     tr: 'custom_tr'
   },
   dataAttribute: {
-    tr: ['attribute', 'value'],
-    td: ['cell', 'value']
+    tr: { attribute: 'value'},
+    td: { cell: 'value'}
   },
   onClick: (col, row, name, data) => {
     console.log(`${col}, ${row}, ${name}`)

@@ -1,21 +1,37 @@
 type FilterCallback = (row: Record<string, string>) => boolean;
 type CompareEntries = (a: string, b: string) => number;
 type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number;
-type ElementNames = {
-    filterContainer?: string | [string, string];
-    filter?: string | [string, string];
-    paginationContainer?: string | [string, string];
-    paginationInfo?: string | [string, string];
-    paginationButton?: string | [string, string];
-    paginationPrevious?: string | [string, string];
-    paginationCurrent?: string | [string, string];
-    paginationNext?: string | [string, string];
-    table?: string | [string, string];
-    tr?: string | [string, string];
-    th?: string | [string, string];
-    thead?: string | [string, string];
-    tbody?: string | [string, string];
-    td?: string | [string, string];
+type CustomClassElementNames = {
+    filterContainer?: string;
+    filter?: string;
+    paginationContainer?: string;
+    paginationInfo?: string;
+    paginationButton?: string;
+    paginationPrevious?: string;
+    paginationCurrent?: string;
+    paginationNext?: string;
+    table?: string;
+    tr?: string;
+    th?: string;
+    thead?: string;
+    tbody?: string;
+    td?: string;
+};
+type CustomDataAttributeElementNames = {
+    filterContainer?: Record<string, string>;
+    filter?: Record<string, string>;
+    paginationContainer?: Record<string, string>;
+    paginationInfo?: Record<string, string>;
+    paginationButton?: Record<string, string>;
+    paginationPrevious?: Record<string, string>;
+    paginationCurrent?: Record<string, string>;
+    paginationNext?: Record<string, string>;
+    table?: Record<string, string>;
+    tr?: Record<string, string>;
+    th?: Record<string, string>;
+    thead?: Record<string, string>;
+    tbody?: Record<string, string>;
+    td?: Record<string, string>;
 };
 type ColumnConfiguration = {
     /**
@@ -133,8 +149,8 @@ type Configuration = {
      * @param data The row, as key-value pairs. Key is the name of the column, value is the value of the record for that column. This includes hidden columns.
      */
     onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
-    className?: ElementNames;
-    dataAttribute?: ElementNames;
+    className?: CustomClassElementNames;
+    dataAttribute?: CustomDataAttributeElementNames;
 };
 declare class zGrid {
     private currentPage;
