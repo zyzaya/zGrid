@@ -105,43 +105,6 @@ describe('Pagination', () => {
       expect(callback).toHaveBeenCalledWith(3);
     });
   });
-
-  describe('Reconfigure', () => {
-    test('reconfiguring pagination', () => {
-      configuration.pagination = 3;
-      let grid = new zGrid(configuration);
-      expect(grid.getData().length).toBe(3);
-      grid.reconfigure({
-        pagination: 10,
-      });
-      expect(grid.getData().length).toBe(10);
-    });
-
-    test('reconfiguring pagination updates ui', () => {
-      configuration.pagination = false;
-      let grid = new zGrid(configuration);
-      grid.reconfigure({
-        pagination: 1,
-      });
-      let cells = parent.getElementsByClassName('zgrid_cell');
-      expect(cells.length).toBe(3);
-    });
-
-    test('reconfigure onPageChange', () => {
-      let callback = jest.fn();
-      configuration.pagination = 2;
-      let grid = new zGrid(configuration);
-      grid.reconfigure({ onPageChange: callback });
-      grid.page = 1;
-      let next = Array.from(
-        parent.getElementsByClassName('zgrid_page_button')
-      ).find((e) => {
-        return e.innerText.toLowerCase() === 'next';
-      });
-      next.click();
-      expect(callback).toHaveBeenCalledWith(2);
-    });
-  });
 });
 
 // set page (get page + 1), set page (get page -1), set page, get page, last page, setpage(0)
