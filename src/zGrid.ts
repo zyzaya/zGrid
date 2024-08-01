@@ -754,8 +754,15 @@ class zGrid {
     // remove unused row elements
     if (data.length < existing_rows_count) {
       let removed = existing_rows.splice(data.length);
-      removed.forEach((r) => r.remove())
-      // remove from custom data attributes/css 
+      removed.forEach((r) => {
+        Array.from(r.querySelectorAll('td')).forEach((c) => {
+          CustomClassNames.removeElement('td', c)
+          CustomDataAttributes.removeElement('td', c)
+        })
+        CustomClassNames.removeElement('tr', r)
+        CustomDataAttributes.removeElement('tr', r)
+        r.remove()
+      })
     }
     data.forEach((d, r_i) => {
       let row: HTMLTableRowElement;
