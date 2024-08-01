@@ -213,4 +213,15 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('td_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test('multiple data attributes', () => {
+    configuration.dataAttribute = {
+      tbody: { first: 'one', second: 'two' },
+    };
+    configuration.className = { tbody: 'custom' };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('custom');
+    expect(ui[0].dataset.first).toBe('one');
+    expect(ui[0].dataset.second).toBe('two');
+  });
 });

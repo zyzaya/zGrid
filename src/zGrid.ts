@@ -13,21 +13,38 @@ type SortOptions = {
   ascending: boolean
 }
 
-type ElementNames = {
-  filterContainer?: string | [string, string];
-  filter?: string | [string, string];
-  paginationContainer?: string | [string, string];
-  paginationInfo?: string | [string, string];
-  paginationButton?: string | [string, string];
-  paginationPrevious?: string | [string, string];
-  paginationCurrent?: string | [string, string];
-  paginationNext?: string | [string, string];
-  table?: string | [string, string];
-  tr?: string | [string, string];
-  th?: string | [string, string];
-  thead?: string | [string, string];
-  tbody?: string | [string, string];
-  td?: string | [string, string];
+type CustomClassElementNames = {
+  filterContainer?: string;
+  filter?: string;
+  paginationContainer?: string;
+  paginationInfo?: string;
+  paginationButton?: string;
+  paginationPrevious?: string;
+  paginationCurrent?: string;
+  paginationNext?: string;
+  table?: string;
+  tr?: string;
+  th?: string;
+  thead?: string;
+  tbody?: string;
+  td?: string;
+}
+
+type CustomDataAttributeElementNames = {
+  filterContainer?: Record<string, string>;
+  filter?: Record<string, string>;
+  paginationContainer?: Record<string, string>;
+  paginationInfo?: Record<string, string>;
+  paginationButton?: Record<string, string>;
+  paginationPrevious?: Record<string, string>;
+  paginationCurrent?: Record<string, string>;
+  paginationNext?: Record<string, string>;
+  table?: Record<string, string>;
+  tr?: Record<string, string>;
+  th?: Record<string, string>;
+  thead?: Record<string, string>;
+  tbody?: Record<string, string>;
+  td?: Record<string, string>;
 }
 
 type ColumnConfiguration = {
@@ -147,8 +164,8 @@ type Configuration = {
    * @param data The row, as key-value pairs. Key is the name of the column, value is the value of the record for that column. This includes hidden columns.
    */
   onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
-  className?: ElementNames,
-  dataAttribute?: ElementNames,
+  className?: CustomClassElementNames,
+  dataAttribute?: CustomDataAttributeElementNames,
 }
 
 class zGrid {
@@ -175,8 +192,8 @@ class zGrid {
   private onSort: (column: string, ascending: boolean) => void;
   private onClick: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
 
-  private className: ElementNames;
-  private dataAttribute: ElementNames;
+  private className: CustomClassElementNames;
+  private dataAttribute: CustomDataAttributeElementNames;
   /**
    * 
    * @param {Configuration} config 
@@ -342,39 +359,56 @@ class zGrid {
     return ret;
   }
 
-  private configureClassName(className: ElementNames) {
+  private configureClassName(className: CustomClassElementNames) {
     this.className = className === undefined ? {} : className;
+    CustomClassNames.clearCustomNames('paginationNext')
+    CustomClassNames.clearCustomNames('paginationPrevious')
+    CustomClassNames.clearCustomNames('paginationCurrent')
+    let pB = this.className.paginationButton;
+    if (pB !== undefined) {
+      if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(pB))
+        throw new Error(`Invalid css class name (${pB})`)
+      CustomClassNames.addCustomName('paginationNext', pB)
+      CustomClassNames.addCustomName('paginationPrevious', pB)
+      CustomClassNames.addCustomName('paginationCurrent', pB)
+    }
+    
     for (const [key, value] of Object.entries(this.className)) {
-      let v = Array.isArray(value) ? value[0] : value;
-      if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(v))
+      if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(value))
         throw new Error(`Invalid css class name (${value})`)
       
       CustomClassNames.clearCustomNames(key)
-      CustomClassNames.addCustomName(key, v)
+      CustomClassNames.addCustomName(key, value)
     };
-    
-    let pB = this.className.paginationButton;
-    pB = Array.isArray(pB) ? pB[0] : pB;
-    CustomClassNames.addCustomName('paginationNext', pB)
-    CustomClassNames.addCustomName('paginationPrevious', pB)
-    CustomClassNames.addCustomName('paginationCurrent', pB)
   }
 
-  private configureDataAttributes(dataAttribute: ElementNames) {
+  private configureDataAttributes(dataAttribute: CustomDataAttributeElementNames) {
     this.dataAttribute = dataAttribute === undefined ? {} : dataAttribute;
-    for (const [key, value] of Object.entries(this.dataAttribute)) {
-      let v = Array.isArray(value) ? value[0] : value;
-      if (!/^\S+$/.test(v))
-        throw new Error(`Invalid data attribute (${v})`)
-      
-      CustomDataAttributes.clearCustomNames(key)
-      CustomDataAttributes.addCustomName(key, value)
-    };
-
+    CustomDataAttributes.clearCustomNames('paginationNext')
+    CustomDataAttributes.clearCustomNames('paginationPrevious')
+    CustomDataAttributes.clearCustomNames('paginationCurrent')
     let pB = this.dataAttribute.paginationButton;
-    CustomDataAttributes.addCustomName('paginationNext', pB)
-    CustomDataAttributes.addCustomName('paginationPrevious', pB)
-    CustomDataAttributes.addCustomName('paginationCurrent', pB)
+    if (pB !== undefined) {
+      for (const [name, value] of Object.entries(pB)) {
+        if (!/^\S+$/.test(value))
+          throw new Error(`Invalid data attribute (${value})`)
+        
+        CustomDataAttributes.addCustomName('paginationNext', [name, value])
+        CustomDataAttributes.addCustomName('paginationPrevious', [name, value])
+        CustomDataAttributes.addCustomName('paginationCurrent', [name, value])
+      }
+    }
+    // every element
+    for (const [element, attributes] of Object.entries(this.dataAttribute)) {
+      // multiple attributes per element
+      CustomDataAttributes.clearCustomNames(element)
+      for (const [name, value] of Object.entries(attributes)) {
+        if (!/^\S+$/.test(value))
+          throw new Error(`Invalid data attribute (${value})`)
+        
+        CustomDataAttributes.addCustomName(element, [name, value])
+      }
+    };
   }
 
   private configureUI() {
