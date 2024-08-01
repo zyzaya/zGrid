@@ -507,6 +507,14 @@ class zGrid {
     this.data[index] = this.initializeRow(data);
     this.renderData();
   }
+  public addRow(data: Record<string, string> | Array<string>) {
+    let row = this.initializeRow(data);
+    let ids = this.data.map((r) => r.id)
+    if (ids.includes(row.id)) throw new Error('ids must be unique');
+    this.data.push(row);
+    this.renderData();
+  }
+  // public removeRow(id: string): Record<string, string> {}
   /**
    * Changes the value of a specific cell
    * @param id The value of the id column
@@ -526,6 +534,7 @@ class zGrid {
         throw new Error('ids must be unique');
     }
     row[column] = value;
+    this.renderData();
   }
   /**
    * Gets the currently displayed data, after filtering
