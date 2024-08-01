@@ -54,6 +54,19 @@ describe('Pagination', () => {
   });
 
   describe('onPageChange', () => {
+    test('only one page button has current page styling', () => {
+      configuration.pagination = 2;
+      let grid = new zGrid(configuration);
+      let next = Array.from(
+        parent.getElementsByClassName('zgrid_page_button')
+      ).find((e) => {
+        return e.innerText.toLowerCase() === 'next';
+      });
+      next.click();
+      let ui = parent.getElementsByClassName('zgrid_current_page');
+      expect(ui.length).toBe(1);
+    });
+
     test('next page triggers callback', () => {
       let callback = jest.fn();
       configuration.onPageChange = callback;

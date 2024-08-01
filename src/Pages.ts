@@ -108,13 +108,17 @@ export default class Pages {
           this.page = newPage;
         }
         if (newPage == p) {
+          // current page, so add current_page styling
           CustomClassNames.removeElement(`paginationButton`, this.buttons[i])
           CustomClassNames.addElement('paginationCurrent', this.buttons[i])
           CustomDataAttributes.removeElement(`paginationButton`, this.buttons[i])
           CustomDataAttributes.addElement('paginationCurrent', this.buttons[i])
         } else {
+          // not current page, so remove current_page styling
           CustomClassNames.addElement(`paginationButton`, this.buttons[i])
+          CustomClassNames.removeElement('paginationCurrent', this.buttons[i])
           CustomDataAttributes.addElement(`paginationButton`, this.buttons[i])
+          CustomDataAttributes.removeElement('paginationCurrent', this.buttons[i])
         }
       }
     }
