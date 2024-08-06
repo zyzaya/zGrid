@@ -71,7 +71,7 @@ describe('Reconfigure Data', () => {
     expect(cells.length).toBe(6);
   });
 
-  test.only('onclick gives correct values after modifying data', async () => {
+  test('onclick gives correct values after modifying data', async () => {
     configuration.data = [
       {
         id: '1',

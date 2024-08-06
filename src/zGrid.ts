@@ -847,14 +847,14 @@ class zGrid {
           existing_cols_index += 1;
         } else {
           cell = document.createElement('td');
-          cell.onclick = () => {
-            if (!this.onClick) return
-            this.onClick(c_i, r_i, c.id, structuredClone(d))
-          }
           CustomClassNames.addElement('td', cell)
           CustomClassNames.addDefaultName('td', 'zgrid_cell')
           CustomDataAttributes.addElement('td', cell)
           row.appendChild(cell);
+        }
+        cell.onclick = () => {
+          if (!this.onClick) return
+          this.onClick(c_i, r_i, c.id, structuredClone(d))
         }
         cell.innerText = d[c.id];
       });
