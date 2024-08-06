@@ -197,10 +197,11 @@ describe('setPage', () => {
   });
 
   test('changing page updates ui', () => {
+    // 10 records, 3 per page, 4th page. 1 row visible.
     configuration.pagination = 3;
     let grid = new zGrid(configuration);
-    let cells = parent.getElementsByClassName('zgrid_cell');
     grid.page = 4;
-    expect(cells.length).toBe(3);
+    let rows = parent.querySelectorAll('tbody > .zgrid_row:not(.zgrid_hidden)');
+    expect(rows.length).toBe(1);
   });
 });

@@ -39,13 +39,14 @@ describe('Reconfigure Pagination', () => {
   });
 
   test('reconfiguring pagination updates ui', () => {
+    // 10 records. 1 per page. 1st page. 1 row visible
     configuration.pagination = false;
     let grid = new zGrid(configuration);
     grid.reconfigure({
       pagination: 1,
     });
-    let cells = parent.getElementsByClassName('zgrid_cell');
-    expect(cells.length).toBe(3);
+    let rows = parent.querySelectorAll('tbody > .zgrid_row:not(.zgrid_hidden)');
+    expect(rows.length).toBe(1);
   });
 
   test('reconfigure onPageChange', () => {
