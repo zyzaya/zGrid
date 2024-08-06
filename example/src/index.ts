@@ -100,5 +100,14 @@ headerToggle.onclick = (e) => {
   currentHeader = currentHeader === 0 ? 1 : 0;
   grid.reconfigure({ columns: columns[currentHeader]})
 }
+// input test
+let input = document.getElementById('input') as HTMLInputElement;
+if (!input) throw new Error('cannot find input element')
+input.onchange = (event) => {
+  let value = input.value
+  let data = grid.getRow("0");
+  data['First Name'] = value;
+  grid.setRow("0", data)
+}
 
 console.log(testData)
