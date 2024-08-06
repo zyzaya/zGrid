@@ -1,3 +1,7 @@
+# v1.2.1 - August 06, 2024
+- fix issue#13. It was possible to prevent a cell onclick event from firing by modified zgrid data just before clicking a cell.
+- unused are now hidden instead of removed
+
 # v1.2.0 - August 01, 2024
 - implement feature#8. Modified the way that zgrid displays elements after a reconfigure. It no longer fully recreates all table elements, now reusing existing elements and only creating or deleting as needed.
 - added id column. All rows now require a unique, non null, non empty string id value. When configuring a row using an array the first value of the array is the value of the id. When configuring using an object, the key 'id' is used to set the id value.
