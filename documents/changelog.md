@@ -1,3 +1,6 @@
+# v1.2.2 - August 06, 2024
+- fix issue#14. onclick would give the incorrect data after changing data such that number of visible rows is reduced.
+
 # v1.2.1 - August 06, 2024
 - fix issue#13. It was possible to prevent a cell onclick event from firing by modified zgrid data just before clicking a cell.
 - unused are now hidden instead of removed

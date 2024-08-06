@@ -1,7 +1,8 @@
 # TODO Features
   1. make into functional npm module
   7. add a way to get the unmodified dataset.
-  10. 
+  10. use userEvent to more fully test user interactions. 
+  11. 
 # Completed Features
   2. ~~add ability to separate column identifier and displayed column name~~
   4. ~~add ability to set html data attribues~~
