@@ -813,15 +813,7 @@ class zGrid {
     // remove unused row elements
     if (data.length < existing_rows_count) {
       let removed = existing_rows.splice(data.length);
-      removed.forEach((r) => {
-        Array.from(r.querySelectorAll('td')).forEach((c) => {
-          CustomClassNames.removeElement('td', c)
-          CustomDataAttributes.removeElement('td', c)
-        })
-        CustomClassNames.removeElement('tr', r)
-        CustomDataAttributes.removeElement('tr', r)
-        r.remove()
-      })
+      removed.forEach((r) => r.classList.add('zgrid_hidden'))
     }
     data.forEach((d, r_i) => {
       let row: HTMLTableRowElement;
@@ -830,17 +822,14 @@ class zGrid {
       let existing_cols_index = 0;
       if (existing_rows_index < existing_rows_count) {
         row = existing_rows[existing_rows_index]
+        row.classList.remove('zgrid_hidden')
         existing_rows_index += 1;
         existing_cells = Array.from(row.querySelectorAll('td'))
         existing_cols_count = existing_cells.length
         // remove unused cell elements
         if (visible_columns.length < existing_cells.length) {
           let removed = existing_cells.splice(visible_columns.length)
-          removed.forEach((c) => {
-            CustomClassNames.removeElement('td', c)
-            CustomDataAttributes.removeElement('td', c)
-            c.remove()
-          })
+          removed.forEach((c) => c.classList.add('zgrid_hidden'))
         }
       } else {
         row = document.createElement('tr')
@@ -854,6 +843,7 @@ class zGrid {
         let cell: HTMLTableCellElement;
         if (existing_cols_index < existing_cols_count) {
           cell = existing_cells[existing_cols_index]
+          cell.classList.remove('zgrid_hidden')
           existing_cols_index += 1;
         } else {
           cell = document.createElement('td');

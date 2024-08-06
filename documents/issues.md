@@ -1,6 +1,5 @@
 # TODO Issues
   9. initializing with a parent of size 0 (for example a newly created, isolated div), then reconfiguring the parent will cause resizing to break. renderHeader is not called, meaning the widths of the headers are set to 0px until attempting to resize. 24-07-01: I can no longer reproduce this.
-  13. causing a call to renderData just before a row onclick will prevent the onclick event from firing. This can be reproduced by having a text input that on its onchange event is fired modifies zgrid data (ex through setRow). When the input losing focus by clicking on a row, zgrid data is updated but the onclick event is not fired.
   14. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
@@ -14,3 +13,4 @@
   10. ~~setting a column value to 0 (as an integer), causing the column to be set instead to an empty string.~~
   11. ~~pagination buttons highlight when selected styling isn't removed when unselected~~
   12. ~~on initial load, pagination buttons are not displayed correctly - [1, 2, 3, 4, etc] instead of [1, 2, 3, ..., 15]~~
+  13. causing a call to renderData just before a row onclick will prevent the onclick event from firing. This can be reproduced by having a text input that on its onchange event is fired modifies zgrid data (ex through setRow). When the input losing focus by clicking on a row, zgrid data is updated but the onclick event is not fired.
