@@ -770,23 +770,23 @@ class zGrid {
         existing_index += 1;
       } else {
         title = new HeaderCell(this.ui_header_row)
+        title.onsort = (sort) => {
+          // reset all other header cells
+          this.header_cells.forEach((t) => {
+            if (t !== title) t.sort = 'none'
+          })
+          // set sort
+          if (sort === "none") this.sort(false)
+          else {
+            let ascending = sort === "ascending"
+            this.sort(config.id, ascending)
+            if (this.onSort !== undefined) this.onSort(config.id, ascending)
+          }
+          this.renderData()
+        }
         this.header_cells.push(title)
       }
       title.width = this.head.clientWidth / col_count
-      title.onsort = (sort) => {
-        // reset all other header cells
-        this.header_cells.forEach((t) => {
-          if (t !== title) t.sort = 'none'
-        })
-        // set sort
-        if (sort === "none") this.sort(false)
-        else {
-          let ascending = sort === "ascending"
-          this.sort(config.id, ascending)
-          if (this.onSort !== undefined) this.onSort(config.id, ascending)
-        }
-        this.renderData()
-      }
       // resize modification
       if (prev !== undefined) {
         prev.onresize = (width, change) => title.width = title.width - change;
@@ -847,6 +847,7 @@ class zGrid {
         CustomClassNames.addElement('tr', row)
         CustomClassNames.addDefaultName('tr', 'zgrid_row')
         CustomDataAttributes.addElement('tr', row)
+        this.body.appendChild(row);
       }
 
       visible_columns.forEach((c, c_i) => {
@@ -856,20 +857,17 @@ class zGrid {
           existing_cols_index += 1;
         } else {
           cell = document.createElement('td');
+          cell.onclick = () => {
+            if (!this.onClick) return
+            this.onClick(c_i, r_i, c.id, structuredClone(d))
+          }
           CustomClassNames.addElement('td', cell)
           CustomClassNames.addDefaultName('td', 'zgrid_cell')
           CustomDataAttributes.addElement('td', cell)
+          row.appendChild(cell);
         }
-        
-        cell.onclick = () => {
-          if (!this.onClick) return
-          this.onClick(c_i, r_i, c.id, structuredClone(d))
-        }
-        cell.classList.add('zgrid_cell');
         cell.innerText = d[c.id];
-        row.appendChild(cell);
       });
-      this.body.appendChild(row);
     });
   }
 }
