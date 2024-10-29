@@ -1,0 +1,41 @@
+/**
+ * @jest-environment jsdom
+ */
+import { zGrid } from '../../src/zGrid';
+import { faker } from '@faker-js/faker';
+
+describe('getRawData', () => {
+  let data = [];
+  let configuration = {};
+  faker.seed(96);
+  beforeEach(() => {
+    data = [];
+
+    for (let i = 0; i < 10; i++) {
+      let entry = {
+        id: i.toString(),
+        'First Name': faker.person.firstName(),
+        'Last Name': faker.person.lastName(),
+        Email: faker.internet.email(),
+      };
+
+      if (i % 2 == 0) {
+        entry['Email'] = faker.internet.email({ provider: 'example.test ' });
+        markedEmail.push(entry);
+      }
+
+      data.push(entry);
+    }
+
+    configuration = {
+      parent: document.createElement('div'),
+      columns: ['First Name', 'Last Name', 'Email'],
+      data: data,
+    };
+  });
+  test('gets data', () => {});
+  test('ignores sort', () => {});
+  test('ignores pagination', () => {});
+  test('ignores filter', () => {});
+  test('ignores sort + pagination + filter', () => {});
+});
