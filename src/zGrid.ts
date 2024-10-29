@@ -597,7 +597,9 @@ class zGrid {
    * the value is what is in that cell
    */
   public getRawData(): Array<Record<string, string>> {
-    return this.data
+    let ret:Array<Record<string, string>> = [];
+    this.data.forEach((r) => ret.push({...r}))
+    return ret
   }
   /**
    * Gets the currently displayed data, after filtering

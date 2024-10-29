@@ -38,6 +38,13 @@ describe('getRawData', () => {
     let grid = new zGrid(configuration);
     expect(grid.getRawData()).toStrictEqual(data);
   });
+
+  test('modified returned object does not change data', () => {
+    let grid = new zGrid(configuration);
+    let result = grid.getRawData();
+    result[0]['First Name'] = '';
+    expect(grid.getRawData()).toStrictEqual(data);
+  });
   test('ignores sort', () => {});
   test('ignores pagination', () => {});
   test('ignores filter', () => {});
