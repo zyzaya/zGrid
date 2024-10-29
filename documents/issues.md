@@ -1,5 +1,4 @@
 # TODO Issues
-  9. initializing with a parent of size 0 (for example a newly created, isolated div), then reconfiguring the parent will cause resizing to break. renderHeader is not called, meaning the widths of the headers are set to 0px until attempting to resize. 24-07-01: I can no longer reproduce this.
   17. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
@@ -21,3 +20,4 @@
     making the initial column not visible
     3. ~~sort by the second (visible) column by clicking on the header. This causes zgrid to be sorted by the invisible column instead of the one the user clicked on.~~
     16. onSort callback isn't called when switching to unsorted
+    9. initializing with a parent of size 0 (for example a newly created, isolated div), then reconfiguring the parent will cause resizing to break. renderHeader is not called, meaning the widths of the headers are set to 0px until attempting to resize. 24-07-01: I can no longer reproduce this.
