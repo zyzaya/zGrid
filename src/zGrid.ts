@@ -778,8 +778,11 @@ class zGrid {
           if (t !== title) t.sort = 'none'
         })
         // set sort
-        if (sort === "none") this.sort(false)
-        else {
+        if (sort === "none")
+        {
+          this.sort(false)
+          if (this.onSort !== undefined) this.onSort(config.id, null)
+        } else {
           let ascending = sort === "ascending"
           this.sort(config.id, ascending)
           if (this.onSort !== undefined) this.onSort(config.id, ascending)
