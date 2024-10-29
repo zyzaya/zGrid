@@ -152,8 +152,8 @@ type Configuration = {
   /**
    * Fires when the data is sorted through the ui.
    * Does not trigger if the data is sorted programmatically.
-   * @param column The column the data is sorted by.
-   * @param ascending If the data is sorted in ascending order
+   * @param column The id of the column the data is sorted by.
+   * @param ascending If the data is sorted in ascending order. Null if the data is switched to unsorted
    */
   onSort?: (column: string, ascending: boolean) => void;
   /**

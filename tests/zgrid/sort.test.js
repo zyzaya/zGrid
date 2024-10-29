@@ -156,6 +156,7 @@ describe('Sort', () => {
 
       expect(callback).toHaveBeenNthCalledWith(1, 'First Name', true);
       expect(callback).toHaveBeenNthCalledWith(2, 'First Name', false);
+      expect(callback).toHaveBeenNthCalledWith(3, 'First Name', null);
     });
 
     test('reconfigure onsort', () => {

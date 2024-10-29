@@ -77,6 +77,9 @@ let grid = new zGrid({
   onClick: (col, row, name, data) => {
     console.log(`${col}, ${row}, ${name}`)
     console.log(data);
+  },
+  onSort: (col, asc) => {
+    console.log(`${col}, ${asc}`)
   }
 });
 // switch parent
