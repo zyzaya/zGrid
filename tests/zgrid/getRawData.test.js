@@ -8,6 +8,7 @@ describe('getRawData', () => {
   let data = [];
   let configuration = {};
   faker.seed(96);
+  let markedEmail = [];
   beforeEach(() => {
     data = [];
 
@@ -33,7 +34,10 @@ describe('getRawData', () => {
       data: data,
     };
   });
-  test('gets data', () => {});
+  test('gets data', () => {
+    let grid = new zGrid(configuration);
+    expect(grid.getRawData()).toStrictEqual(data);
+  });
   test('ignores sort', () => {});
   test('ignores pagination', () => {});
   test('ignores filter', () => {});

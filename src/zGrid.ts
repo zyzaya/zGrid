@@ -590,6 +590,16 @@ class zGrid {
     this.renderData();
   }
   /**
+   * Gets the data stored in zgrid, ignoring filter
+   * sorting, and pagination
+   * @returns An array of objects. Each element of the array is a single row.
+   * The objects are key-value pairs where the key is the name of a column and
+   * the value is what is in that cell
+   */
+  public getRawData(): Array<Record<string, string>> {
+    return this.data
+  }
+  /**
    * Gets the currently displayed data, after filtering
    * sorting, and pagination are applied.
    * @returns An array of objects. Each element of the array is a single row.
