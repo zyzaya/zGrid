@@ -98,7 +98,7 @@ describe('Data', () => {
     expect(() => grid.getData()).not.toThrow(Error);
   });
 
-  test('0 (as an integer) values are properly set to 0 (string) when configured using an array', () => {
+  test('0 (as an integer) values remain as an integer when configured using an array', () => {
     configuration.data = [
       [1, 0, 0, 0],
       [2, 0, 0, 0],
@@ -106,12 +106,12 @@ describe('Data', () => {
     let grid = new zGrid(configuration);
     grid.getData().forEach((r) => {
       for (const [k, v] of Object.entries(r)) {
-        if (k !== 'id') expect(v).toBe('0');
+        if (k !== 'id') expect(v).toBe(0);
       }
     });
   });
 
-  test('0 (as an integer) values are properly set to 0 (string) when configuring using an object', () => {
+  test('0 (as an integer) values are remain as an integer when configuring using an object', () => {
     configuration.data = [
       {
         id: '1',
@@ -123,7 +123,7 @@ describe('Data', () => {
     let grid = new zGrid(configuration);
     grid.getData().forEach((r) => {
       for (const [k, v] of Object.entries(r)) {
-        if (k !== 'id') expect(v).toBe('0');
+        if (k !== 'id') expect(v).toBe(0);
       }
     });
   });

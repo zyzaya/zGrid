@@ -303,13 +303,13 @@ class zGrid {
       // existing columns
       this.columns.forEach((c, i) => {
         let value = data[c.id] === null || data[c.id] === undefined ? '' : data[c.id];
-        row[c.id] = value.toString();
+        row[c.id] = value;
       })
       // extra entries
       for (const [k, v] of Object.entries(data)) {
         if (this.columns.find((c) => c.id === k) === undefined) {
           let value = v === null || v === undefined ? '' : v;
-          row[k] = value.toString();
+          row[k] = value;
         }
       }
     } else {
