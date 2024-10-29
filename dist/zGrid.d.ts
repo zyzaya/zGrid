@@ -1,6 +1,7 @@
-type FilterCallback = (row: Record<string, string>) => boolean;
+type Row = Record<string, any>;
+type FilterCallback = (row: Row) => boolean;
 type CompareEntries = (a: string, b: string) => number;
-type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number;
+type CompareRows = (a: Row, b: Row) => number;
 type CustomClassElementNames = {
     filterContainer?: string;
     filter?: string;
@@ -95,7 +96,7 @@ type Configuration = {
      *
      * Values that are not explicitly defined are set to an empty string.
      */
-    data?: Array<Record<string, string> | Array<string>>;
+    data?: Array<Row | Array<string>>;
     /**
      * Defines how pagination functions in the grid.
      * Default value is false.
@@ -148,7 +149,7 @@ type Configuration = {
      * @param columnName The name, as defined in the configuration, of the column clicked.
      * @param data The row, as key-value pairs. Key is the name of the column, value is the value of the record for that column. This includes hidden columns.
      */
-    onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
+    onClick?: (column: number, row: number, columnName: string, data: Row) => void;
     className?: CustomClassElementNames;
     dataAttribute?: CustomDataAttributeElementNames;
 };
@@ -201,20 +202,20 @@ declare class zGrid {
      * Adds a row with the specified data
      * @param data The data to of the row, in the same format as configuration
      */
-    addRow(data: Record<string, string> | Array<string>): void;
+    addRow(data: Row | Array<string>): void;
     /**
      * Gets the data of a specific row
      * @param id The value of the id column
      * @returns An object representing the found row, or undefined if no row is found
      */
-    getRow(id: string): Record<string, string>;
+    getRow(id: string): Row;
     /**
      * Modifies the data in a single row
      * @param id The id of row to change
      * @param data The data to set the row to in the same format as configuration
      * with the exception that if no id is defined it will keep its original id
      */
-    setRow(id: string, data: Record<string, string> | Array<string>): void;
+    setRow(id: string, data: Row | Array<string>): void;
     /**
      * Removes a row
      * @param id  The value of the id column
@@ -222,7 +223,7 @@ declare class zGrid {
      * keys are column ids, and the values are what is in the column.
      * If no row is found returns undefined.
      */
-    removeRow(id: string): Record<string, string> | undefined;
+    removeRow(id: string): Row | undefined;
     /**
      * Changes the value of a specific cell
      * @param id The value of the id column
@@ -231,13 +232,21 @@ declare class zGrid {
      */
     setCell(id: string, column: string, value: string): void;
     /**
+     * Gets the data stored in zgrid, ignoring filter
+     * sorting, and pagination
+     * @returns An array of objects. Each element of the array is a single row.
+     * The objects are key-value pairs where the key is the name of a column and
+     * the value is what is in that cell
+     */
+    getRawData(): Array<Row>;
+    /**
      * Gets the currently displayed data, after filtering
      * sorting, and pagination are applied.
      * @returns An array of objects. Each element of the array is a single row.
      * The objects are key-value pairs where the key is the name of a column and
      * the value is what is in that cell.
      */
-    getData(): Array<Record<string, string>>;
+    getData(): Array<Row>;
     get page(): number;
     set page(page: number);
     /**

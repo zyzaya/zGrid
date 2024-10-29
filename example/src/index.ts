@@ -8,19 +8,11 @@ if (!container) throw new Error('cannot find container1')
 
 faker.seed(96);
 
-type testRecord = {
-  'id': string;
-  'First Name': string;
-  'last_name': string;
-  'Phone Number': string;
-  'Email': string;
-}
-
-let testData: testRecord[] = [];
+let testData: Array<Record<string, any>> = [];
 
 for (let i = 0; i < 100; i++) {
   let record = {
-    'id': i.toString(),
+    'id': i,
     'First Name': faker.person.firstName(),
     'last_name': faker.person.lastName(),
     'Phone Number': faker.phone.number(),

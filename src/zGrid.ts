@@ -4,9 +4,10 @@ import Filter from "./Filter";
 import HeaderCell from "./HeaderCell";
 import Pages from "./Pages";
 
-type FilterCallback = (row: Record<string, string>) => boolean;
+type Row = Record<string, any>
+type FilterCallback = (row: Row) => boolean;
 type CompareEntries = (a: string, b: string) => number;
-type CompareRows = (a: Record<string, string>, b: Record<string, string>) => number
+type CompareRows = (a: Row, b: Row) => number
 
 type SortOptions = {
   column: string
@@ -110,7 +111,7 @@ type Configuration = {
    * 
    * Values that are not explicitly defined are set to an empty string.
    */
-  data?: Array<Record<string, string> | Array<string>>
+  data?: Array<Row | Array<string>>
   /**
    * Defines how pagination functions in the grid.
    * Default value is false.
@@ -163,7 +164,7 @@ type Configuration = {
    * @param columnName The name, as defined in the configuration, of the column clicked.
    * @param data The row, as key-value pairs. Key is the name of the column, value is the value of the record for that column. This includes hidden columns.
    */
-  onClick?: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
+  onClick?: (column: number, row: number, columnName: string, data: Row) => void;
   className?: CustomClassElementNames,
   dataAttribute?: CustomDataAttributeElementNames,
 }
@@ -171,7 +172,7 @@ type Configuration = {
 class zGrid {
   private currentPage = 1;
   private columns: Array<ColumnConfiguration>;
-  private data: Array<Record<string, string>>;
+  private data: Array<Row>;
   private pagination: false | number;
   private filter: string | FilterCallback;
   private showFilter: boolean;
@@ -190,7 +191,7 @@ class zGrid {
   private onFilter: (value: string) => void;
   private onPageChange: (page: number) => void;
   private onSort: (column: string, ascending: boolean) => void;
-  private onClick: (column: number, row: number, columnName: string, data: Record<string, string>) => void;
+  private onClick: (column: number, row: number, columnName: string, data: Row) => void;
 
   private className: CustomClassElementNames;
   private dataAttribute: CustomDataAttributeElementNames;
@@ -288,13 +289,14 @@ class zGrid {
     return ret;
   }
 
-  private initializeRow(data: Record<string, string> | Array<string>): Record<string, string> {
-    let row: Record<string, string> = {}
+  private initializeRow(data: Row | Array<string>): Row {
+    let row: Row = {}
     if (Array.isArray(data)) {
       this.columns.forEach((c, i) => {
         this.columns.forEach((c, i) => {
           let value = data[i] === null || data[i] === undefined ? '' : data[i];
-          row[c.id] = value.toString();
+          // row[c.id] = value.toString();
+          row[c.id] = value;
         });
       })
     } else if (typeof data === 'object') {
@@ -318,8 +320,8 @@ class zGrid {
     return row;
   }
 
-  private configureData(data: Array<Record<string, string> | Array<string>>): Array<Record<string, string>> {
-    let ret: Array<Record<string, string>>
+  private configureData(data: Array<Row | Array<string>>): Array<Row> {
+    let ret: Array<Row>
     if (!Array.isArray(data))
       throw new TypeError('Data must be an array');
     let ids: String[] = [];
@@ -519,7 +521,7 @@ class zGrid {
    * Adds a row with the specified data
    * @param data The data to of the row, in the same format as configuration
    */
-  public addRow(data: Record<string, string> | Array<string>) {
+  public addRow(data: Row | Array<string>) {
     let row = this.initializeRow(data);
     let ids = this.data.map((r) => r.id)
     if (ids.includes(row.id)) throw new Error('ids must be unique');
@@ -531,7 +533,7 @@ class zGrid {
    * @param id The value of the id column
    * @returns An object representing the found row, or undefined if no row is found
    */
-  public getRow(id: string): Record<string, string>  {
+  public getRow(id: string): Row  {
     let row = this.data.find((e) => e.id === id)
     return row === undefined ? row : {...row}
   }
@@ -541,7 +543,7 @@ class zGrid {
    * @param data The data to set the row to in the same format as configuration
    * with the exception that if no id is defined it will keep its original id
    */
-  public setRow(id: string, data: Record<string, string> | Array<string>) {
+  public setRow(id: string, data: Row | Array<string>) {
     let index = this.data.findIndex((e) => e.id === id)
     if (index === -1) throw new RangeError(`No row found with id: ${id}`)
     if (!Array.isArray(data) && typeof data === 'object' && data.id === undefined)
@@ -559,7 +561,7 @@ class zGrid {
    * keys are column ids, and the values are what is in the column.
    * If no row is found returns undefined.
    */
-  public removeRow(id: string): Record<string, string> | undefined {
+  public removeRow(id: string): Row | undefined {
     let row = this.getRow(id);
     if (row !== undefined) 
     {
@@ -596,8 +598,8 @@ class zGrid {
    * The objects are key-value pairs where the key is the name of a column and
    * the value is what is in that cell
    */
-  public getRawData(): Array<Record<string, string>> {
-    let ret:Array<Record<string, string>> = [];
+  public getRawData(): Array<Row> {
+    let ret:Array<Row> = [];
     this.data.forEach((r) => ret.push({...r}))
     return ret
   }
@@ -608,10 +610,10 @@ class zGrid {
    * The objects are key-value pairs where the key is the name of a column and
    * the value is what is in that cell.
    */
-  public getData(): Array<Record<string, string>> {
-    let ret: Array<Record<string, string>> = [];
+  public getData(): Array<Row> {
+    let ret: Array<Row> = [];
     let page = [];
-    let filtered: Array<Record<string, string>> = [];
+    let filtered: Array<Row> = [];
     // filter
     if (this.filter) {
       if (typeof this.filter === 'string') {
@@ -624,7 +626,7 @@ class zGrid {
       } else if (typeof this.filter === 'function') {
         let filter = this.filter
         filtered = this.data.filter((r) => {
-          let entry: Record<string, string> = {};
+          let entry: Row = {};
           this.columns.forEach((c) => (entry[c.id] = r[c.id]));
           return filter(entry);
         });
@@ -871,7 +873,7 @@ class zGrid {
           if (!this.onClick) return
           this.onClick(c_i, r_i, c.id, structuredClone(d))
         }
-        cell.innerText = d[c.id];
+        cell.innerText = d[c.id].toString();
       });
     });
   }
