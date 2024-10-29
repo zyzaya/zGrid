@@ -45,8 +45,30 @@ describe('getRawData', () => {
     result[0]['First Name'] = '';
     expect(grid.getRawData()).toStrictEqual(data);
   });
-  test('ignores sort', () => {});
-  test('ignores pagination', () => {});
-  test('ignores filter', () => {});
-  test('ignores sort + pagination + filter', () => {});
+
+  test('ignores sort', () => {
+    let grid = new zGrid(configuration);
+    grid.sort('First Name');
+    expect(grid.getRawData()).toStrictEqual(data);
+  });
+
+  test('ignores pagination', () => {
+    configuration.pagination = 3;
+    let grid = new zGrid(configuration);
+    expect(grid.getRawData()).toStrictEqual(data);
+  });
+
+  test('ignores filter', () => {
+    let grid = new zGrid(configuration);
+    grid.setFilter('example.test');
+    expect(grid.getRawData()).toStrictEqual(data);
+  });
+
+  test('ignores sort + pagination + filter', () => {
+    configuration.pagination = 3;
+    let grid = new zGrid(configuration);
+    grid.sort('First Name');
+    grid.setFilter('example.test');
+    expect(grid.getRawData()).toStrictEqual(data);
+  });
 });

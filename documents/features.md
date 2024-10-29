@@ -1,6 +1,5 @@
 # TODO Features
   1. make into functional npm module
-  7. add a way to get the unmodified dataset.
   10. use userEvent to more fully test user interactions. 
   11. selections
   12. allow for column values to be types other than strings
@@ -16,3 +15,4 @@
   9. ~~improve speed of reconfigure~~
   6. ~~implement an easier way to modify the data, currently the only way to change the values of a single row is to use reconfigure and change the entire dataset~~
   5. ~~add ability to configure an element to have multiple attributes~~
+  7. add a way to get the unmodified dataset.
