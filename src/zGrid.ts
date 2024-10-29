@@ -533,7 +533,7 @@ class zGrid {
    * @param id The value of the id column
    * @returns An object representing the found row, or undefined if no row is found
    */
-  public getRow(id: string): Row  {
+  public getRow(id: any): Row  {
     let row = this.data.find((e) => e.id === id)
     return row === undefined ? row : {...row}
   }
@@ -543,7 +543,7 @@ class zGrid {
    * @param data The data to set the row to in the same format as configuration
    * with the exception that if no id is defined it will keep its original id
    */
-  public setRow(id: string, data: Row | Array<string>) {
+  public setRow(id: any, data: Row | Array<string>) {
     let index = this.data.findIndex((e) => e.id === id)
     if (index === -1) throw new RangeError(`No row found with id: ${id}`)
     if (!Array.isArray(data) && typeof data === 'object' && data.id === undefined)
@@ -561,7 +561,7 @@ class zGrid {
    * keys are column ids, and the values are what is in the column.
    * If no row is found returns undefined.
    */
-  public removeRow(id: string): Row | undefined {
+  public removeRow(id: any): Row | undefined {
     let row = this.getRow(id);
     if (row !== undefined) 
     {
@@ -572,11 +572,11 @@ class zGrid {
   }
   /**
    * Changes the value of a specific cell
-   * @param id The value of the id column
-   * @param column The column of the cell to change
-   * @param value The value to chagne the cell to
+   * @param id The value of the id column of the row to change
+   * @param column The column id of the cell to change
+   * @param value The value to change the cell to
    */
-  public setCell(id: string, column: string, value: string) { 
+  public setCell(id: any, column: string, value: string) { 
     let row = this.data.find((e) => e.id === id);
     if (row === undefined) throw new RangeError(`No row found with id: ${id}`);
     if (this.columns.find((c) => c.id === column) === undefined)

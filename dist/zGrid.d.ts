@@ -208,14 +208,14 @@ declare class zGrid {
      * @param id The value of the id column
      * @returns An object representing the found row, or undefined if no row is found
      */
-    getRow(id: string): Row;
+    getRow(id: any): Row;
     /**
      * Modifies the data in a single row
      * @param id The id of row to change
      * @param data The data to set the row to in the same format as configuration
      * with the exception that if no id is defined it will keep its original id
      */
-    setRow(id: string, data: Row | Array<string>): void;
+    setRow(id: any, data: Row | Array<string>): void;
     /**
      * Removes a row
      * @param id  The value of the id column
@@ -223,14 +223,14 @@ declare class zGrid {
      * keys are column ids, and the values are what is in the column.
      * If no row is found returns undefined.
      */
-    removeRow(id: string): Row | undefined;
+    removeRow(id: any): Row | undefined;
     /**
      * Changes the value of a specific cell
-     * @param id The value of the id column
-     * @param column The column of the cell to change
-     * @param value The value to chagne the cell to
+     * @param id The value of the id column of the row to change
+     * @param column The column id of the cell to change
+     * @param value The value to change the cell to
      */
-    setCell(id: string, column: string, value: string): void;
+    setCell(id: any, column: string, value: string): void;
     /**
      * Gets the data stored in zgrid, ignoring filter
      * sorting, and pagination
