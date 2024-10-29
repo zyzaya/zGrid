@@ -128,6 +128,20 @@ describe('Data', () => {
     });
   });
 
+  test('can set value to an array', () => {
+    let email_array = [1, 2, 3];
+    configuration.data = [
+      {
+        id: 1,
+        'first name': 2,
+        'last name': 3,
+        email: email_array,
+      },
+    ];
+    let grid = new zGrid(configuration);
+    expect(grid.getRow(1)['email']).toStrictEqual(email_array);
+  });
+
   test('throw error when no id is defined using object configuration', () => {
     let grid = new zGrid(configuration);
     let data = [
