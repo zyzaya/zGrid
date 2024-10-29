@@ -33,7 +33,7 @@ let columns = [
   [
     {
       id: 'id',
-      visible: false
+      visible: true
     }, 
     'First Name', 
     {
@@ -47,7 +47,7 @@ let columns = [
   [
     {
       id: 'id',
-      visible: true,
+      visible: false,
     },
     'First Name', 
     {

@@ -770,21 +770,21 @@ class zGrid {
         existing_index += 1;
       } else {
         title = new HeaderCell(this.ui_header_row)
-        title.onsort = (sort) => {
-          // reset all other header cells
-          this.header_cells.forEach((t) => {
-            if (t !== title) t.sort = 'none'
-          })
-          // set sort
-          if (sort === "none") this.sort(false)
-          else {
-            let ascending = sort === "ascending"
-            this.sort(config.id, ascending)
-            if (this.onSort !== undefined) this.onSort(config.id, ascending)
-          }
-          this.renderData()
-        }
         this.header_cells.push(title)
+      }
+      title.onsort = (sort) => {
+        // reset all other header cells
+        this.header_cells.forEach((t) => {
+          if (t !== title) t.sort = 'none'
+        })
+        // set sort
+        if (sort === "none") this.sort(false)
+        else {
+          let ascending = sort === "ascending"
+          this.sort(config.id, ascending)
+          if (this.onSort !== undefined) this.onSort(config.id, ascending)
+        }
+        this.renderData()
       }
       title.width = this.head.clientWidth / col_count
       // resize modification
