@@ -2,23 +2,12 @@
  * @jest-environment jsdom
  */
 import { zGrid } from '../../src/zGrid';
+import Setup from '../setup';
 
 describe('addRow', () => {
-  let configuration = {};
+  let data, configuration, parent;
   beforeEach(() => {
-    configuration = {
-      parent: document.createElement('div'),
-      columns: ['First Name', 'Last Name', 'Email'],
-      data: [
-        {
-          id: '1',
-          'First Name': 'John',
-          'Last Name': 'Smith',
-          Email: 'fake@email.ca',
-        },
-        ['2', 'Jane', 'Doe', 'jane.doe@fake.com'],
-      ],
-    };
+    ({ data, configuration, parent } = Setup());
   });
 
   test('can add row as an object', () => {
