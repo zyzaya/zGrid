@@ -527,6 +527,11 @@ class zGrid {
     if (shouldRender) this.render();
     else if (shouldRenderData) this.renderData();
   }
+  /**
+   * Sets the selected row
+   * @param id The id value of the row to select
+   * @returns The data of the row selected, or null or no row matches the id
+   */
   public setSelected(id: any): Row | null {
     let row = this.data.find((e) => e.id === id)
     if (row === undefined) return null;
@@ -534,6 +539,10 @@ class zGrid {
     this.selected = id;
     return this.selection ? row : null;
   }
+  /**
+   * Gets the selected row.
+   * @returns The data of the currently selected row or null if no row is selected
+   */
   public getSelected(): Row | null {
     if (!this.selection || this.selected === null) return null;
     let row = this.data.find((e) => e.id === this.selected)
@@ -541,7 +550,7 @@ class zGrid {
   }
   /**
    * Adds a row with the specified data
-   * @param data The data to of the row, in the same format as configuration
+   * @param data The data of the row, in the same format as configuration
    */
   public addRow(data: Row | Array<string>) {
     let row = this.initializeRow(data);
