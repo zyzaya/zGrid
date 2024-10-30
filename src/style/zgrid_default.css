@@ -144,5 +144,5 @@
 }
 
 .zgrid_selected {
-  background-color: red;
+  box-shadow: inset 0 0 0 1px black;
 }
