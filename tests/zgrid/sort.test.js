@@ -129,7 +129,7 @@ describe('Sort', () => {
   test('can sort a column of non string values', () => {
     let grid = new zGrid(configuration);
     expect(() => grid.sort('id', false)).not.toThrow(Error);
-    data.sort((a, b) => a.id - b.id).reverse;
+    data.sort((a, b) => a.id - b.id).reverse();
     grid.getData().forEach((e, i) => {
       expect(e).toStrictEqual(data[i]);
     });

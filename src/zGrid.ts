@@ -681,7 +681,11 @@ class zGrid {
           let col_sort = col_config.sort;
           filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));
         } else {
-          filtered.sort((a, b) => a[col_name].localeCompare(b[col_name]));
+          filtered.sort((a, b) => {
+            if (a[col_name] < b[col_name]) return -1;
+            else if (a[col_name] > b[col_name]) return 1;
+            return 0;
+          });
         }
         if (!this.sortConfig.ascending) filtered.reverse();
       }
@@ -764,14 +768,14 @@ class zGrid {
   /**
    * Sorts the data by the named column. If the configuration for that
    * column has a sort function that function is used to sort it. Otherwise it uses
-   * Javascript's localeCompare.
+   * Javascript's comparison operators.
    * @param column The name of the column to sort by.
    */
   public sort(column: string): void;
   /**
       * Sorts the data by the named column. If the configuration for that
    * column has a sort function that function is used to sort it. Otherwise it uses
-   * Javascript's localeCompare.
+   * Javascript's comparison operators.
    * @param column The name of the column to sort by.
    * @param ascending Whether to sort in ascending or descending order. 
    */
