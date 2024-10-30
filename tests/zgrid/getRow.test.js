@@ -9,12 +9,12 @@ describe('getRow', () => {
   beforeEach(() => {
     ({ configuration } = Setup());
     obj_row = {
-      id: '1',
+      id: 1,
       'First Name': 'John',
       'Last Name': 'Smith',
       Email: 'fake@email.ca',
     };
-    arr_row = ['2', 'Jane', 'Doe', 'jane.doe@fake.com'];
+    arr_row = [2, 'Jane', 'Doe', 'jane.doe@fake.com'];
     configuration.data = [obj_row, arr_row];
   });
 
