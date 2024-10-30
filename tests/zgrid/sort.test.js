@@ -20,7 +20,7 @@ describe('Sort', () => {
     parent = document.createElement('div');
     for (let i = 0; i < 10; i++) {
       data.push({
-        id: i.toString(),
+        id: i,
         'First Name': faker.person.firstName(),
         'Last Name': faker.person.lastName(),
         Email: faker.internet.email(),
@@ -121,6 +121,15 @@ describe('Sort', () => {
     let grid = new zGrid(configuration);
     grid.sort(compare);
     data.sort(compare);
+    grid.getData().forEach((e, i) => {
+      expect(e).toStrictEqual(data[i]);
+    });
+  });
+
+  test('can sort a column of non string values', () => {
+    let grid = new zGrid(configuration);
+    expect(() => grid.sort('id', false)).not.toThrow(Error);
+    data.sort((a, b) => a.id - b.id).reverse();
     grid.getData().forEach((e, i) => {
       expect(e).toStrictEqual(data[i]);
     });

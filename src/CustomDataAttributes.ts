@@ -13,10 +13,21 @@ type Record = {
 export default class CustomDataAttributes extends CustomHTML {
   public static data: Array<Record> = [];
 
+  static removeHTML(id: string, element: HTMLElement) {
+    let record = this.getRecord(id);
+    record.default.forEach((n) => {
+      let d = Array.isArray(n) ? n[0] : n;
+      delete element.dataset[d]
+    })
+    record.custom.forEach((n) => {
+      let d = Array.isArray(n) ? n[0] : n;
+      delete element.dataset[d]
+    })
+  }
+
   static updateHTML(id: string): void {
     let record = this.getRecord(id);
     record.elements.forEach((e) => {
-      for (const data in e.dataset) delete e.dataset[data]
       record.default.forEach((n) => {
         let d = Array.isArray(n) ? n[0] : n;
         let v = Array.isArray(n) ? n[1] : "";

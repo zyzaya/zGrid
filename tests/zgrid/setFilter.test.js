@@ -21,7 +21,7 @@ describe('setFilter', () => {
 
     for (let i = 0; i < 10; i++) {
       let entry = {
-        id: i.toString(),
+        id: i,
         'First Name': faker.person.firstName(),
         'Last Name': faker.person.lastName(),
         Email: faker.internet.email(),
@@ -63,7 +63,6 @@ describe('setFilter', () => {
     let grid = new zGrid(configuration);
     let filter = jest.fn();
     grid.setFilter(filter);
-    let filtered_data = grid.getData();
     expect(filter).toHaveBeenCalledTimes(data.length);
     for (let i = 0; i < data.length; i++) {
       expect(filter).toHaveBeenCalledWith(data[i]);
@@ -74,7 +73,6 @@ describe('setFilter', () => {
     let grid = new zGrid(configuration);
     let filter = jest.fn();
     grid.setFilter(filter);
-    grid.getData();
     expect(filter).toHaveBeenCalledTimes(data.length);
     for (let i = 0; i < data.length; i++) {
       expect(filter).toHaveBeenCalledWith(data[i]);

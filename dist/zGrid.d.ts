@@ -119,6 +119,11 @@ type Configuration = {
      */
     filter?: string | FilterCallback;
     /**
+     * Enables or disables selections
+     * Default value is true.
+     */
+    selection?: boolean;
+    /**
      * Indicates if the default search box elements should be displayed.
      * Default value is true.
      */
@@ -159,6 +164,8 @@ declare class zGrid {
     private data;
     private pagination;
     private filter;
+    private selection;
+    private selected;
     private showFilter;
     private sortConfig;
     private parent;
@@ -199,8 +206,19 @@ declare class zGrid {
     private configureUI;
     reconfigure(config: Partial<Configuration>): void;
     /**
+     * Sets the selected row
+     * @param id The id value of the row to select
+     * @returns The data of the row selected, or null or no row matches the id
+     */
+    setSelected(id: any): Row | null;
+    /**
+     * Gets the selected row.
+     * @returns The data of the currently selected row or null if no row is selected
+     */
+    getSelected(): Row | null;
+    /**
      * Adds a row with the specified data
-     * @param data The data to of the row, in the same format as configuration
+     * @param data The data of the row, in the same format as configuration
      */
     addRow(data: Row | Array<string>): void;
     /**
@@ -286,14 +304,14 @@ declare class zGrid {
     /**
      * Sorts the data by the named column. If the configuration for that
      * column has a sort function that function is used to sort it. Otherwise it uses
-     * Javascript's localeCompare.
+     * Javascript's comparison operators.
      * @param column The name of the column to sort by.
      */
     sort(column: string): void;
     /**
         * Sorts the data by the named column. If the configuration for that
      * column has a sort function that function is used to sort it. Otherwise it uses
-     * Javascript's localeCompare.
+     * Javascript's comparison operators.
      * @param column The name of the column to sort by.
      * @param ascending Whether to sort in ascending or descending order.
      */

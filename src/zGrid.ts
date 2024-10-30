@@ -134,6 +134,11 @@ type Configuration = {
    */
   filter?: string | FilterCallback;
   /**
+   * Enables or disables selections
+   * Default value is true.
+   */
+  selection?: boolean;
+  /**
    * Indicates if the default search box elements should be displayed.
    * Default value is true.
    */
@@ -175,6 +180,8 @@ class zGrid {
   private data: Array<Row>;
   private pagination: false | number;
   private filter: string | FilterCallback;
+  private selection: boolean;
+  private selected: any;
   private showFilter: boolean;
   private sortConfig: false | SortOptions | CompareRows;
 
@@ -212,8 +219,10 @@ class zGrid {
     this.data = this.configureData(config.data);
     this.pagination = this.configurePagination(config.pagination);
     this.filter = this.configureFilter(config.filter);
-    this.showFilter = config.searchbox === undefined ? true : false;
-    
+    this.showFilter = config.searchbox === undefined ? true : !!config.searchbox;
+    this.selection = config.selection === undefined ? true : !!config.selection;
+    this.selected = null;
+
     this.header_cells = [];
     
     this.onFilter = config.onFilter;
@@ -506,9 +515,10 @@ class zGrid {
       shouldRenderData = true;
     }
     if (config.searchbox !== undefined) {
-      this.showFilter = config.searchbox
+      this.showFilter = !!config.searchbox;
       this.ui_filter.visible = this.showFilter;
     }
+    if (config.selection !== undefined) this.selection = !!config.selection
     if (config.onFilter !== undefined) this.onFilter = config.onFilter
     if (config.onPageChange !== undefined) this.onPageChange = config.onPageChange
     if (config.onSort !== undefined) this.onSort = config.onSort;
@@ -518,8 +528,34 @@ class zGrid {
     else if (shouldRenderData) this.renderData();
   }
   /**
+   * Sets the selected row
+   * @param id The id value of the row to select
+   * @returns The data of the row selected, or null or no row matches the id
+   */
+  public setSelected(id: any): Row | null {
+    let row = this.data.find((e) => e.id === id)
+    if (row === undefined) return null;
+    // set visual selection
+    // how to find row
+    // add select row element to CustomClassNames(selection)
+    // have default name of selection      
+    if (id === this.selected) return this.selection ? row : null
+    this.selected = id;
+    this.renderData()
+    return row;
+  }
+  /**
+   * Gets the selected row.
+   * @returns The data of the currently selected row or null if no row is selected
+   */
+  public getSelected(): Row | null {
+    if (!this.selection || this.selected === null) return null;
+    let row = this.data.find((e) => e.id === this.selected)
+    return row;
+  }
+  /**
    * Adds a row with the specified data
-   * @param data The data to of the row, in the same format as configuration
+   * @param data The data of the row, in the same format as configuration
    */
   public addRow(data: Row | Array<string>) {
     let row = this.initializeRow(data);
@@ -620,7 +656,8 @@ class zGrid {
         let filter = this.filter
         filtered = this.data.filter((r) => {
           return this.columns.some((c) =>
-            r[c.id].toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+            r[c.id] === filter ||
+            (typeof r[c.id] === 'string' && r[c.id].toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
           );
         });
       } else if (typeof this.filter === 'function') {
@@ -645,7 +682,11 @@ class zGrid {
           let col_sort = col_config.sort;
           filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));
         } else {
-          filtered.sort((a, b) => a[col_name].localeCompare(b[col_name]));
+          filtered.sort((a, b) => {
+            if (a[col_name] < b[col_name]) return -1;
+            else if (a[col_name] > b[col_name]) return 1;
+            return 0;
+          });
         }
         if (!this.sortConfig.ascending) filtered.reverse();
       }
@@ -698,6 +739,7 @@ class zGrid {
     let f = filter === undefined ? '' : filter;
     if (typeof filter === 'string' || typeof filter === 'function') {
       this.filter = f;
+      this.renderData();
     } else {
       throw new TypeError('Filter must be a string or function')
     }
@@ -728,14 +770,14 @@ class zGrid {
   /**
    * Sorts the data by the named column. If the configuration for that
    * column has a sort function that function is used to sort it. Otherwise it uses
-   * Javascript's localeCompare.
+   * Javascript's comparison operators.
    * @param column The name of the column to sort by.
    */
   public sort(column: string): void;
   /**
       * Sorts the data by the named column. If the configuration for that
    * column has a sort function that function is used to sort it. Otherwise it uses
-   * Javascript's localeCompare.
+   * Javascript's comparison operators.
    * @param column The name of the column to sort by.
    * @param ascending Whether to sort in ascending or descending order. 
    */
@@ -758,6 +800,7 @@ class zGrid {
         };
       }
     }
+    this.render();
   };
 
   private render() {               
@@ -832,6 +875,7 @@ class zGrid {
       let removed = existing_rows.splice(data.length);
       removed.forEach((r) => r.classList.add('zgrid_hidden'))
     }
+    CustomClassNames.clearElements('selected')
     data.forEach((d, r_i) => {
       let row: HTMLTableRowElement;
       let existing_cells: HTMLTableCellElement[];
@@ -854,6 +898,13 @@ class zGrid {
         CustomClassNames.addDefaultName('tr', 'zgrid_row')
         CustomDataAttributes.addElement('tr', row)
         this.body.appendChild(row);
+      }
+      row.onclick = () => { 
+        if (this.selection) this.setSelected(d.id)
+      }
+      if (this.selection && this.selected === d.id) {
+        CustomClassNames.addElement('selected', row)
+        CustomClassNames.addDefaultName('selected', 'zgrid_selected')
       }
 
       visible_columns.forEach((c, c_i) => {

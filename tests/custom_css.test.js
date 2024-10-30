@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 import CustomClassNames from '../src/CustomClassNames';
+import CustomDataAttributes from '../src/CustomDataAttributes';
 
 describe('Custom CSS', () => {
   beforeEach(() => {
@@ -122,5 +123,47 @@ describe('Custom CSS', () => {
     CustomClassNames.clearElements('filter');
     CustomClassNames.addDefaultName('filter', 'custom2');
     expect(document.getElementsByClassName('custom2').length).toBe(0);
+  });
+
+  test('removeElement removes custom class names', () => {
+    let element = document.createElement('div');
+    document.body.appendChild(element);
+    CustomClassNames.addElement('filter', element);
+    CustomClassNames.addDefaultName('filter', 'custom1');
+    expect(element.classList.contains('custom1')).toBe(true);
+    CustomClassNames.removeElement('filter', element);
+    expect(element.classList.contains('custom1')).toBe(false);
+  });
+
+  test('clearElements removes custom class names', () => {
+    let element = document.createElement('div');
+    document.body.appendChild(element);
+    CustomClassNames.addElement('filter', element);
+    CustomClassNames.addDefaultName('filter', 'custom1');
+    expect(element.classList.contains('custom1')).toBe(true);
+    CustomClassNames.clearElements('filter');
+    expect(element.classList.contains('custom1')).toBe(false);
+  });
+
+  test('removeElement removes custom data attributes', () => {
+    let data = ['test', 'number'];
+    let element = document.createElement('div');
+    document.body.appendChild(element);
+    CustomDataAttributes.addElement('filter', element);
+    CustomDataAttributes.addCustomName('filter', data);
+    expect(element.dataset[data[0]]).toBe(data[1]);
+    CustomDataAttributes.removeElement('filter', element);
+    expect(element.dataset[data[0]]).toBe(undefined);
+  });
+
+  test('clearElements removes custom data attributes', () => {
+    let data = ['test', 'number'];
+    let element = document.createElement('div');
+    document.body.appendChild(element);
+    CustomDataAttributes.addElement('filter', element);
+    CustomDataAttributes.addCustomName('filter', data);
+    expect(element.dataset[data[0]]).toBe(data[1]);
+    CustomDataAttributes.clearElements('filter');
+    expect(element.dataset[data[0]]).toBe(undefined);
   });
 });

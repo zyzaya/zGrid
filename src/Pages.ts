@@ -25,7 +25,7 @@ export default class Pages {
     previous.onclick = () => this.previousPage();
     container.appendChild(previous)
 
-    CustomClassNames.addDefaultName('paginationCurrent', 'zgrid_page_button')
+    // CustomClassNames.addDefaultName('paginationCurrent', 'zgrid_page_button')
     CustomClassNames.addDefaultName('paginationCurrent', 'zgrid_current_page')
 
     this.buttons = [];
@@ -101,7 +101,6 @@ export default class Pages {
       if (newPage === undefined) {
         this.buttons[i].onclick = undefined;
         CustomClassNames.removeElement('paginationCurrent', this.buttons[i])
-        CustomClassNames.addElement(`paginationButton`, this.buttons[i])
         CustomDataAttributes.removeElement('paginationCurrent', this.buttons[i])
         CustomDataAttributes.addElement('paginationCurrent', this.buttons[i])
       } else {
@@ -110,15 +109,11 @@ export default class Pages {
         }
         if (newPage == p) {
           // current page, so add current_page styling
-          CustomClassNames.removeElement(`paginationButton`, this.buttons[i])
           CustomClassNames.addElement('paginationCurrent', this.buttons[i])
-          CustomDataAttributes.removeElement(`paginationButton`, this.buttons[i])
           CustomDataAttributes.addElement('paginationCurrent', this.buttons[i])
         } else {
           // not current page, so remove current_page styling
-          CustomClassNames.addElement(`paginationButton`, this.buttons[i])
           CustomClassNames.removeElement('paginationCurrent', this.buttons[i])
-          CustomDataAttributes.addElement(`paginationButton`, this.buttons[i])
           CustomDataAttributes.removeElement('paginationCurrent', this.buttons[i])
         }
       }
