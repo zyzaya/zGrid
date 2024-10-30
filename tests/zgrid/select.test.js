@@ -48,11 +48,11 @@ describe('Select', () => {
     let id = data[0].id;
     grid.setSelected(id);
     grid.setFilter((row) => {
-      console.log(`${row.id}, ${id}`);
+      // console.log(`${row.id}, ${id}`);
       return row.id !== id;
     });
     expect(parent.querySelector('.zgrid_selected')).toBeNull();
-    expect(grid.getSelection()).toStrictEqual(data[0]);
+    expect(grid.getSelected()).toStrictEqual(data[0]);
     grid.setFilter('');
     expect(parent.querySelector('.zgrid_selected')).not.toBeNull();
   });

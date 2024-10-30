@@ -739,6 +739,7 @@ class zGrid {
     let f = filter === undefined ? '' : filter;
     if (typeof filter === 'string' || typeof filter === 'function') {
       this.filter = f;
+      this.renderData();
     } else {
       throw new TypeError('Filter must be a string or function')
     }
@@ -799,6 +800,7 @@ class zGrid {
         };
       }
     }
+    this.render();
   };
 
   private render() {               
