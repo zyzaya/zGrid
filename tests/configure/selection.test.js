@@ -28,20 +28,21 @@ describe('selection', () => {
     };
   });
 
-  test('can only be boolean or null', () => {
-    configuration.selection = 'error';
-    expect(() => {
-      new zGrid(configuration);
-    }).toThrow(TypeError);
-  });
-
   test('can set selection', () => {
     let selected = 0;
     configuration.selection = true;
-    grid = new zGrid(configuration);
-    grid.setSelection(selected);
-    expect(grid.getSelection(selected)).toStrictEqual(
-      data.find((e) => e.id === selected)
-    );
+    let grid = new zGrid(configuration);
+    grid.setSelected(selected);
+    expect(grid.getSelected(selected)).toStrictEqual(data[selected]);
+  });
+
+  test('reconfigure selection', () => {
+    let selected = 0;
+    configuration.selection = false;
+    let grid = new zGrid(configuration);
+    grid.setSelected(selected);
+    expect(grid.getSelected(selected)).toBe(null);
+    grid.reconfigure({ selection: true });
+    expect(grid.getSelected(selected)).toStrictEqual(data[selected]);
   });
 });

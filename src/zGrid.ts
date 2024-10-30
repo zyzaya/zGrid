@@ -134,6 +134,11 @@ type Configuration = {
    */
   filter?: string | FilterCallback;
   /**
+   * Enables or disables selections
+   * Default value is true.
+   */
+  selection?: boolean;
+  /**
    * Indicates if the default search box elements should be displayed.
    * Default value is true.
    */
@@ -175,6 +180,8 @@ class zGrid {
   private data: Array<Row>;
   private pagination: false | number;
   private filter: string | FilterCallback;
+  private selection: boolean;
+  private selected: any;
   private showFilter: boolean;
   private sortConfig: false | SortOptions | CompareRows;
 
@@ -212,8 +219,10 @@ class zGrid {
     this.data = this.configureData(config.data);
     this.pagination = this.configurePagination(config.pagination);
     this.filter = this.configureFilter(config.filter);
-    this.showFilter = config.searchbox === undefined ? true : false;
-    
+    this.showFilter = config.searchbox === undefined ? true : !!config.searchbox;
+    this.selection = config.selection === undefined ? true : !!config.selection;
+    this.selected = null;
+
     this.header_cells = [];
     
     this.onFilter = config.onFilter;
@@ -506,9 +515,10 @@ class zGrid {
       shouldRenderData = true;
     }
     if (config.searchbox !== undefined) {
-      this.showFilter = config.searchbox
+      this.showFilter = !!config.searchbox;
       this.ui_filter.visible = this.showFilter;
     }
+    if (config.selection !== undefined) this.selection = !!config.selection
     if (config.onFilter !== undefined) this.onFilter = config.onFilter
     if (config.onPageChange !== undefined) this.onPageChange = config.onPageChange
     if (config.onSort !== undefined) this.onSort = config.onSort;
@@ -516,6 +526,18 @@ class zGrid {
 
     if (shouldRender) this.render();
     else if (shouldRenderData) this.renderData();
+  }
+  public setSelected(id: any): Row | null {
+    let row = this.data.find((e) => e.id === id)
+    if (row === undefined) return null;
+    // set visual selection
+    this.selected = id;
+    return this.selection ? row : null;
+  }
+  public getSelected(): Row | null {
+    if (!this.selection || this.selected === null) return null;
+    let row = this.data.find((e) => e.id === this.selected)
+    return row;
   }
   /**
    * Adds a row with the specified data
