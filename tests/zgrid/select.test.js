@@ -5,7 +5,6 @@ import { zGrid } from '../../src/zGrid';
 import { faker } from '@faker-js/faker';
 
 describe('Select', () => {
-  // 3. sorting maintains the correctly displayed selection
   let data = [];
   let configuration;
   let parent;
@@ -47,10 +46,7 @@ describe('Select', () => {
     let grid = new zGrid(configuration);
     let id = data[0].id;
     grid.setSelected(id);
-    grid.setFilter((row) => {
-      // console.log(`${row.id}, ${id}`);
-      return row.id !== id;
-    });
+    grid.setFilter((row) => row.id !== id);
     expect(parent.querySelector('.zgrid_selected')).toBeNull();
     expect(grid.getSelected()).toStrictEqual(data[0]);
     grid.setFilter('');
