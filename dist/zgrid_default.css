@@ -142,3 +142,7 @@
 .zgrid_hidden {
   display: none;
 }
+
+.zgrid_selected {
+  background-color: red;
+}

@@ -33,6 +33,7 @@ export default class CustomHTML {
   static clearElements(id: string) {
     let record = this.getRecord(id);
     record.elements = [];
+    this.updateHTML(id);
   }
 
   static getRecord(id: string): Record {

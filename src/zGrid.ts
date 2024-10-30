@@ -533,11 +533,17 @@ class zGrid {
    * @returns The data of the row selected, or null or no row matches the id
    */
   public setSelected(id: any): Row | null {
+    console.log(`setSelected ${id}`)
     let row = this.data.find((e) => e.id === id)
     if (row === undefined) return null;
     // set visual selection
+    // how to find row
+    // add select row element to CustomClassNames(selection)
+    // have default name of selection      
+    if (id === this.selected) return this.selection ? row : null
     this.selected = id;
-    return this.selection ? row : null;
+    this.renderData()
+    return row;
   }
   /**
    * Gets the selected row.
@@ -863,6 +869,7 @@ class zGrid {
       let removed = existing_rows.splice(data.length);
       removed.forEach((r) => r.classList.add('zgrid_hidden'))
     }
+    CustomClassNames.clearElements('selected')
     data.forEach((d, r_i) => {
       let row: HTMLTableRowElement;
       let existing_cells: HTMLTableCellElement[];
@@ -887,6 +894,12 @@ class zGrid {
         this.body.appendChild(row);
       }
 
+      console.log(`${this.selection}, ${this.selected}, ${d.id}`)
+      if (this.selection && this.selected === d.id) {
+        CustomClassNames.addElement('selected', row)
+        CustomClassNames.addDefaultName('selected', 'zgrid_selected')
+      }
+
       visible_columns.forEach((c, c_i) => {
         let cell: HTMLTableCellElement;
         if (existing_cols_index < existing_cols_count) {
@@ -901,6 +914,7 @@ class zGrid {
           row.appendChild(cell);
         }
         cell.onclick = () => {
+          if (this.selection) this.setSelected(d.id)
           if (!this.onClick) return
           this.onClick(c_i, r_i, c.id, structuredClone(d))
         }
