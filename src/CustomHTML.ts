@@ -63,12 +63,14 @@ export default class CustomHTML {
   static removeDefaultName(id: string, name: any) {
     if (name === undefined) return;
     let record = this.getRecord(id);
+    record.elements.forEach((e) => this.removeHTML(id, e))
     record.default = record.default.filter((n) => n !== name)
     this.updateHTML(id);
   }
 
   static clearDefaultNames(id: string) {
     let record = this.getRecord(id);
+    record.elements.forEach((e) => this.removeHTML(id, e))
     record.default = [];
     this.updateHTML(id);
   }
@@ -85,12 +87,14 @@ export default class CustomHTML {
   static removeCustomName(id: string, name: any) {
     if (name === undefined) return;
     let record = this.getRecord(id);
+    record.elements.forEach((e) => this.removeHTML(id, e))
     record.custom = record.custom.filter((n) => n !== name)
     this.updateHTML(id);
   }
 
   static clearCustomNames(id: string) {
     let record = this.getRecord(id);
+    record.elements.forEach((e) => this.removeHTML(id, e))
     record.custom = [];
     this.updateHTML(id);
   }
