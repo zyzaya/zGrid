@@ -4,13 +4,21 @@ export default function Setup() {
   let obj = {};
   obj.parent = document.createElement('div');
   obj.data = [];
+  obj.markedEmail = [];
   for (let i = 0; i < 10; i++) {
-    obj.data.push({
-      id: i,
+    let entry = {
+      id: i.toString(),
       'First Name': faker.person.firstName(),
       'Last Name': faker.person.lastName(),
       Email: faker.internet.email(),
-    });
+    };
+
+    if (i % 2 == 0) {
+      entry['Email'] = faker.internet.email({ provider: 'example.test ' });
+      obj.markedEmail.push(entry);
+    }
+
+    obj.data.push(entry);
   }
   obj.configuration = {
     parent: obj.parent,

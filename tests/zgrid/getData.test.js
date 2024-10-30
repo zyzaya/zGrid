@@ -2,37 +2,13 @@
  * @jest-environment jsdom
  */
 import { zGrid } from '../../src/zGrid';
-import { faker } from '@faker-js/faker';
+import Setup from '../setup';
 
 describe('Displayed Data', () => {
-  let data = [];
-  let configuration = {};
-  faker.seed(96);
-  let markedEmail = [];
+  let data, configuration, parent, markedEmail;
   beforeEach(() => {
     data = [];
-
-    for (let i = 0; i < 10; i++) {
-      let entry = {
-        id: i.toString(),
-        'First Name': faker.person.firstName(),
-        'Last Name': faker.person.lastName(),
-        Email: faker.internet.email(),
-      };
-
-      if (i % 2 == 0) {
-        entry['Email'] = faker.internet.email({ provider: 'example.test ' });
-        markedEmail.push(entry);
-      }
-
-      data.push(entry);
-    }
-
-    configuration = {
-      parent: document.createElement('div'),
-      columns: ['First Name', 'Last Name', 'Email'],
-      data: data,
-    };
+    ({ data, configuration, parent, markedEmail } = Setup());
   });
 
   test('Sort + Pagination + Filter', () => {
