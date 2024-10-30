@@ -892,7 +892,9 @@ class zGrid {
         CustomDataAttributes.addElement('tr', row)
         this.body.appendChild(row);
       }
-
+      row.onclick = () => { 
+        if (this.selection) this.setSelected(d.id)
+      }
       if (this.selection && this.selected === d.id) {
         CustomClassNames.addElement('selected', row)
         CustomClassNames.addDefaultName('selected', 'zgrid_selected')
@@ -912,7 +914,6 @@ class zGrid {
           row.appendChild(cell);
         }
         cell.onclick = () => {
-          if (this.selection) this.setSelected(d.id)
           if (!this.onClick) return
           this.onClick(c_i, r_i, c.id, structuredClone(d))
         }
