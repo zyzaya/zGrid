@@ -304,14 +304,14 @@ declare class zGrid {
     /**
      * Sorts the data by the named column. If the configuration for that
      * column has a sort function that function is used to sort it. Otherwise it uses
-     * Javascript's localeCompare.
+     * Javascript's comparison operators.
      * @param column The name of the column to sort by.
      */
     sort(column: string): void;
     /**
         * Sorts the data by the named column. If the configuration for that
      * column has a sort function that function is used to sort it. Otherwise it uses
-     * Javascript's localeCompare.
+     * Javascript's comparison operators.
      * @param column The name of the column to sort by.
      * @param ascending Whether to sort in ascending or descending order.
      */

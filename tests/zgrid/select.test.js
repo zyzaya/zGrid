@@ -5,8 +5,6 @@ import { zGrid } from '../../src/zGrid';
 import { faker } from '@faker-js/faker';
 
 describe('Select', () => {
-  // 2. select -> set filter / pagination such that selection is no
-  // longer visible doesn't lose selection. reseting filter/pagination then keeps seleciton
   // 3. sorting maintains the correctly displayed selection
   let data = [];
   let configuration;
@@ -26,7 +24,12 @@ describe('Select', () => {
 
     configuration = {
       parent: parent,
-      columns: ['First Name', 'Last Name', 'Email'],
+      columns: [
+        { id: 'id', visible: true },
+        'First Name',
+        'Last Name',
+        'Email',
+      ],
       data: data,
     };
   });
@@ -44,10 +47,24 @@ describe('Select', () => {
     let grid = new zGrid(configuration);
     let id = data[0].id;
     grid.setSelected(id);
-    grid.setFilter((row) => row.id !== id);
+    grid.setFilter((row) => {
+      console.log(`${row.id}, ${id}`);
+      return row.id !== id;
+    });
     expect(parent.querySelector('.zgrid_selected')).toBeNull();
     expect(grid.getSelection()).toStrictEqual(data[0]);
     grid.setFilter('');
     expect(parent.querySelector('.zgrid_selected')).not.toBeNull();
+  });
+
+  test('visual selection is maintained after sorting', () => {
+    configuration.selection = true;
+    let grid = new zGrid(configuration);
+    let id = data[0].id;
+    grid.setSelected(id);
+    grid.sort('id', false);
+    let row = parent.querySelector('.zgrid_selected');
+    expect(row).not.toBeNull();
+    expect(row.children[0].innerText).toBe('0');
   });
 });
