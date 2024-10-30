@@ -533,7 +533,6 @@ class zGrid {
    * @returns The data of the row selected, or null or no row matches the id
    */
   public setSelected(id: any): Row | null {
-    console.log(`setSelected ${id}`)
     let row = this.data.find((e) => e.id === id)
     if (row === undefined) return null;
     // set visual selection
@@ -894,7 +893,6 @@ class zGrid {
         this.body.appendChild(row);
       }
 
-      console.log(`${this.selection}, ${this.selected}, ${d.id}`)
       if (this.selection && this.selected === d.id) {
         CustomClassNames.addElement('selected', row)
         CustomClassNames.addDefaultName('selected', 'zgrid_selected')

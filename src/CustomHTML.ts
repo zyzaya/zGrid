@@ -15,6 +15,7 @@ export default class CustomHTML {
     this.data = [];
   }
 
+  static removeHTML(id: string, element: HTMLElement) {}
   static updateHTML(id: string) {}
 
   static addElement(id: string, element: HTMLElement) {
@@ -26,14 +27,14 @@ export default class CustomHTML {
 
   static removeElement(id: string, element: HTMLElement) {
     let record = this.getRecord(id)
+    this.removeHTML(id, element)
     record.elements = record.elements.filter((e) => e !== element)
-    this.updateHTML(id)
   }
 
   static clearElements(id: string) {
     let record = this.getRecord(id);
+    record.elements.forEach((e) => this.removeHTML(id, e))
     record.elements = [];
-    this.updateHTML(id);
   }
 
   static getRecord(id: string): Record {
