@@ -1,0 +1,21 @@
+import { faker } from '@faker-js/faker';
+
+export default function Setup() {
+  let obj = {};
+  obj.parent = document.createElement('div');
+  obj.data = [];
+  for (let i = 0; i < 10; i++) {
+    obj.data.push({
+      id: i,
+      'First Name': faker.person.firstName(),
+      'Last Name': faker.person.lastName(),
+      Email: faker.internet.email(),
+    });
+  }
+  obj.configuration = {
+    parent: obj.parent,
+    columns: ['First Name', 'Last Name', 'Email'],
+    data: obj.data,
+  };
+  return obj;
+}

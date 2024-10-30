@@ -2,35 +2,18 @@
  * @jest-environment jsdom
  */
 import { zGrid } from '../../src/zGrid';
-import { faker } from '@faker-js/faker';
+import Setup from '../setup';
 
 describe('Select', () => {
-  let data = [];
-  let configuration;
-  let parent;
-  faker.seed(96);
+  let data, configuration, parent;
   beforeEach(() => {
-    parent = document.createElement('div');
-    data = [];
-    for (let i = 0; i < 10; i++) {
-      data.push({
-        id: i,
-        'First Name': faker.person.firstName(),
-        'Last Name': faker.person.lastName(),
-        Email: faker.internet.email(),
-      });
-    }
-
-    configuration = {
-      parent: parent,
-      columns: [
-        { id: 'id', visible: true },
-        'First Name',
-        'Last Name',
-        'Email',
-      ],
-      data: data,
-    };
+    ({ data, configuration, parent } = Setup());
+    configuration.columns = [
+      { id: 'id', visible: true },
+      'First Name',
+      'Last Name',
+      'Email',
+    ];
   });
 
   test('click row sets selection', () => {
