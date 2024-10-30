@@ -656,7 +656,8 @@ class zGrid {
         let filter = this.filter
         filtered = this.data.filter((r) => {
           return this.columns.some((c) =>
-            r[c.id].toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+            r[c.id] === filter ||
+            (typeof r[c.id] === 'string' && r[c.id].toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
           );
         });
       } else if (typeof this.filter === 'function') {
