@@ -2,30 +2,12 @@
  * @jest-environment jsdom
  */
 import { zGrid } from '../../../src/zGrid';
-import { faker } from '@faker-js/faker';
+import Setup from '../../setup';
 
 describe('Reconfigure Pagination', () => {
-  let data = [];
-  let configuration = {};
-  let parent;
-  faker.seed(96);
+  let data, configuration, parent;
   beforeEach(() => {
-    data = [];
-    parent = document.createElement('div');
-    for (let i = 0; i < 10; i++) {
-      data.push({
-        id: i.toString(),
-        'First Name': faker.person.firstName(),
-        'Last Name': faker.person.lastName(),
-        Email: faker.internet.email(),
-      });
-    }
-
-    configuration = {
-      parent: parent,
-      columns: ['First Name', 'Last Name', 'Email'],
-      data: data,
-    };
+    ({ data, configuration, parent } = Setup());
   });
 
   test('reconfiguring pagination', () => {
