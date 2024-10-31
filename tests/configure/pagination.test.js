@@ -2,30 +2,12 @@
  * @jest-environment jsdom
  */
 import { zGrid } from '../../src/zGrid';
-import { faker } from '@faker-js/faker';
+import Setup from '../setup';
 
 describe('Pagination', () => {
-  let data = [];
-  let configuration = {};
-  let parent;
-  faker.seed(96);
+  let data, configuration, parent;
   beforeEach(() => {
-    data = [];
-    parent = document.createElement('div');
-    for (let i = 0; i < 10; i++) {
-      data.push({
-        id: i.toString(),
-        'First Name': faker.person.firstName(),
-        'Last Name': faker.person.lastName(),
-        Email: faker.internet.email(),
-      });
-    }
-
-    configuration = {
-      parent: parent,
-      columns: ['First Name', 'Last Name', 'Email'],
-      data: data,
-    };
+    ({ data, configuration, parent } = Setup());
   });
 
   test('cannot be negative integer', () => {
@@ -122,26 +104,9 @@ describe('Pagination', () => {
 
 // set page (get page + 1), set page (get page -1), set page, get page, last page, setpage(0)
 describe('setPage', () => {
-  let data = [];
-  let configuration = {};
-  let parent;
+  let data, configuration, parent;
   beforeEach(() => {
-    data = [];
-    parent = document.createElement('div');
-    for (let i = 0; i < 10; i++) {
-      data.push({
-        id: i.toString(),
-        'First Name': faker.person.firstName(),
-        'Last Name': faker.person.lastName(),
-        Email: faker.internet.email(),
-      });
-    }
-
-    configuration = {
-      parent: parent,
-      columns: ['First Name', 'Last Name', 'Email'],
-      data: data,
-    };
+    ({ data, configuration, parent } = Setup());
   });
 
   test('cannot set page to more than the number of pages', () => {
