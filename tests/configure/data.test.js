@@ -25,15 +25,6 @@ describe('Data', () => {
   });
 
   test('is valid', () => {
-    configuration.data = [
-      {
-        id: '1',
-        'First Name': 'John',
-        'Last Name': 'Smith',
-        Email: 'fake@email.ca',
-      },
-      ['2', 'Jane', 'Doe', 'jane.doe@fake.com'],
-    ];
     expect(() => {
       new zGrid(configuration);
     }).not.toThrow(Error);
@@ -42,11 +33,11 @@ describe('Data', () => {
   test('null values for data, when configured using an object, doesnt cause error', () => {
     configuration.data = [
       {
-        id: '1',
+        id: 1,
         'First Name': null,
       },
       {
-        id: '2',
+        id: 2,
         'First Name': null,
       },
     ];
@@ -57,8 +48,8 @@ describe('Data', () => {
 
   test('null values for data, when configure using an array, doesnt cause error', () => {
     configuration.data = [
-      ['1', null, null, null],
-      ['2', null, null, null],
+      [1, null, null, null],
+      [2, null, null, null],
     ];
     let grid = new zGrid(configuration);
     grid.sort('First Name');
@@ -68,12 +59,12 @@ describe('Data', () => {
   test('empty values for data, when configured using an object, doesnt cause an error', () => {
     configuration.data = [
       {
-        id: '1',
+        id: 1,
         'Last Name': 'first',
         Email: 'first',
       },
       {
-        id: '2',
+        id: 2,
         'Last Name': 'second',
         Email: 'second',
       },
@@ -85,8 +76,8 @@ describe('Data', () => {
 
   test('empty values for data, when configured using an array, doesnt cause an error', () => {
     configuration.data = [
-      ['1', 'first', 'first'],
-      ['2', 'second', 'second'],
+      [1, 'first', 'first'],
+      [2, 'second', 'second'],
     ];
     let grid = new zGrid(configuration);
     grid.sort('Email');
@@ -109,7 +100,7 @@ describe('Data', () => {
   test('0 (as an integer) values are remain as an integer when configuring using an object', () => {
     configuration.data = [
       {
-        id: '1',
+        id: 1,
         'First Name': 0,
         'Last Name': 0,
         Email: 0,
@@ -151,9 +142,9 @@ describe('Data', () => {
   });
 
   test('id column is always first column', () => {
-    configuration.data = [['1', 'first', 'last', 'mail']];
+    configuration.data = [[1, 'first', 'last', 'mail']];
     let grid = new zGrid(configuration);
-    expect(grid.getData()[0].id).toBe('1');
+    expect(grid.getData()[0].id).toBe(1);
   });
 
   test('throws error when no id is defined using array configuration', () => {
@@ -166,13 +157,13 @@ describe('Data', () => {
     let grid = new zGrid(configuration);
     let data = [
       {
-        id: '1',
+        id: 1,
         'First Name': 'fire',
         'Last Name': 'last',
         Email: 'mail',
       },
       {
-        id: '1',
+        id: 1,
         'First Name': 'second',
         'Last Name': 'last2',
         Email: 'mail',
@@ -184,8 +175,8 @@ describe('Data', () => {
   test('throws error when duplicate ids using array configuration', () => {
     let grid = new zGrid(configuration);
     let data = [
-      ['1', 'fire', 'last', 'mail'],
-      ['1', 'second', 'last2', 'mail2'],
+      [1, 'fire', 'last', 'mail'],
+      [1, 'second', 'last2', 'mail2'],
     ];
     expect(() => grid.reconfigure({ data: data })).toThrow(Error);
   });
@@ -199,12 +190,12 @@ describe('getData', () => {
       columns: ['First Name', 'Last Name', 'Email'],
       data: [
         {
-          id: '1',
+          id: 1,
           'First Name': 'John',
           'Last Name': 'Smith',
           Email: 'fake@email.ca',
         },
-        ['2', 'Jane', 'Doe', 'jane.doe@fake.com'],
+        [2, 'Jane', 'Doe', 'jane.doe@fake.com'],
       ],
     };
   });
@@ -220,13 +211,13 @@ describe('getData', () => {
   test('returns data', () => {
     let expected = [
       {
-        id: '1',
+        id: 1,
         'First Name': 'John',
         'Last Name': 'Smith',
         Email: 'fake@email.ca',
       },
       {
-        id: '2',
+        id: 2,
         'First Name': 'Jane',
         'Last Name': 'Doe',
         Email: 'jane.doe@fake.com',
