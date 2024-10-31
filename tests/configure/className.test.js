@@ -3,31 +3,13 @@
  */
 import CustomClassNames from '../../src/CustomClassNames';
 import { zGrid } from '../../src/zGrid';
-import { faker } from '@faker-js/faker';
+import Setup from '../setup';
 
 describe('ClassName', () => {
-  let configuration = {};
-  let data = [];
-  let parent;
-  faker.seed(96);
+  let configuration, data, parent;
   beforeEach(() => {
     CustomClassNames.data = [];
-    data = [];
-    parent = document.createElement('div');
-    for (let i = 0; i < 10; i++) {
-      data.push({
-        id: i,
-        'First Name': faker.person.firstName(),
-        'Last Name': faker.person.lastName(),
-        Email: faker.internet.email(),
-      });
-    }
-
-    configuration = {
-      parent: parent,
-      columns: ['First Name', 'Last Name', 'Email'],
-      data: data,
-    };
+    ({ configuration, data, parent } = Setup());
   });
 
   test('an invalid className throws an error', () => {
