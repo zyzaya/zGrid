@@ -193,4 +193,15 @@ describe('DataAttributes', () => {
     expect(ui[0].dataset.first).toBe('one');
     expect(ui[0].dataset.second).toBe('two');
   });
+
+  test('selected', () => {
+    configuration.dataAttribute = {
+      selected: { attribute: 'value' },
+    };
+    configuration.className = { selected: 'selected_custom' };
+    let grid = new zGrid(configuration);
+    grid.setSelected(0);
+    let ui = parent.getElementsByClassName('selected_custom');
+    expect(ui[0].dataset.attribute).toBe('value');
+  });
 });
