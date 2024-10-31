@@ -850,10 +850,16 @@ class zGrid {
         }
         this.renderData()
       }
-      title.width = this.head.clientWidth / col_count
+      title.width = 100 / col_count
       // resize modification
       if (prev !== undefined) {
-        prev.onresize = (width, change) => title.width = title.width - change;
+        prev.onresize = function(change) {
+          change = change / 5
+          if (title.width - change > 5 && this.width + change > 5) {
+            title.width = title.width - change;
+            this.width = this.width + change
+          }
+        }
       }
       prev = title
       if (typeof this.sortConfig === "object" && this.sortConfig.column === config.id) {

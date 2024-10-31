@@ -17,7 +17,7 @@ export default class HeaderCell {
   private sort_enabled: boolean = true;
   private resizing: boolean = false;
   onsort: (sort: Sort) => void
-  onresize: (width: number, change: number) => void;
+  onresize: (change: number) => void;
 
   constructor(parent: HTMLTableRowElement) {
     this.element = document.createElement('th');
@@ -81,20 +81,12 @@ export default class HeaderCell {
 
   private setupResizing() {
     this.resize = document.createElement('button')
-    let x = 0
-    let width = 0;
+    let prev_x = 0;
     document.addEventListener('mousemove', (e) => {
       if (!this.resizing) return
-      let dx = e.clientX - x;
-      let new_width = width + dx;
-      if (new_width < 0) {
-        new_width = 0;
-        dx = new_width - width;
-      }
-      this.element.style.width = `${new_width}px`
-      x = e.clientX;
-      width = new_width;
-      if (this.onresize != undefined) this.onresize(width, dx)
+      let dx = e.clientX - prev_x;
+      prev_x = e.clientX;
+      if (this.onresize != undefined) this.onresize(dx)
     })
     document.addEventListener('mouseup', (e) => {
       if (!this.resizing) return
@@ -102,8 +94,7 @@ export default class HeaderCell {
     })
     this.resize.onmousedown = (e) => {
       this.resizing = true
-      x = e.clientX;
-      width = this.element.offsetWidth;
+      prev_x = e.clientX;
       e.stopPropagation()
     }
     this.resize.classList.add('zgrid_column_resize');
@@ -136,7 +127,7 @@ export default class HeaderCell {
 
   set width(w: number | undefined) {
     if (w === undefined) this.element.style.width = '';
-    else this.element.style.width = `${w}px`
+    else this.element.style.width = `${w}%`
   }
 
   get width(): number {
