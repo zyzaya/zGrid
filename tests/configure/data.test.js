@@ -2,17 +2,12 @@
  * @jest-environment jsdom
  */
 import { zGrid } from '../../src/zGrid';
+import Setup from '../setup';
 
 describe('Data', () => {
-  let configuration = {};
-  let parent;
+  let configuration, parent;
   beforeEach(() => {
-    parent = document.createElement('div');
-    configuration = {
-      parent: parent,
-      columns: ['first name', 'last name', 'email'],
-      data: [],
-    };
+    ({ parent, configuration } = Setup());
   });
 
   test('is not an array', () => {
@@ -48,15 +43,15 @@ describe('Data', () => {
     configuration.data = [
       {
         id: '1',
-        'first name': null,
+        'First Name': null,
       },
       {
         id: '2',
-        'first name': null,
+        'First Name': null,
       },
     ];
     let grid = new zGrid(configuration);
-    grid.sort('first name');
+    grid.sort('First Name');
     expect(() => grid.getData()).not.toThrow(Error);
   });
 
@@ -66,7 +61,7 @@ describe('Data', () => {
       ['2', null, null, null],
     ];
     let grid = new zGrid(configuration);
-    grid.sort('first name');
+    grid.sort('First Name');
     expect(() => grid.getData()).not.toThrow(Error);
   });
 
@@ -74,17 +69,17 @@ describe('Data', () => {
     configuration.data = [
       {
         id: '1',
-        'last name': 'first',
-        email: 'first',
+        'Last Name': 'first',
+        Email: 'first',
       },
       {
         id: '2',
-        'last name': 'second',
-        email: 'second',
+        'Last Name': 'second',
+        Email: 'second',
       },
     ];
     let grid = new zGrid(configuration);
-    grid.sort('first name');
+    grid.sort('First Name');
     expect(() => grid.getData()).not.toThrow(Error);
   });
 
@@ -94,7 +89,7 @@ describe('Data', () => {
       ['2', 'second', 'second'],
     ];
     let grid = new zGrid(configuration);
-    grid.sort('email');
+    grid.sort('Email');
     expect(() => grid.getData()).not.toThrow(Error);
   });
 
@@ -115,9 +110,9 @@ describe('Data', () => {
     configuration.data = [
       {
         id: '1',
-        'first name': 0,
-        'last name': 0,
-        email: 0,
+        'First Name': 0,
+        'Last Name': 0,
+        Email: 0,
       },
     ];
     let grid = new zGrid(configuration);
@@ -133,22 +128,22 @@ describe('Data', () => {
     configuration.data = [
       {
         id: 1,
-        'first name': 2,
-        'last name': 3,
-        email: email_array,
+        'First Name': 2,
+        'Last Name': 3,
+        Email: email_array,
       },
     ];
     let grid = new zGrid(configuration);
-    expect(grid.getRow(1)['email']).toStrictEqual(email_array);
+    expect(grid.getRow(1)['Email']).toStrictEqual(email_array);
   });
 
   test('throw error when no id is defined using object configuration', () => {
     let grid = new zGrid(configuration);
     let data = [
       {
-        'first name': 'first',
-        'last name': 'last',
-        email: 'mail',
+        'First Name': 'first',
+        'Last Name': 'last',
+        Email: 'mail',
       },
     ];
 
@@ -172,15 +167,15 @@ describe('Data', () => {
     let data = [
       {
         id: '1',
-        'first name': 'fire',
-        'last name': 'last',
-        email: 'mail',
+        'First Name': 'fire',
+        'Last Name': 'last',
+        Email: 'mail',
       },
       {
         id: '1',
-        'first name': 'second',
-        'last name': 'last2',
-        email: 'mail',
+        'First Name': 'second',
+        'Last Name': 'last2',
+        Email: 'mail',
       },
     ];
     expect(() => grid.reconfigure({ data: data })).toThrow(Error);
