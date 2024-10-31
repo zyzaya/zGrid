@@ -2,80 +2,63 @@
  * @jest-environment jsdom
  */
 import { zGrid } from '../../src/zGrid';
+import Setup from '../setup';
 
 describe('setRow', () => {
-  let configuration = {};
+  let configuration, modified, data;
   beforeEach(() => {
-    configuration = {
-      parent: document.createElement('div'),
-      columns: ['First Name', 'Last Name', 'Email'],
-      data: [
-        {
-          id: '1',
-          'First Name': 'John',
-          'Last Name': 'Smith',
-          Email: 'fake@email.ca',
-        },
-        ['2', 'Jane', 'Doe', 'jane.doe@fake.com'],
-      ],
+    ({ configuration, data } = Setup());
+    modified = {
+      id: data.length + 1,
+      'First Name': 'first',
+      'Last Name': 'last',
+      Email: 'mail',
     };
   });
 
   test('modify data of existing row using object', () => {
-    let modified = {
-      id: '1',
-      'First Name': 'first',
-      'Last Name': 'last',
-      Email: 'mail',
-    };
-
     let grid = new zGrid(configuration);
-    grid.setRow('1', modified);
-    expect(grid.getRow('1')).toStrictEqual(modified);
+    grid.setRow(0, modified);
+    expect(grid.getRow(modified.id)).toStrictEqual(modified);
   });
 
   test('modify data of existing row using array', () => {
-    let modified = {
-      id: '1',
-      'First Name': 'first',
-      'Last Name': 'last',
-      Email: 'mail',
-    };
     let grid = new zGrid(configuration);
-    grid.setRow('1', ['1', 'first', 'last', 'mail']);
-    expect(grid.getRow('1')).toStrictEqual(modified);
+    grid.setRow(0, Object.values(modified));
+    expect(grid.getRow(modified.id)).toStrictEqual(modified);
   });
 
   test('throws error if data is not array or object', () => {
     let grid = new zGrid(configuration);
-    expect(() => grid.setRow('1', 15)).toThrow(TypeError);
+    expect(() => grid.setRow(0, 15)).toThrow(TypeError);
   });
 
   test('throws error if row does not exist', () => {
     let grid = new zGrid(configuration);
-    expect(() => grid.setRow('10', ['1', 'f', 'l', 'e'])).toThrow(RangeError);
+    expect(() => grid.setRow(data.length + 1, ['1', 'f', 'l', 'e'])).toThrow(
+      RangeError
+    );
   });
 
   test('a row keeps its original id if it is not modified', () => {
-    let modified = {
+    let grid = new zGrid(configuration);
+    grid.setRow(0, {
       'First Name': 'first',
       'Last Name': 'last',
       Email: 'mail',
-    };
-    let grid = new zGrid(configuration);
-    grid.setRow('1', modified);
-    modified.id = '1';
-    expect(grid.getRow('1')).toStrictEqual(modified);
+    });
+    modified.id = 0;
+    expect(grid.getRow(0)).toStrictEqual(modified);
   });
 
   test('cannot change a rows id to an already used id', () => {
-    let modified = {
-      id: '2',
+    let new_mod = {
+      id: 1,
       'First Name': 'first',
       'Last Name': 'last',
       Email: 'mail',
     };
     let grid = new zGrid(configuration);
-    expect(() => grid.setRow('1', modified)).toThrow(Error);
+    expect(() => grid.setRow(0, new_mod)).toThrow(Error);
   });
 });
