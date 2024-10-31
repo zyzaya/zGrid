@@ -24,7 +24,6 @@ describe('getRow', () => {
   });
 
   test('returns correct info when grid is configured as array', () => {
-    console.log(arr_row);
     configuration.data = [arr_row];
     let grid = new zGrid(configuration);
     expect(grid.getRow(arr_row[0])).toStrictEqual({
