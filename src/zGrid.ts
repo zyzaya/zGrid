@@ -47,6 +47,7 @@ type CustomDataAttributeElementNames = {
   thead?: Record<string, string>;
   tbody?: Record<string, string>;
   td?: Record<string, string>;
+  selected?: Record<string, string>;
 }
 
 type ColumnConfiguration = {
@@ -877,6 +878,7 @@ class zGrid {
       removed.forEach((r) => r.classList.add('zgrid_hidden'))
     }
     CustomClassNames.clearElements('selected')
+    CustomDataAttributes.clearElements('selected')
     data.forEach((d, r_i) => {
       let row: HTMLTableRowElement;
       let existing_cells: HTMLTableCellElement[];
@@ -905,7 +907,7 @@ class zGrid {
       }
       if (this.selection && this.selected === d.id) {
         CustomClassNames.addElement('selected', row)
-        CustomClassNames.addDefaultName('selected', 'zgrid_selected')
+        CustomDataAttributes.addElement('selected', row)
       }
 
       visible_columns.forEach((c, c_i) => {
