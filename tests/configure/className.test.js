@@ -146,4 +146,14 @@ describe('ClassName', () => {
     let ui = parent.getElementsByClassName('td_custom');
     expect(ui.length).toBe(30);
   });
+
+  test('selected', () => {
+    configuration.className = {
+      selected: 'selected_custom',
+    };
+    let grid = new zGrid(configuration);
+    grid.setSelected(configuration.data[0].id);
+    let ui = parent.getElementsByClassName('selected_custom');
+    expect(ui.length).toBe(1);
+  });
 });
