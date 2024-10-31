@@ -1,3 +1,20 @@
+# v1.3.0 - October 31, 2024
+- implement feature#7. Added getRawData, to get unmodified dataset
+- implement feature#11. Added selection functionality. 
+  - selection configuration option. Enables or disables selecttions
+  - setSelected. Sets the selected row.
+  - getSelected. Gets the data of the selected row.
+  - selected className. Sets custom css class for selected row.
+  - selected dataAttribute. Sets custom data attributes for selected row.
+- implement feature#12. Allow column values to be types other than strings
+
+
+- fix issue#15. sorting when clicking a header is done incorrectly in specific circumstances
+- fix issue#16. onSort callback isn't called when switching to unsorted
+- fix issue#17. resizing columns can increase total size of zgrid
+- fix issue#18. sorting is broken when column values are not strings
+
+
 # v1.2.2 - August 06, 2024
 - fix issue#14. onclick would give the incorrect data after changing data such that number of visible rows is reduced.
 
