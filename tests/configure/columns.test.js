@@ -2,19 +2,13 @@
  * @jest-environment jsdom
  */
 import { zGrid } from '../../src/zGrid';
+import Setup from '../setup';
 
 describe('Columns', () => {
-  let configuration = {};
-  let parent;
+  let configuration, parent;
 
   beforeEach(() => {
-    parent = document.createElement('div');
-
-    configuration = {
-      parent: parent,
-      columns: ['one', { id: 'two' }],
-      data: [],
-    };
+    ({ parent, configuration } = Setup());
   });
 
   test('is null', () => {
