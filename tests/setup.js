@@ -7,7 +7,7 @@ export default function Setup() {
   obj.markedEmail = [];
   for (let i = 0; i < 10; i++) {
     let entry = {
-      id: i.toString(),
+      id: i,
       'First Name': faker.person.firstName(),
       'Last Name': faker.person.lastName(),
       Email: faker.internet.email(),
