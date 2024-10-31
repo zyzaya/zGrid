@@ -60,11 +60,13 @@ let grid = new zGrid({
   className: {
     filter: 'custom_filter',
     filterContainer: 'custom_filterContainer',
-    tr: 'custom_tr'
+    tr: 'custom_tr',
+    selected: 'custom_selected',
   },
   dataAttribute: {
     tr: { attribute: 'value'},
-    td: { cell: 'value'}
+    td: { cell: 'value'},
+    selected: { sel: 'value' }
   },
   onClick: (col, row, name, data) => {
     console.log(`${col}, ${row}, ${name}`)

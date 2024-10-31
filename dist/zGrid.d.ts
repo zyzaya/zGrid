@@ -17,6 +17,7 @@ type CustomClassElementNames = {
     thead?: string;
     tbody?: string;
     td?: string;
+    selected?: string;
 };
 type CustomDataAttributeElementNames = {
     filterContainer?: Record<string, string>;
@@ -33,6 +34,7 @@ type CustomDataAttributeElementNames = {
     thead?: Record<string, string>;
     tbody?: Record<string, string>;
     td?: Record<string, string>;
+    selected?: Record<string, string>;
 };
 type ColumnConfiguration = {
     /**

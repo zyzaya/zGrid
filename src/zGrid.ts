@@ -29,6 +29,7 @@ type CustomClassElementNames = {
   thead?: string;
   tbody?: string;
   td?: string;
+  selected?: string;
 }
 
 type CustomDataAttributeElementNames = {
