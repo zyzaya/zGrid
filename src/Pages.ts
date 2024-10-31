@@ -25,7 +25,6 @@ export default class Pages {
     previous.onclick = () => this.previousPage();
     container.appendChild(previous)
 
-    // CustomClassNames.addDefaultName('paginationCurrent', 'zgrid_page_button')
     CustomClassNames.addDefaultName('paginationCurrent', 'zgrid_current_page')
 
     this.buttons = [];

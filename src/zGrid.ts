@@ -232,6 +232,9 @@ class zGrid {
     this.onSort = config.onSort;
     this.onClick = config.onClick;
 
+    CustomClassNames.addDefaultName('tr', 'zgrid_row')
+    CustomClassNames.addDefaultName('td', 'zgrid_cell')
+    CustomClassNames.addDefaultName('selected', 'zgrid_selected')
     this.configureUI()
     this.configureClassName(config.className)
     this.configureDataAttributes(config.dataAttribute)
@@ -306,7 +309,6 @@ class zGrid {
       this.columns.forEach((c, i) => {
         this.columns.forEach((c, i) => {
           let value = data[i] === null || data[i] === undefined ? '' : data[i];
-          // row[c.id] = value.toString();
           row[c.id] = value;
         });
       })
@@ -898,7 +900,6 @@ class zGrid {
       } else {
         row = document.createElement('tr')
         CustomClassNames.addElement('tr', row)
-        CustomClassNames.addDefaultName('tr', 'zgrid_row')
         CustomDataAttributes.addElement('tr', row)
         this.body.appendChild(row);
       }
@@ -919,7 +920,6 @@ class zGrid {
         } else {
           cell = document.createElement('td');
           CustomClassNames.addElement('td', cell)
-          CustomClassNames.addDefaultName('td', 'zgrid_cell')
           CustomDataAttributes.addElement('td', cell)
           row.appendChild(cell);
         }
