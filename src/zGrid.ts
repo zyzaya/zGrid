@@ -180,6 +180,7 @@ class zGrid {
   private currentPage = 1;
   private columns: Array<ColumnConfiguration>;
   private data: Array<Row>;
+  private displayed_data: Array<Row>;
   private pagination: false | number;
   private filter: string | FilterCallback;
   private selection: boolean;
@@ -649,69 +650,9 @@ class zGrid {
    * the value is what is in that cell.
    */
   public getData(): Array<Row> {
-    let ret: Array<Row> = [];
-    let page = [];
-    let filtered: Array<Row> = [];
-    // filter
-    if (this.filter) {
-      if (typeof this.filter === 'string') {
-        let filter = this.filter
-        filtered = this.data.filter((r) => {
-          return this.columns.some((c) =>
-            r[c.id] === filter ||
-            (typeof r[c.id] === 'string' && r[c.id].toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
-          );
-        });
-      } else if (typeof this.filter === 'function') {
-        let filter = this.filter
-        filtered = this.data.filter((r) => {
-          let entry: Row = {};
-          this.columns.forEach((c) => (entry[c.id] = r[c.id]));
-          return filter(entry);
-        });
-      }
-    } else {
-      filtered = [...this.data];
-    }
-    // sorting
-    if (this.sortConfig) {
-      if (typeof this.sortConfig === 'function') {
-        filtered.sort(this.sortConfig);
-      } else if (typeof this.sortConfig === 'object') {
-        let col_name = this.sortConfig.column;
-        let col_config = this.columns.find((e) => e.id === col_name);
-        if (typeof col_config.sort === 'function') {
-          let col_sort = col_config.sort;
-          filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));
-        } else {
-          filtered.sort((a, b) => {
-            if (a[col_name] < b[col_name]) return -1;
-            else if (a[col_name] > b[col_name]) return 1;
-            return 0;
-          });
-        }
-        if (!this.sortConfig.ascending) filtered.reverse();
-      }
-    }
-    // pagination
-    if (this.pagination) {
-      let page_count = Math.ceil(filtered.length / this.pagination)
-      this.ui_pages.totalPages = page_count === 0 ? 1 : page_count
-      if (this.currentPage > this.ui_pages.totalPages) {
-        this.currentPage = this.ui_pages.totalPages
-        this.ui_pages.page = this.currentPage;
-      }
-      let start = (this.currentPage - 1) * this.pagination;
-      let end = start + this.pagination;
-      page = filtered.slice(start, end);
-      this.pages_info.innerText = `Showing ${page.length === 0 ? 0 : start + 1} to ${start + page.length} of ${filtered.length} results`
-    } else {
-      page = filtered;
-    }
-    page.forEach((e, i) => {
-      ret.push({ ...e });
-    });
-    return ret;
+    let ret:Array<Row> = [];
+    this.displayed_data.forEach((r) => ret.push({...r}))
+    return ret
   };
 
   get totalPages() {
@@ -809,6 +750,72 @@ class zGrid {
     this.render();
   };
 
+  private updateDisplayedData() {
+    let ret: Array<Row> = [];
+    let page = [];
+    let filtered: Array<Row> = [];
+    // filter
+    if (this.filter) {
+      if (typeof this.filter === 'string') {
+        let filter = this.filter
+        filtered = this.data.filter((r) => {
+          return this.columns.some((c) =>
+            r[c.id] === filter ||
+            (typeof r[c.id] === 'string' && r[c.id].toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
+          );
+        });
+      } else if (typeof this.filter === 'function') {
+        let filter = this.filter
+        filtered = this.data.filter((r) => {
+          let entry: Row = {};
+          this.columns.forEach((c) => (entry[c.id] = r[c.id]));
+          return filter(entry);
+        });
+      }
+    } else {
+      filtered = [...this.data];
+    }
+    // sorting
+    if (this.sortConfig) {
+      if (typeof this.sortConfig === 'function') {
+        filtered.sort(this.sortConfig);
+      } else if (typeof this.sortConfig === 'object') {
+        let col_name = this.sortConfig.column;
+        let col_config = this.columns.find((e) => e.id === col_name);
+        if (typeof col_config.sort === 'function') {
+          let col_sort = col_config.sort;
+          filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));
+        } else {
+          filtered.sort((a, b) => {
+            if (a[col_name] < b[col_name]) return -1;
+            else if (a[col_name] > b[col_name]) return 1;
+            return 0;
+          });
+        }
+        if (!this.sortConfig.ascending) filtered.reverse();
+      }
+    }
+    // pagination
+    if (this.pagination) {
+      let page_count = Math.ceil(filtered.length / this.pagination)
+      this.ui_pages.totalPages = page_count === 0 ? 1 : page_count
+      if (this.currentPage > this.ui_pages.totalPages) {
+        this.currentPage = this.ui_pages.totalPages
+        this.ui_pages.page = this.currentPage;
+      }
+      let start = (this.currentPage - 1) * this.pagination;
+      let end = start + this.pagination;
+      page = filtered.slice(start, end);
+      this.pages_info.innerText = `Showing ${page.length === 0 ? 0 : start + 1} to ${start + page.length} of ${filtered.length} results`
+    } else {
+      page = filtered;
+    }
+    page.forEach((e, i) => {
+      ret.push({ ...e });
+    });
+    this.displayed_data = ret;
+  }
+
   private render() {               
     this.renderHeader()  
     this.renderData();
@@ -873,7 +880,8 @@ class zGrid {
   }
 
   private renderData() {
-    let data = this.getData();
+    this.updateDisplayedData()
+    let data = this.displayed_data;
     let visible_columns = this.columns.filter((c) => {
       let config = this.columns.find((e) => e.id === c.id)
       return config.visible

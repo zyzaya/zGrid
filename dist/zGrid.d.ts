@@ -164,6 +164,7 @@ declare class zGrid {
     private currentPage;
     private columns;
     private data;
+    private displayed_data;
     private pagination;
     private filter;
     private selection;
@@ -319,6 +320,7 @@ declare class zGrid {
      * @param ascending Whether to sort in ascending or descending order.
      */
     sort(column: string, ascending: boolean): void;
+    private updateDisplayedData;
     private render;
     private renderHeader;
     private renderData;
