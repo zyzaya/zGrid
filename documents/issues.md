@@ -23,7 +23,7 @@
   9. ~~initializing with a parent of size 0 (for example a newly created, isolated div), then reconfiguring the parent will cause resizing to break. renderHeader is not called, meaning the widths of the headers are set to 0px until attempting to resize. 24-07-01: I can no longer reproduce this.~~
   18. ~~sorting is broken when the value of the column is not a string~~
   17. ~~improve how column resizing functions: prevent resizing from increasing total size of grid~~
-  22. add id/name to zgrid filter input element
-  19. pagination buttons don't display correctly if there are less than 7(?) pages
-  21. custom class names for paginationButton aren't being added properly
-  20. having a dash in the name of a custom data attribute throws an error: slight misunderstanding with this. Using dataset[name] to assign a data attribute expects a camelCased name. To create a double dash in the html data attribute, it becomes a single dash followed by a capital. For example, to get data-edit--zgrid='value' on the html, dataset[edit-Zgrid] = value would be used.
+  22. ~~add id/name to zgrid filter input element~~
+  19. ~~pagination buttons don't display correctly if there are less than 7(?) pages~~
+  21. ~~custom class names for paginationButton aren't being added properly~~
+  20. ~~having a dash in the name of a custom data attribute throws an error: slight misunderstanding with this. Using dataset[name] to assign a data attribute expects a camelCased name. To create a double dash in the html data attribute, it becomes a single dash followed by a capital. For example, to get data-edit--zgrid='value' on the html, dataset[edit-Zgrid] = value would be used.~~

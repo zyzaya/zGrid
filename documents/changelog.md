@@ -1,3 +1,11 @@
+# v1.3.1 - November 06, 2024
+- implement feature#14. Added totalPages, to get total number of pages
+
+- fix issue#19. Pagination button don't display properly when there are seven or fewer pages.
+- fix issue#21. Custom css classes for paginationButton were not being added to all page buttons.
+- fix issue#22. Added id to filter input element
+
+
 # v1.3.0 - October 31, 2024
 - implement feature#7. Added getRawData, to get unmodified dataset
 - implement feature#11. Added selection functionality. 

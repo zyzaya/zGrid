@@ -17,4 +17,4 @@
   7. ~~add a way to get the unmodified dataset.~~
   12. ~~allow for column values to be types other than strings~~
   11. ~~selections~~
-  14. add way of getting total pages.
+  14. ~~add way of getting total pages.~~

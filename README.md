@@ -7,6 +7,7 @@
 - *issue* - used when fixing an existing issue. Named as issue#-summary
 
 - *tag* - git tag vX.X.X
+- *update package.json* - version
 
 # test
 ```npm run test```
