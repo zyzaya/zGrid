@@ -2,7 +2,6 @@
   19. pagination buttons don't display correctly if there are less than 7(?) pages
   20. having a dash in the name of a custom data attribute throws an error
   21. custom class names for paginationButton aren't being added properly
-  22. add id/name to zgrid filter input element
   23. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
@@ -27,3 +26,4 @@
   9. ~~initializing with a parent of size 0 (for example a newly created, isolated div), then reconfiguring the parent will cause resizing to break. renderHeader is not called, meaning the widths of the headers are set to 0px until attempting to resize. 24-07-01: I can no longer reproduce this.~~
   18. ~~sorting is broken when the value of the column is not a string~~
   17. ~~improve how column resizing functions: prevent resizing from increasing total size of grid~~
+  22. add id/name to zgrid filter input element

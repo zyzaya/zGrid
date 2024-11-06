@@ -20,6 +20,7 @@ export default class Filter {
     CustomClassNames.addDefaultName('filter', 'zgrid_filter')
     CustomDataAttributes.addElement('filter', input)
     input.type = 'text'
+    input.id = 'zgrid_filter'
     input.placeholder = 'Type a keyword...'
     input.oninput = (e: InputEvent) => {
       if (this.oninput != undefined) this.oninput(e, input.value);
