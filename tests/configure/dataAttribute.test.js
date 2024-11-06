@@ -205,13 +205,13 @@ describe('DataAttributes', () => {
     expect(ui[0].dataset.attribute).toBe('value');
   });
 
-  test.only('hyphen in attribute name', () => {
+  test('hyphen in attribute name', () => {
     configuration.dataAttribute = {
       thead: { 'hyphen-Name': 'value' },
     };
     configuration.className = { thead: 'thead_custom' };
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('thead_custom');
-    expect(ui[0].dataset['hyphen-name']).toBe('value');
+    expect(ui[0].dataset['hyphen-Name']).toBe('value');
   });
 });
