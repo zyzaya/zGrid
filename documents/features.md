@@ -1,7 +1,9 @@
 # TODO Features
   1. make into functional npm module
   10. use userEvent to more fully test user interactions. 
-  13. 
+  13. add a configuration option to pagination to allow the enabling of the following feature: allow the user to select how many elements are displayed per page.
+  14. add way of getting total pages.
+  15. 
 # Completed Features
   2. ~~add ability to separate column identifier and displayed column name~~
   4. ~~add ability to set html data attribues~~

@@ -1,5 +1,9 @@
 # TODO Issues
-  19. 
+  19. pagination buttons don't display correctly if there are less than 7(?) pages
+  20. having a dash in the name of a custom data attribute throws an error
+  21. custom class names for paginationButton aren't being added properly
+  22. add id/name to zgrid filter input element
+  23. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
   2. ~~configure with empty data. reconfigure - filling in data. sort. causes error.~~ The cause was different, described in issue#3
