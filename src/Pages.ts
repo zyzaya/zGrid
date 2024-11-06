@@ -115,7 +115,6 @@ export default class Pages {
         }
       }
     }
-    CustomClassNames.updateHTML('paginationButton')
     this.currentPage = p;
     if (this.onpagechange !== undefined) this.onpagechange(p);
   }

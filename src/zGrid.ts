@@ -378,14 +378,12 @@ class zGrid {
     this.className = className === undefined ? {} : className;
     CustomClassNames.clearCustomNames('paginationNext')
     CustomClassNames.clearCustomNames('paginationPrevious')
-    CustomClassNames.clearCustomNames('paginationCurrent')
     let pB = this.className.paginationButton;
     if (pB !== undefined) {
       if (!/^-?[_a-zA-Z]+[_a-zA-Z0-9-]$/.test(pB))
         throw new Error(`Invalid css class name (${pB})`)
       CustomClassNames.addCustomName('paginationNext', pB)
       CustomClassNames.addCustomName('paginationPrevious', pB)
-      CustomClassNames.addCustomName('paginationCurrent', pB)
     }
     
     for (const [key, value] of Object.entries(this.className)) {
