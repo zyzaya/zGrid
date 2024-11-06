@@ -1,5 +1,4 @@
 # TODO Issues
-  20. having a dash in the name of a custom data attribute throws an error
   23. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
@@ -27,3 +26,4 @@
   22. add id/name to zgrid filter input element
   19. pagination buttons don't display correctly if there are less than 7(?) pages
   21. custom class names for paginationButton aren't being added properly
+  20. having a dash in the name of a custom data attribute throws an error: slight misunderstanding with this. Using dataset[name] to assign a data attribute expects a camelCased name. To create a double dash in the html data attribute, it becomes a single dash followed by a capital. For example, to get data-edit--zgrid='value' on the html, dataset[edit-Zgrid] = value would be used.

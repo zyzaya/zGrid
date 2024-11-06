@@ -204,4 +204,14 @@ describe('DataAttributes', () => {
     let ui = parent.getElementsByClassName('selected_custom');
     expect(ui[0].dataset.attribute).toBe('value');
   });
+
+  test.only('hyphen in attribute name', () => {
+    configuration.dataAttribute = {
+      thead: { 'hyphen-Name': 'value' },
+    };
+    configuration.className = { thead: 'thead_custom' };
+    let grid = new zGrid(configuration);
+    let ui = parent.getElementsByClassName('thead_custom');
+    expect(ui[0].dataset['hyphen-name']).toBe('value');
+  });
 });

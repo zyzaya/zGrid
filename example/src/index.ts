@@ -65,6 +65,7 @@ let grid = new zGrid({
     paginationButton: 'custom_pagination_button'
   },
   dataAttribute: {
+    thead: {'hyphen-Name': 'value'},
     tr: { attribute: 'value'},
     td: { cell: 'value'},
     selected: { sel: 'value' }
