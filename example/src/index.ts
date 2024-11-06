@@ -62,6 +62,7 @@ let grid = new zGrid({
     filterContainer: 'custom_filterContainer',
     tr: 'custom_tr',
     selected: 'custom_selected',
+    paginationButton: 'custom_pagination_button'
   },
   dataAttribute: {
     tr: { attribute: 'value'},

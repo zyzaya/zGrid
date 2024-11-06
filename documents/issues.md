@@ -1,6 +1,5 @@
 # TODO Issues
   20. having a dash in the name of a custom data attribute throws an error
-  21. custom class names for paginationButton aren't being added properly
   23. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
@@ -27,3 +26,4 @@
   17. ~~improve how column resizing functions: prevent resizing from increasing total size of grid~~
   22. add id/name to zgrid filter input element
   19. pagination buttons don't display correctly if there are less than 7(?) pages
+  21. custom class names for paginationButton aren't being added properly

@@ -61,6 +61,7 @@ describe('ClassName', () => {
     configuration.className = {
       paginationButton: 'paginationButton_custom',
     };
+    configuration.pagination = 7;
     let grid = new zGrid(configuration);
     let ui = parent.getElementsByClassName('paginationButton_custom');
     expect(ui.length).toBe(9);
