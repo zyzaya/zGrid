@@ -56,12 +56,10 @@ export default class Pages {
   set totalPages(pages: number) {
     if (pages === this.maxPages) return;
 
-    if (pages <= 7) {
-      for (let i = pages; i < 7; i++) {
+    for(let i = 0; i < 7; i++) {
+      if (pages <= 7 && i >= pages) {
         this.buttons[i].classList.add('zgrid_hidden')
-      }
-    } else {
-      for (let i = 0; i < 7; i++) {
+      } else {
         this.buttons[i].classList.remove('zgrid_hidden')
       }
     }
