@@ -267,6 +267,7 @@ declare class zGrid {
      * the value is what is in that cell.
      */
     getData(): Array<Row>;
+    get totalPages(): number;
     get page(): number;
     set page(page: number);
     /**

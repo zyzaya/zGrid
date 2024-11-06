@@ -714,6 +714,10 @@ class zGrid {
     return ret;
   };
 
+  get totalPages() {
+    return this.ui_pages.totalPages;
+  }
+
   get page() {
     return this.currentPage;
   };
