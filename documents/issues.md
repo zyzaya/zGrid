@@ -1,5 +1,9 @@
 # TODO Issues
-  23. 
+  23. Filtering such that there are less total pages than the current page causes a console error (RangeError: page (4) cannot be greater than the total number of pages). 
+  To reproduce: 
+    - in example, switch to page 2 or higher. 
+    - type 'limit' in filter
+  24. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
   2. ~~configure with empty data. reconfigure - filling in data. sort. causes error.~~ The cause was different, described in issue#3
