@@ -27,7 +27,7 @@
   19. ~~pagination buttons don't display correctly if there are less than 7(?) pages~~
   21. ~~custom class names for paginationButton aren't being added properly~~
   20. ~~having a dash in the name of a custom data attribute throws an error: slight misunderstanding with this. Using dataset[name] to assign a data attribute expects a camelCased name. To create a double dash in the html data attribute, it becomes a single dash followed by a capital. For example, to get data-edit--zgrid='value' on the html, dataset[edit-Zgrid] = value would be used.~~
-  23. Filtering such that there are less total pages than the current page causes a console error (RangeError: page (4) cannot be greater than the total number of pages). 
-  To reproduce: 
-    - in example, switch to page 2 or higher. 
-    - type 'limit' in filter
+  23. ~~Filtering such that there are less total pages than the current page causes a console error (RangeError: page (4) cannot be greater than the total number of pages). ~~
+  ~~To reproduce:~~
+    - ~~in example, switch to page 2 or higher.~~ 
+    - ~~type 'limit' in filter~~

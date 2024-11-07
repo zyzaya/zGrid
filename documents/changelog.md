@@ -1,3 +1,6 @@
+# v1.3.2 - November 07, 2024
+- fix issue#23. Filtering such that the resulting total pages is less than the current page causes an error.
+
 # v1.3.1 - November 06, 2024
 - implement feature#14. Added totalPages, to get total number of pages
 
