@@ -1,5 +1,6 @@
 # TODO Issues
-  24. 
+  24. onPageChange callback is called prior to the page actually changing
+  25. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
   2. ~~configure with empty data. reconfigure - filling in data. sort. causes error.~~ The cause was different, described in issue#3
