@@ -1,3 +1,6 @@
+# v1.3.3 - Novemeber 09, 2024
+- fix issue#24. onPageChange is fired prior to page being changed.
+
 # v1.3.2 - November 07, 2024
 - fix issue#23. Filtering such that the resulting total pages is less than the current page causes an error.
 

@@ -31,4 +31,4 @@
   ~~To reproduce:~~
     - ~~in example, switch to page 2 or higher.~~ 
     - ~~type 'limit' in filter~~
-  24. onPageChange callback is called prior to the page actually changing
+  24. ~~onPageChange callback is called prior to the page actually changing~~
