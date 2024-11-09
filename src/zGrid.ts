@@ -475,9 +475,9 @@ class zGrid {
     this.ui_pages.page = 1
     this.ui_pages.onpagechange = (p) => {
       if (p === this.currentPage) return;
-      if (this.onPageChange !== undefined) this.onPageChange(p);
       this.currentPage = p;
       this.renderData();
+      if (this.onPageChange !== undefined) this.onPageChange(p);
     }
     container.appendChild(this.pages_info_container)
 

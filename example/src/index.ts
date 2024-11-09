@@ -76,6 +76,9 @@ let grid = new zGrid({
   },
   onSort: (col, asc) => {
     console.log(`${col}, ${asc}`)
+  },
+  onPageChange: (page) => {
+    console.log(grid.getData())
   }
 });
 // switch parent

@@ -1,5 +1,4 @@
 # TODO Issues
-  24. onPageChange callback is called prior to the page actually changing
   25. 
 # Fixed Issues
   1. ~~cant actually use zGrid as a module~~
@@ -32,3 +31,4 @@
   ~~To reproduce:~~
     - ~~in example, switch to page 2 or higher.~~ 
     - ~~type 'limit' in filter~~
+  24. onPageChange callback is called prior to the page actually changing
