@@ -357,7 +357,7 @@ class zGrid {
     return ret;
   }
 
-  private configurePagination(pagination: false | number): false | number {
+  private configurePagination(pagination: false | number | undefined): false | number {
     let ret: false | number;
     if (!pagination) {
       ret = false;
