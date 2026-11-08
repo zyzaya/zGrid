@@ -1,0 +1,7 @@
+node_modules/**
+example/
+src/
+tests/
+tsconfig.example.json
+tsconfig.json
+webpack.config.js
