@@ -188,15 +188,15 @@ class zGrid {
   private showFilter: boolean;
   private sortConfig: false | SortOptions | CompareRows;
 
-  private parent: HTMLElement;
-  private body: HTMLTableSectionElement;
-  private head: HTMLTableSectionElement;
-  private ui_filter: Filter;
-  private ui_pages: Pages;
-  private ui_header_row: HTMLTableRowElement;
   private header_cells: Array<HeaderCell>;
-  private pages_info: HTMLDivElement;
-  private pages_info_container: HTMLDivElement;
+  private parent: HTMLElement;
+  private body!: HTMLTableSectionElement;
+  private head!: HTMLTableSectionElement;
+  private ui_filter!: Filter;
+  private ui_pages!: Pages;
+  private ui_header_row!: HTMLTableRowElement;
+  private pages_info!: HTMLDivElement;
+  private pages_info_container!: HTMLDivElement;
   
   private onFilter?: (value: string) => void;
   private onPageChange?: (page: number) => void;
