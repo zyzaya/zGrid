@@ -16,8 +16,8 @@ export default class HeaderCell {
   private current_sort: Sort = "none";
   private sort_enabled: boolean = true;
   private resizing: boolean = false;
-  onsort: (sort: Sort) => void
-  onresize: (change: number) => void;
+  onsort?: (sort: Sort) => void
+  onresize?: (change: number) => void;
 
   constructor(parent: HTMLTableRowElement) {
     this.element = document.createElement('th');
