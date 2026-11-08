@@ -500,8 +500,9 @@ class zGrid {
 
     if (config.parent !== undefined) {
       let old_parent = this.parent
+      let firstChild = old_parent.firstChild
       this.parent = this.configureParent(config.parent)
-      this.parent.appendChild(old_parent.firstChild)
+      if (firstChild !== null) this.parent.appendChild(firstChild)
     }
     if (config.columns !== undefined) {
       this.columns = this.configureColumns(config.columns)
