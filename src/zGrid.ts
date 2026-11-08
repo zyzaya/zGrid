@@ -565,7 +565,7 @@ class zGrid {
   public getSelected(): Row | null {
     if (!this.selection || this.selected === null) return null;
     let row = this.data.find((e) => e.id === this.selected)
-    return row;
+    return row === undefined ? null : row;
   }
   /**
    * Adds a row with the specified data
