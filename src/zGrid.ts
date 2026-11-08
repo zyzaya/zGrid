@@ -834,7 +834,7 @@ class zGrid {
 
   private renderHeader() {
     let col_count = this.columns.filter((c) => c.visible).length
-    let prev: HeaderCell = undefined;
+    let prev: HeaderCell | undefined = undefined;
     // remove unused header cells
     if (col_count < this.header_cells.length) {
       let removed = this.header_cells.splice(col_count - 1);
