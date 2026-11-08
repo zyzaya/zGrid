@@ -609,9 +609,9 @@ class zGrid {
    * @param id  The value of the id column
    * @returns The data of the row as key/value pairs where the 
    * keys are column ids, and the values are what is in the column.
-   * If no row is found returns undefined.
+   * If no row is found returns null.
    */
-  public removeRow(id: any): Row | undefined {
+  public removeRow(id: any): Row | null {
     let row = this.getRow(id);
     if (row !== undefined) 
     {
