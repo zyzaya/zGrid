@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+      "noUncheckedSideEffectImports": false,
       "noImplicitAny": true,
       "target": "es2017",
       "module": "nodenext",
