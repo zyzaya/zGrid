@@ -163,7 +163,7 @@ type Configuration = {
    * @param column The id of the column the data is sorted by.
    * @param ascending If the data is sorted in ascending order. Null if the data is switched to unsorted
    */
-  onSort?: (column: string, ascending: boolean) => void;
+  onSort?: (column: string, ascending: boolean | null) => void;
   /**
    * Fires when the user clicks on one of the cells of the table. 
    * @param column The column that was clicked. Left most column is 0, than 1, etc. Only visible columns are counted.
@@ -200,7 +200,7 @@ class zGrid {
   
   private onFilter?: (value: string) => void;
   private onPageChange?: (page: number) => void;
-  private onSort?: (column: string, ascending: boolean) => void;
+  private onSort?: (column: string, ascending: boolean | null) => void;
   private onClick?: (column: number, row: number, columnName: string, data: Row) => void;
 
   private className: CustomClassElementNames;
