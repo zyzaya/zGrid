@@ -148,7 +148,7 @@ type Configuration = {
      * @param column The id of the column the data is sorted by.
      * @param ascending If the data is sorted in ascending order. Null if the data is switched to unsorted
      */
-    onSort?: (column: string, ascending: boolean) => void;
+    onSort?: (column: string, ascending: boolean | null) => void;
     /**
      * Fires when the user clicks on one of the cells of the table.
      * @param column The column that was clicked. Left most column is 0, than 1, etc. Only visible columns are counted.
@@ -171,19 +171,19 @@ declare class zGrid {
     private selected;
     private showFilter;
     private sortConfig;
+    private header_cells;
     private parent;
     private body;
     private head;
     private ui_filter;
     private ui_pages;
     private ui_header_row;
-    private header_cells;
     private pages_info;
     private pages_info_container;
-    private onFilter;
-    private onPageChange;
-    private onSort;
-    private onClick;
+    private onFilter?;
+    private onPageChange?;
+    private onSort?;
+    private onClick?;
     private className;
     private dataAttribute;
     /**
@@ -227,9 +227,9 @@ declare class zGrid {
     /**
      * Gets the data of a specific row
      * @param id The value of the id column
-     * @returns An object representing the found row, or undefined if no row is found
+     * @returns An object representing the found row, or null if no row is found
      */
-    getRow(id: any): Row;
+    getRow(id: any): Row | null;
     /**
      * Modifies the data in a single row
      * @param id The id of row to change
@@ -242,9 +242,9 @@ declare class zGrid {
      * @param id  The value of the id column
      * @returns The data of the row as key/value pairs where the
      * keys are column ids, and the values are what is in the column.
-     * If no row is found returns undefined.
+     * If no row is found returns null.
      */
-    removeRow(id: any): Row | undefined;
+    removeRow(id: any): Row | null;
     /**
      * Changes the value of a specific cell
      * @param id The value of the id column of the row to change
