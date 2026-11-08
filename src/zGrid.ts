@@ -236,6 +236,8 @@ class zGrid {
     this.onSort = config.onSort;
     this.onClick = config.onClick;
 
+    this.className = {};
+    this.dataAttribute = {};
     CustomClassNames.addDefaultName('tr', 'zgrid_row')
     CustomClassNames.addDefaultName('td', 'zgrid_cell')
     CustomClassNames.addDefaultName('selected', 'zgrid_selected')
