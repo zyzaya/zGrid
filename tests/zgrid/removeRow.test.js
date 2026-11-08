@@ -13,7 +13,7 @@ describe('removeRow', () => {
   test('can remove row', () => {
     let grid = new zGrid(configuration);
     grid.removeRow(data[0]['id']);
-    expect(grid.getRow(data[0]['id'])).toBe(undefined);
+    expect(grid.getRow(data[0]['id'])).toBe(null);
     expect(grid.getData().length).toBe(data.length - 1);
   });
 
@@ -22,9 +22,9 @@ describe('removeRow', () => {
     expect(grid.removeRow(data[0]['id'])).toStrictEqual(data[0]);
   });
 
-  test('undefined is returned when there is no matching row', () => {
+  test('null is returned when there is no matching row', () => {
     let grid = new zGrid(configuration);
-    expect(grid.removeRow(data.length + 1)).toBe(undefined);
+    expect(grid.removeRow(data.length + 1)).toBe(null);
     expect(grid.getData().length).toBe(data.length);
   });
 });
