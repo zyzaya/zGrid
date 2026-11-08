@@ -1,2 +1,2 @@
-import '../../dist/zgrid_default';
-import './style';
+import '../../dist/zgrid_default.css';
+import './style.css';

@@ -1,7 +1,7 @@
 import { zGrid } from '../../dist/zGrid';
 import { faker } from '@faker-js/faker';
-import '../../dist/zgrid_default'
-import './style';
+import '../../dist/zgrid_default.css'
+import './style.css';
 
 let container = document.getElementById('container1');
 if (!container) throw new Error('cannot find container1')
@@ -108,8 +108,10 @@ if (!input) throw new Error('cannot find input element')
 input.onchange = (event) => {
   let value = input.value
   let data = grid.getRow("0");
-  data['First Name'] = value;
-  grid.setRow("0", data)
+  if (data !== null) {
+    data['First Name'] = value;
+    grid.setRow("0", data)
+  }
 }
 
 console.log(testData)
