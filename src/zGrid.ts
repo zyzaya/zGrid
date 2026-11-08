@@ -793,7 +793,7 @@ class zGrid {
       } else if (typeof this.sortConfig === 'object') {
         let col_name = this.sortConfig.column;
         let col_config = this.columns.find((e) => e.id === col_name);
-        if (typeof col_config.sort === 'function') {
+        if (col_config !== undefined && typeof col_config.sort === 'function') {
           let col_sort = col_config.sort;
           filtered.sort((a, b) => col_sort(a[col_name], b[col_name]));
         } else {
