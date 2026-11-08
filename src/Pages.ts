@@ -97,7 +97,7 @@ export default class Pages {
       }
       this.buttons[i].innerText = `${newPage ? newPage : '...'}`
       if (newPage === undefined) {
-        this.buttons[i].onclick = undefined;
+        this.buttons[i].onclick = null;
         CustomClassNames.removeElement('paginationCurrent', this.buttons[i])
         CustomDataAttributes.removeElement('paginationCurrent', this.buttons[i])
         CustomDataAttributes.addElement('paginationCurrent', this.buttons[i])
