@@ -5,7 +5,7 @@ import CustomDataAttributes from "./CustomDataAttributes";
  * @internal
  */
 export default class Filter {
-  oninput: (event: InputEvent, value: string) => void;
+  oninput?: (event: InputEvent, value: string) => void;
 
   private container: HTMLDivElement;
 
