@@ -18,9 +18,9 @@ describe('getRow', () => {
     configuration.data = [obj_row, arr_row];
   });
 
-  test('returns undefined when no row has id', () => {
+  test('returns null when no row has id', () => {
     let grid = new zGrid(configuration);
-    expect(grid.getRow('99')).toBe(undefined);
+    expect(grid.getRow('99')).toBe(null);
   });
 
   test('returns correct info when grid is configured as array', () => {
