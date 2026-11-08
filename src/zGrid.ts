@@ -886,7 +886,7 @@ class zGrid {
         title.sort = this.sortConfig.ascending ? "ascending" : "descending"
       }
       if (config.sort === false) title.enableSort(false);
-      title.innerText = config.name;
+      title.innerText = config.name === undefined ? "" : config.name;
     });
   }
 
