@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
       "noImplicitAny": true,
-      "target": "ES5",
-      "module": "ES2015",
-      "moduleResolution":"node",
+      "target": "ES6",
+      "module": "nodenext",
+      "moduleResolution":"nodenext",
+      "rootDir": "./src",
       "outDir": "dist",
       "declaration": true,
       "stripInternal": true

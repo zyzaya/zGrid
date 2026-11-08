@@ -1,6 +1,14 @@
 *to create a javascript library that allows for the easy creation of dynamic, modular html tables*
 
-# versioning
+a brief description
+
+a brief introduction of how to use 
+
+wiki
+
+# Developing
+
+## versioning
 *loosely uses semvar (https://semver.org/)*
 
 - *MAJOR.MINOR.PATCH*
@@ -14,7 +22,7 @@
   - It may also include MINOR and PATCH level changes.
   - MINOR and PATCH versions must be reset to 0 when MAJOR version is incremented.  
 
-# git branches
+## git branches
 - *main* - only contains snapshots of release versions
 - *develop* - represents a state with the latest delivered development changes
 - *feature* - used when developing a new feature or enhancement. Named as feature#-name. # is only added if applicable
@@ -23,10 +31,10 @@
 - *tag* - git tag vX.X.X
 - *update package.json* - version
 
-# test
+## test
 ```npm run test```
 
-# build
+## build
 **build zGrid:**
 
 ```npx webpack --config-name='build'```
