@@ -369,7 +369,7 @@ class zGrid {
     return ret;
   }
 
-  private configureFilter(filter: string | FilterCallback): string | FilterCallback {
+  private configureFilter(filter: string | FilterCallback | undefined): string | FilterCallback {
     let ret: string | FilterCallback;
     if (!filter) {
       ret = '';
