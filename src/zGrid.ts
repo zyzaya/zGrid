@@ -381,7 +381,7 @@ class zGrid {
     return ret;
   }
 
-  private configureClassName(className: CustomClassElementNames) {
+  private configureClassName(className: CustomClassElementNames | undefined) {
     this.className = className === undefined ? {} : className;
     CustomClassNames.clearCustomNames('paginationNext')
     CustomClassNames.clearCustomNames('paginationPrevious')
@@ -402,7 +402,7 @@ class zGrid {
     };
   }
 
-  private configureDataAttributes(dataAttribute: CustomDataAttributeElementNames) {
+  private configureDataAttributes(dataAttribute: CustomDataAttributeElementNames | undefined) {
     this.dataAttribute = dataAttribute === undefined ? {} : dataAttribute;
     CustomDataAttributes.clearCustomNames('paginationNext')
     CustomDataAttributes.clearCustomNames('paginationPrevious')
