@@ -581,11 +581,11 @@ class zGrid {
   /**
    * Gets the data of a specific row
    * @param id The value of the id column
-   * @returns An object representing the found row, or undefined if no row is found
+   * @returns An object representing the found row, or null if no row is found
    */
-  public getRow(id: any): Row  {
+  public getRow(id: any): Row | null  {
     let row = this.data.find((e) => e.id === id)
-    return row === undefined ? row : {...row}
+    return row === undefined ? null : {...row}
   }
   /**
    * Modifies the data in a single row
