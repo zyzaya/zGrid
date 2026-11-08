@@ -292,6 +292,8 @@ class zGrid {
           sort: e.sort === undefined ? true : e.sort,
           visible: e.visible === undefined ? true : e.visible,
         }
+      } else {
+        throw new Error('Unknown column configuration format');
       }
       return col;
     });
