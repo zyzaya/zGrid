@@ -198,7 +198,7 @@ class zGrid {
   private pages_info: HTMLDivElement;
   private pages_info_container: HTMLDivElement;
   
-  private onFilter: (value: string) => void;
+  private onFilter: (value: string) => void | undefined;
   private onPageChange: (page: number) => void;
   private onSort: (column: string, ascending: boolean) => void;
   private onClick: (column: number, row: number, columnName: string, data: Row) => void;
@@ -228,6 +228,9 @@ class zGrid {
 
     this.header_cells = [];
     
+    this.displayed_data = [];
+    this.sortConfig = false;
+
     this.onFilter = config.onFilter;
     this.onPageChange = config.onPageChange;
     this.onSort = config.onSort;
@@ -334,20 +337,23 @@ class zGrid {
     return row;
   }
 
-  private configureData(data: Array<Row | Array<string>>): Array<Row> {
+  private configureData(data: Array<Row | Array<string>> | undefined): Array<Row> {
     let ret: Array<Row>
-    if (!Array.isArray(data))
+    if (data === undefined) ret = [];
+    else if (!Array.isArray(data))
       throw new TypeError('Data must be an array');
-    let ids: String[] = [];
-    ret = data.map((e) => {
-      let row = this.initializeRow(e);
-      ids.push(row.id)
-      return row;
-    });
-    // unique ids
-    if (new Set(ids).size !== ids.length)
-      throw new Error('ids must be unique')
-
+    else {
+      let ids: String[] = [];
+      ret = data.map((e) => {
+        let row = this.initializeRow(e);
+        ids.push(row.id)
+        return row;
+      });
+      // unique ids
+      if (new Set(ids).size !== ids.length)
+        throw new Error('ids must be unique')
+    }
+    
     return ret;
   }
 
