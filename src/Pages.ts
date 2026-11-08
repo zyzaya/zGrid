@@ -5,7 +5,7 @@ import CustomDataAttributes from "./CustomDataAttributes";
  * @internal
  */
 export default class Pages {
-  onpagechange: (page: number) => void;
+  onpagechange?: (page: number) => void;
   private buttons: HTMLButtonElement[];
 
   private maxPages: number;
