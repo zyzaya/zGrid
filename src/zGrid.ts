@@ -198,10 +198,10 @@ class zGrid {
   private pages_info: HTMLDivElement;
   private pages_info_container: HTMLDivElement;
   
-  private onFilter: (value: string) => void | undefined;
-  private onPageChange: (page: number) => void;
-  private onSort: (column: string, ascending: boolean) => void;
-  private onClick: (column: number, row: number, columnName: string, data: Row) => void;
+  private onFilter?: (value: string) => void;
+  private onPageChange?: (page: number) => void;
+  private onSort?: (column: string, ascending: boolean) => void;
+  private onClick?: (column: number, row: number, columnName: string, data: Row) => void;
 
   private className: CustomClassElementNames;
   private dataAttribute: CustomDataAttributeElementNames;
