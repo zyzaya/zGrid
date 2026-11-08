@@ -51,6 +51,7 @@ export default class Pages {
 
     this.currentPage = 1;
     this.totalPages = pages;
+    this.maxPages = pages;
   }
 
   set totalPages(pages: number) {
