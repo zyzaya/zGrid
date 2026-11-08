@@ -895,7 +895,7 @@ class zGrid {
     let data = this.displayed_data;
     let visible_columns = this.columns.filter((c) => {
       let config = this.columns.find((e) => e.id === c.id)
-      return config.visible
+      return config === undefined ? false : config.visible
     })
     
     let existing_rows = Array.from(this.body.querySelectorAll('tr'))
