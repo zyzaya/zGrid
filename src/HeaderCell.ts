@@ -9,10 +9,10 @@ type Sort = "ascending" | "descending" | "none";
 export default class HeaderCell {
   private element: HTMLTableCellElement;
   private title: HTMLDivElement;
-  private buttonContainer: HTMLDivElement;
-  private sortAscending: HTMLButtonElement;
-  private sortDescending: HTMLButtonElement;
-  private resize: HTMLButtonElement;
+  private buttonContainer!: HTMLDivElement;
+  private sortAscending!: HTMLButtonElement;
+  private sortDescending!: HTMLButtonElement;
+  private resize!: HTMLButtonElement;
   private current_sort: Sort = "none";
   private sort_enabled: boolean = true;
   private resizing: boolean = false;
