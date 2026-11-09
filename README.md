@@ -9,6 +9,10 @@ A javascript library that allows for the easy creation and manipulation of dynam
 
 ## Creating a grid
 
+![Base]("./documents/images/26-11-09_base.png")
+
+![Base]("base.png")
+
 ```js
 import zgrid from "zgrid"
 
