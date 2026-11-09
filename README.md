@@ -4,14 +4,17 @@ A javascript library that allows for the easy creation and manipulation of dynam
 # Usage
 
 1. [Creating a grid](#creating-a-grid)
-2. [Setting data](#setting-data)
+2. [Configuring columns](#configuring-columns)
+3. [Setting data](#setting-data)
+4. [Pagination](#pagination)
+5. [Filtering](#filtering)
+6. [Sorting](#sorting)
+7. [Selections](#selections)
+8. [CSS Styles](#css-styles)
+9. [HTML Data Attributes](#html-data-attributes)
 
 
 ## Creating a grid
-
-![Base]("./documents/images/26-11-09_base.png")
-
-![Base]("base.png")
 
 ```js
 import zgrid from "zgrid"
@@ -55,7 +58,7 @@ grid.reconfigure({
   columns: ["First Name", "Middle Initial", "Last Name", "Phone Number"]
 })
 ```
-## Configuring Columns
+## Configuring columns
 
 Columns are configured using the ```columns``` configuration option when creating a new grid or by using reconfigure.
 
@@ -90,7 +93,7 @@ let grid = zgrid.zGrid.new({
 })
 ```
 
-## Setting Data
+## Setting data
 
 Data can be set using the ```data``` configuration option when creating a new grid or by using reconfigure.
 
@@ -179,7 +182,7 @@ grid.sort("City")
 // Sorts descending by the named column as defined in the configuration for that column
 grid.sort("City", false)
 ```
-## Selection
+## Selections
 By default zGrid tracks when the user selects - in other words clicks on - a row. This behaviour can be disabled using the ```selection``` configuration option.
 
 The selected row can be obtained using ```grid.getSelected()```.
