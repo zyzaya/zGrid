@@ -201,7 +201,7 @@ By default the UI will display which row is selected.
 zGrid come with a default style sheet:
 
 ```js
-import "zgrid/dist/zgrid_default.css"
+import "./node_modules/zgrid/dist/styles.css"
 ```
 
 It is possible to add CSS classes to zGrid HTML elements using the ```className``` configuration option. This an object of key-value pairs where each key is the name of an HTMLElement within the grid and the value is a class name.

@@ -1,2 +1,2 @@
-import "./style/zgrid_default.css";
+import "./style/styles.css";
 export * from "./zGrid"

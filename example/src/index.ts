@@ -1,6 +1,6 @@
 import zGrid from '../../dist/zGrid.js';
 import { faker } from '@faker-js/faker';
-import '../../dist/zgrid_default.css'
+import '../../dist/styles.css'
 import './style.css';
 
 let container = document.getElementById('container1');
