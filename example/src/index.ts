@@ -1,4 +1,4 @@
-import { zGrid } from '../../dist/zGrid';
+import zGrid from '../../dist/zGrid.js';
 import { faker } from '@faker-js/faker';
 import '../../dist/zgrid_default.css'
 import './style.css';
