@@ -1,5 +1,5 @@
-import CustomClassNames from "./CustomClassNames";
-import CustomDataAttributes from "./CustomDataAttributes";
+import CustomClassNames from "./CustomClassNames.ts";
+import CustomDataAttributes from "./CustomDataAttributes.ts";
 
 type Sort = "ascending" | "descending" | "none";
 

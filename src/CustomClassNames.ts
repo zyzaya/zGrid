@@ -1,4 +1,4 @@
-import CustomHTML from "./CustomHTML";
+import CustomHTML from "./CustomHTML.ts";
 
 type Record = {
   id: string;

@@ -8,7 +8,9 @@
       "rootDir": "./src",
       "outDir": "dist",
       "declaration": true,
-      "stripInternal": true
+      "stripInternal": true,
+      "allowImportingTsExtensions": true,
+      "rewriteRelativeImportExtensions": true,
   },
   "include": [
     "./src/zGrid.ts"

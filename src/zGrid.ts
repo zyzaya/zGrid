@@ -1,8 +1,8 @@
-import CustomClassNames from "./CustomClassNames";
-import CustomDataAttributes from "./CustomDataAttributes";
-import Filter from "./Filter";
-import HeaderCell from "./HeaderCell";
-import Pages from "./Pages";
+import CustomClassNames from "./CustomClassNames.ts";
+import CustomDataAttributes from "./CustomDataAttributes.ts";
+import Filter from "./Filter.ts";
+import HeaderCell from "./HeaderCell.ts";
+import Pages from "./Pages.ts";
 
 type Row = Record<string, any>
 type FilterCallback = (row: Row) => boolean;
@@ -960,4 +960,4 @@ class zGrid {
   }
 }
 
-export { zGrid }
+export default zGrid

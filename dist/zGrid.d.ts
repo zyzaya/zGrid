@@ -88,7 +88,7 @@ type Configuration = {
      * - **array**: Defines the row as an array of strings. Each
      * string is a column and will be in the same order that the column headings
      * are defined in.
-     * - **object**: Defines the row using key-value pairs. The key is the name of the
+     * - **object**: Defines the row using key-value pairs. The key is the id of the
      * column as defined in the column configuration. The value is a string that is
      * displayed in the cell
      *
@@ -313,7 +313,7 @@ declare class zGrid {
      */
     sort(column: string): void;
     /**
-        * Sorts the data by the named column. If the configuration for that
+     * Sorts the data by the named column. If the configuration for that
      * column has a sort function that function is used to sort it. Otherwise it uses
      * Javascript's comparison operators.
      * @param column The name of the column to sort by.
@@ -325,4 +325,4 @@ declare class zGrid {
     private renderHeader;
     private renderData;
 }
-export { zGrid };
+export default zGrid;
