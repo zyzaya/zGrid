@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import CustomClassNames from '../../src/CustomClassNames';
-import { zGrid } from '../../src/zGrid';
+import zGrid from '../../src/zGrid';
 import Setup from '../setup';
 
 describe('ClassName', () => {

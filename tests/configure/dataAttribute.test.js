@@ -1,9 +1,8 @@
 /***
  * @jest-environment jsdom
  */
-import CustomClassNames from '../../src/CustomClassNames';
 import CustomDataAttributes from '../../src/CustomDataAttributes';
-import { zGrid } from '../../src/zGrid';
+import zGrid from '../../src/zGrid';
 import Setup from '../setup';
 
 describe('DataAttributes', () => {
