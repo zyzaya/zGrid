@@ -10,8 +10,11 @@
     "test": "jest"
   },
   "exports": {
-    ".": {"import": "./dist/zGrid.js"},
-    "./style": "./dist/zgrid_default.css"
+    ".": {
+      "style": "./dist/zgrid_default.css",
+      "import": "./dist/zGrid.js"
+    },
+    "./styles.css": "./dist/zgrid_default.css"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.22.9",
