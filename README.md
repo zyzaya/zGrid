@@ -46,7 +46,7 @@ Optional configuration values:
 | dataAttribute | | used to add HTML data attributes to zgrid html elements |
 
 ```js
-import zgrid from "zgrid"
+import zgrid from "@zyzaya/zgrid"
 
 let grid = zgrid.zGrid.new({
   parent: container,

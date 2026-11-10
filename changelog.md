@@ -1,3 +1,6 @@
+# v1.3.4 - November 10, 2026
+- add usage documentation
+
 # v1.3.3 - Novemeber 09, 2024
 - fix issue#24. onPageChange is fired prior to page being changed.
 

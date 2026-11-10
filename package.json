@@ -1,7 +1,7 @@
 {
   "name": "@zyzaya/zgrid",
-  "version": "1.3.3",
-  "description": "",
+  "version": "1.3.4",
+  "description": "A javascript library that allows for the easy creation and manipulation of dynamic data tables.",
   "author": "Riley Sherlock",
   "license": "ISC",
   "types": "dist/zGrid.d.ts",

@@ -2,6 +2,7 @@ node_modules/**
 example/
 src/
 tests/
+documents/
 tsconfig.example.json
 tsconfig.json
 webpack.config.js
